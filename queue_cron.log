@@ -1,0 +1,652 @@
+Queue worker dijalankan sekali pada: 30-09-2025 07:00:04
+Queue worker dijalankan sekali pada: 30-09-2025 07:01:02
+Queue worker dijalankan sekali pada: 30-09-2025 07:02:02
+Queue worker dijalankan sekali pada: 30-09-2025 07:02:04
+Queue worker dijalankan sekali pada: 30-09-2025 07:03:05
+Queue worker dijalankan sekali pada: 30-09-2025 07:05:04
+Queue worker dijalankan sekali pada: 30-09-2025 07:06:02
+Queue worker dijalankan sekali pada: 30-09-2025 07:07:04
+Queue worker dijalankan sekali pada: 30-09-2025 07:09:05
+Queue worker dijalankan sekali pada: 30-09-2025 07:09:10
+Queue worker dijalankan sekali pada: 30-09-2025 07:11:01
+Queue worker dijalankan sekali pada: 30-09-2025 07:11:27
+Queue worker dijalankan sekali pada: 30-09-2025 07:13:05
+Queue worker dijalankan sekali pada: 30-09-2025 07:13:27
+Queue worker dijalankan sekali pada: 30-09-2025 07:15:05
+Queue worker dijalankan sekali pada: 30-09-2025 07:16:01
+Queue worker dijalankan sekali pada: 30-09-2025 07:18:02
+Queue worker dijalankan sekali pada: 30-09-2025 07:20:04
+Queue worker dijalankan sekali pada: 30-09-2025 07:21:01
+Queue worker dijalankan sekali pada: 30-09-2025 07:25:05
+
+   Symfony\Component\ErrorHandler\Error\FatalError 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:591
+    587▕ 
+    588▕             // For update or delete statements, we want to get the number of rows affected
+    589▕             // by the statement and return that back to the developer. We'll first need
+    590▕             // to execute the statement and then we'll use PDO to fetch the affected.
+  ➜ 591▕             $statement = $this->getPdo()->prepare($query);
+    592▕ 
+    593▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    594▕ 
+    595▕             $statement->execute();
+
+
+   Whoops\Exception\ErrorException 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/laravel/framework/src/Illuminate/Database/Connection.php:591
+    587▕ 
+    588▕             // For update or delete statements, we want to get the number of rows affected
+    589▕             // by the statement and return that back to the developer. We'll first need
+    590▕             // to execute the statement and then we'll use PDO to fetch the affected.
+  ➜ 591▕             $statement = $this->getPdo()->prepare($query);
+    592▕ 
+    593▕             $this->bindValues($statement, $this->prepareBindings($bindings));
+    594▕ 
+    595▕             $statement->execute();
+
+      [2m+1 vendor frames [22m
+
+  2   [internal]:0
+      Whoops\Run::handleShutdown()
+
+
+   Symfony\Component\ErrorHandler\Error\FatalError 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/laravel/framework/src/Illuminate/Database/Grammar.php:144
+    140▕      * @return string
+    141▕      */
+    142▕     protected function wrapSegments($segments)
+    143▕     {
+  ➜ 144▕         return (new Collection($segments))->map(function ($segment, $key) use ($segments) {
+    145▕             return $key == 0 && count($segments) > 1
+    146▕                 ? $this->wrapTable($segment)
+    147▕                 : $this->wrapValue($segment);
+    148▕         })->implode('.');
+
+
+   Whoops\Exception\ErrorException 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/laravel/framework/src/Illuminate/Database/Grammar.php:144
+    140▕      * @return string
+    141▕      */
+    142▕     protected function wrapSegments($segments)
+    143▕     {
+  ➜ 144▕         return (new Collection($segments))->map(function ($segment, $key) use ($segments) {
+    145▕             return $key == 0 && count($segments) > 1
+    146▕                 ? $this->wrapTable($segment)
+    147▕                 : $this->wrapValue($segment);
+    148▕         })->implode('.');
+
+      [2m+1 vendor frames [22m
+
+  2   [internal]:0
+      Whoops\Run::handleShutdown()
+
+
+   Symfony\Component\ErrorHandler\Error\FatalError 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/nesbot/carbon/src/Carbon/Traits/Converter.php:69
+     65▕      * @see https://php.net/manual/en/datetime.format.php
+     66▕      */
+     67▕     public function rawFormat(string $format): string
+     68▕     {
+  ➜  69▕         return parent::format($format);
+     70▕     }
+     71▕ 
+     72▕     /**
+     73▕      * Format the instance as a string using the set format
+
+
+   Whoops\Exception\ErrorException 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/nesbot/carbon/src/Carbon/Traits/Converter.php:69
+     65▕      * @see https://php.net/manual/en/datetime.format.php
+     66▕      */
+     67▕     public function rawFormat(string $format): string
+     68▕     {
+  ➜  69▕         return parent::format($format);
+     70▕     }
+     71▕ 
+     72▕     /**
+     73▕      * Format the instance as a string using the set format
+
+      [2m+1 vendor frames [22m
+
+  2   [internal]:0
+      Whoops\Run::handleShutdown()
+
+
+   Symfony\Component\ErrorHandler\Error\FatalError 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/monolog/monolog/src/Monolog/Level.php:138
+    134▕      * @return value-of<self::NAMES>
+    135▕      */
+    136▕     public function getName(): string
+    137▕     {
+  ➜ 138▕         return match ($this) {
+    139▕             self::Debug => 'DEBUG',
+    140▕             self::Info => 'INFO',
+    141▕             self::Notice => 'NOTICE',
+    142▕             self::Warning => 'WARNING',
+
+
+   Whoops\Exception\ErrorException 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/monolog/monolog/src/Monolog/Level.php:138
+    134▕      * @return value-of<self::NAMES>
+    135▕      */
+    136▕     public function getName(): string
+    137▕     {
+  ➜ 138▕         return match ($this) {
+    139▕             self::Debug => 'DEBUG',
+    140▕             self::Info => 'INFO',
+    141▕             self::Notice => 'NOTICE',
+    142▕             self::Warning => 'WARNING',
+
+      [2m+1 vendor frames [22m
+
+  2   [internal]:0
+      Whoops\Run::handleShutdown()
+
+
+   Symfony\Component\ErrorHandler\Error\FatalError 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/laravel/framework/src/Illuminate/Collections/Arr.php:771
+    767▕      * @return array
+    768▕      */
+    769▕     public static function map(array $array, callable $callback)
+    770▕     {
+  ➜ 771▕         $keys = array_keys($array);
+    772▕ 
+    773▕         try {
+    774▕             $items = array_map($callback, $array, $keys);
+    775▕         } catch (ArgumentCountError) {
+
+
+   Whoops\Exception\ErrorException 
+
+  Maximum execution time of 7200 seconds exceeded
+
+  at public_html/vendor/laravel/framework/src/Illuminate/Collections/Arr.php:771
+    767▕      * @return array
+    768▕      */
+    769▕     public static function map(array $array, callable $callback)
+    770▕     {
+  ➜ 771▕         $keys = array_keys($array);
+    772▕ 
+    773▕         try {
+    774▕             $items = array_map($callback, $array, $keys);
+    775▕         } catch (ArgumentCountError) {
+
+      [2m+1 vendor frames [22m
+
+  2   [internal]:0
+      Whoops\Run::handleShutdown()
+
+Queue worker dijalankan sekali pada: 02-10-2025 00:00:02
+Queue worker dijalankan sekali pada: 02-10-2025 00:10:02
+Queue worker dijalankan sekali pada: 02-10-2025 00:15:02
+Queue worker dijalankan sekali pada: 02-10-2025 00:20:08
+Queue worker dijalankan sekali pada: 02-10-2025 00:25:02
+Queue worker dijalankan sekali pada: 02-10-2025 00:30:07
+Queue worker dijalankan sekali pada: 02-10-2025 00:35:02
+Queue worker dijalankan sekali pada: 02-10-2025 00:43:00
+Queue worker dijalankan sekali pada: 02-10-2025 00:45:18
+Queue worker dijalankan sekali pada: 02-10-2025 01:05:02
+Queue worker dijalankan sekali pada: 02-10-2025 01:10:02
+Queue worker dijalankan sekali pada: 06-10-2025 17:00:02
+Queue worker dijalankan sekali pada: 09-10-2025 03:17:03
+Queue worker dijalankan sekali pada: 09-10-2025 04:03:00
+Queue worker dijalankan sekali pada: 09-10-2025 05:05:52
+Queue worker dijalankan sekali pada: 09-10-2025 06:11:56
+Queue worker dijalankan sekali pada: 09-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 13:00:04
+Queue worker dijalankan sekali pada: 09-10-2025 14:00:04
+Queue worker dijalankan sekali pada: 09-10-2025 15:00:04
+Queue worker dijalankan sekali pada: 09-10-2025 16:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 17:00:04
+Queue worker dijalankan sekali pada: 09-10-2025 18:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 09-10-2025 21:00:04
+Queue worker dijalankan sekali pada: 09-10-2025 22:00:04
+Queue worker dijalankan sekali pada: 09-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 00:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 02:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 03:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 06:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 11:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 14:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 15:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 19:00:04
+Queue worker dijalankan sekali pada: 10-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 10-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 02:00:04
+Queue worker dijalankan sekali pada: 11-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 05:00:04
+Queue worker dijalankan sekali pada: 11-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 08:00:04
+Queue worker dijalankan sekali pada: 11-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 11:00:04
+Queue worker dijalankan sekali pada: 11-10-2025 12:00:04
+Queue worker dijalankan sekali pada: 11-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 16:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 17:00:04
+Queue worker dijalankan sekali pada: 11-10-2025 18:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 11-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 01:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 04:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 05:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 06:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 10:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 14:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 19:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 12-10-2025 21:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 22:00:04
+Queue worker dijalankan sekali pada: 12-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 14:00:04
+Queue worker dijalankan sekali pada: 13-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 13-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 13-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 20:00:04
+Queue worker dijalankan sekali pada: 13-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 13-10-2025 23:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 00:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 07:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 11:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 12:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 14:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 15:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 18:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 20:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 14-10-2025 22:00:04
+Queue worker dijalankan sekali pada: 14-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 04:00:04
+Queue worker dijalankan sekali pada: 15-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 16:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 15-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 20:00:04
+Queue worker dijalankan sekali pada: 15-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 15-10-2025 22:00:04
+Queue worker dijalankan sekali pada: 15-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 02:00:04
+Queue worker dijalankan sekali pada: 16-10-2025 03:00:04
+Queue worker dijalankan sekali pada: 16-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 08:00:04
+Queue worker dijalankan sekali pada: 16-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 11:00:04
+Queue worker dijalankan sekali pada: 16-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 16-10-2025 17:00:04
+Queue worker dijalankan sekali pada: 16-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 16-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 16-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 00:00:04
+Queue worker dijalankan sekali pada: 17-10-2025 01:00:04
+Queue worker dijalankan sekali pada: 17-10-2025 02:00:04
+Queue worker dijalankan sekali pada: 17-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 05:00:04
+Queue worker dijalankan sekali pada: 17-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 08:00:04
+Queue worker dijalankan sekali pada: 17-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 11:00:04
+Queue worker dijalankan sekali pada: 17-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 17-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 17-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 17-10-2025 23:00:04
+Queue worker dijalankan sekali pada: 18-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 05:00:04
+Queue worker dijalankan sekali pada: 18-10-2025 06:00:04
+Queue worker dijalankan sekali pada: 18-10-2025 07:00:04
+Queue worker dijalankan sekali pada: 18-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 09:00:04
+Queue worker dijalankan sekali pada: 18-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 14:00:04
+Queue worker dijalankan sekali pada: 18-10-2025 15:00:04
+Queue worker dijalankan sekali pada: 18-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 18-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 18:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 19:00:04
+Queue worker dijalankan sekali pada: 18-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 18-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 07:00:04
+Queue worker dijalankan sekali pada: 19-10-2025 08:00:04
+Queue worker dijalankan sekali pada: 19-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 10:00:04
+Queue worker dijalankan sekali pada: 19-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 12:00:04
+Queue worker dijalankan sekali pada: 19-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 15:00:04
+Queue worker dijalankan sekali pada: 19-10-2025 16:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 18:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 21:00:04
+Queue worker dijalankan sekali pada: 19-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 19-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 00:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 01:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 05:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 07:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 09:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 12:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 13:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 16:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 19:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 20-10-2025 22:00:04
+Queue worker dijalankan sekali pada: 20-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 03:00:04
+Queue worker dijalankan sekali pada: 21-10-2025 04:00:04
+Queue worker dijalankan sekali pada: 21-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 15:00:04
+Queue worker dijalankan sekali pada: 21-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 21-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 21-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 21-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 00:00:04
+Queue worker dijalankan sekali pada: 22-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 03:00:04
+Queue worker dijalankan sekali pada: 22-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 06:00:04
+Queue worker dijalankan sekali pada: 22-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 08:00:04
+Queue worker dijalankan sekali pada: 22-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 10:00:04
+Queue worker dijalankan sekali pada: 22-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 12:00:04
+Queue worker dijalankan sekali pada: 22-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 16:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 22-10-2025 19:00:04
+Queue worker dijalankan sekali pada: 22-10-2025 20:00:04
+Queue worker dijalankan sekali pada: 22-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 22-10-2025 23:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 04:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 06:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 08:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 09:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 11:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 12:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 14:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 17:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 18:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 19:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 20:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 21:00:04
+Queue worker dijalankan sekali pada: 23-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 23-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 02:00:04
+Queue worker dijalankan sekali pada: 24-10-2025 03:00:04
+Queue worker dijalankan sekali pada: 24-10-2025 04:00:04
+Queue worker dijalankan sekali pada: 24-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 06:00:04
+Queue worker dijalankan sekali pada: 24-10-2025 07:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 24-10-2025 17:00:04
+Queue worker dijalankan sekali pada: 24-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 24-10-2025 19:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 20:00:04
+Queue worker dijalankan sekali pada: 24-10-2025 21:00:04
+Queue worker dijalankan sekali pada: 24-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 24-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 05:00:04
+Queue worker dijalankan sekali pada: 25-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 07:00:04
+Queue worker dijalankan sekali pada: 25-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 09:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 15:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 16:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 18:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 19:00:04
+Queue worker dijalankan sekali pada: 25-10-2025 20:00:04
+Queue worker dijalankan sekali pada: 25-10-2025 21:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 22:00:05
+Queue worker dijalankan sekali pada: 25-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 05:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 06:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 07:00:04
+Queue worker dijalankan sekali pada: 26-10-2025 08:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 09:00:04
+Queue worker dijalankan sekali pada: 26-10-2025 10:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 11:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 12:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 13:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 14:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 15:00:04
+Queue worker dijalankan sekali pada: 26-10-2025 16:00:04
+Queue worker dijalankan sekali pada: 26-10-2025 17:00:05
+Queue worker dijalankan sekali pada: 26-10-2025 18:00:04
+Queue worker dijalankan sekali pada: 26-10-2025 19:00:04
+Queue worker dijalankan sekali pada: 26-10-2025 20:00:04
+Queue worker dijalankan sekali pada: 26-10-2025 21:00:04
+Queue worker dijalankan sekali pada: 26-10-2025 22:00:04
+Queue worker dijalankan sekali pada: 26-10-2025 23:00:05
+Queue worker dijalankan sekali pada: 27-10-2025 00:00:05
+Queue worker dijalankan sekali pada: 27-10-2025 01:00:05
+Queue worker dijalankan sekali pada: 27-10-2025 02:00:05
+Queue worker dijalankan sekali pada: 27-10-2025 03:00:05
+Queue worker dijalankan sekali pada: 27-10-2025 04:00:05
+Queue worker dijalankan sekali pada: 27-10-2025 05:00:04
