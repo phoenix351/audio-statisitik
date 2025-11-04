@@ -157,6 +157,7 @@
 
     <!-- Main Content -->
     <main id="main-content" class="min-h-screen pb-32 pt-0" role="main">
+        <div class="hidden">Akun ini : <span id="role-user">{{ auth()->user()->role }}</span></div>
         @yield('content')
     </main>
 
@@ -364,11 +365,6 @@
  <!-- Scripts -->
     @stack('scripts')
 
-    {{-- <!-- Welcome Message - Hanya di home -->
-    @if(request()->routeIs('home'))
-        <script src="{{ asset('js/welcome-message.js') }}" defer></script>
-    @endif --}}
-    
     <!-- Core app.js - Always load -->
     <script src="{{ asset('js/app1.js') }}" defer></script>
 

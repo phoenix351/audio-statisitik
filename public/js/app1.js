@@ -13,15 +13,15 @@
  * =============================================================================
  */
 
-(function() {
+(function () {
     'use strict';
-    
+
     // console.log('🚀 Loading Clean Unified Web Application...');
 
     // =============================================================================
     // GLOBAL CONFIGURATION & CONSTANTS
     // =============================================================================
-    
+
     const CONFIG = {
         audio: {
             defaultFormat: 'mp3',
@@ -45,34 +45,34 @@
     // =============================================================================
     // MAIN APPLICATION MANAGER
     // =============================================================================
-    
+
     class UnifiedWebApplication {
         constructor() {
             this.modules = {};
             this.initialized = false;
             this.debug = window.location.hostname === 'localhost';
-            
+
             this.init();
         }
 
         async init() {
             try {
                 // console.log('🎯 Initializing Unified Web Application');
-                
+
                 // Initialize all modules
                 await this.initializeModules();
-                
+
                 // Setup global event handlers
                 this.setupGlobalEvents();
-                
+
                 // Mark as initialized
                 this.initialized = true;
-                
+
                 // console.log('✅ Unified Web Application initialized successfully');
-                
+
                 // Perform post-initialization tasks
                 this.postInit();
-                
+
             } catch (error) {
                 // console.error('❌ Failed to initialize web application:', error);
                 this.handleInitializationError(error);
@@ -89,7 +89,7 @@
 
             if (!isAdminPage && !isAuthPage) {
                 this.modules.hoverText = new UniversalHoverTextManager();
-            }          
+            }
             this.modules.audioPlayer = new UnifiedAudioManager();
             this.modules.accessibility = new AccessibilityManager();
             // this.modules.healthMonitor = new HealthMonitorManager();
@@ -108,13 +108,13 @@
         setupGlobalEvents() {
             // Global error handler
             window.addEventListener('error', (e) => this.handleGlobalError(e));
-            
+
             // Page visibility changes
             document.addEventListener('visibilitychange', () => this.handleVisibilityChange());
-            
+
             // Before unload cleanup
             window.addEventListener('beforeunload', () => this.cleanup());
-            
+
             // Resize handling
             window.addEventListener('resize', () => this.handleResize());
         }
@@ -122,10 +122,10 @@
         postInit() {
             // Hide loading screens
             this.hideLoadingScreens();
-            
+
             // Setup periodic health checks
             this.modules.healthMonitor?.startHealthChecks();
-            
+
             // Initialize page-specific features
             this.initializePageSpecificFeatures();
         }
@@ -150,10 +150,10 @@
         initializeFallbackMode() {
             // Basic functionality without advanced features
             // console.log('🆘 Running in fallback mode');
-            
+
             // Basic audio playback
             this.setupBasicAudioPlayback();
-            
+
             // Basic UI interactions
             this.setupBasicUIInteractions();
         }
@@ -195,7 +195,7 @@
 
         initializePageSpecificFeatures() {
             const path = window.location.pathname;
-            
+
             if (path.includes('/admin')) {
                 this.initializeAdminFeatures();
             } else if (path.includes('/publikasi') || path.includes('/brs')) {
@@ -254,7 +254,7 @@
     // =============================================================================
     // STICKY NAVBAR MANAGER
     // =============================================================================
-    
+
     class StickyNavManager {
         constructor() {
             this.navbar = null;
@@ -269,16 +269,16 @@
 
             this.originalTop = this.navbar.offsetTop;
             this.scrollHandler = this.handleScroll.bind(this);
-            
+
             window.addEventListener('scroll', this.scrollHandler);
-            
+
             // Initial check
             this.handleScroll();
         }
 
         handleScroll() {
             const scrollY = window.pageYOffset || document.documentElement.scrollTop;
-            
+
             if (scrollY > this.originalTop + CONFIG.ui.stickyNavOffset) {
                 if (!this.isSticky) {
                     this.makeSticky();
@@ -293,7 +293,7 @@
         makeSticky() {
             this.navbar.classList.add('sticky', 'navbar-sticky');
             this.isSticky = true;
-            
+
             // Add padding to body to prevent jump
             document.body.style.paddingTop = this.navbar.offsetHeight + 'px';
         }
@@ -301,7 +301,7 @@
         removeSticky() {
             this.navbar.classList.remove('sticky', 'navbar-sticky');
             this.isSticky = false;
-            
+
             // Remove padding
             document.body.style.paddingTop = '0';
         }
@@ -316,7 +316,7 @@
     // =============================================================================
     // SOUND EFFECTS MANAGER
     // =============================================================================
-    
+
     class SoundEffectsManager {
         constructor() {
             this.sounds = new Map();
@@ -327,16 +327,16 @@
 
         async init() {
             // console.log('🔊 Initializing Sound Effects Manager');
-        
+
             // Load preferences first
             this.loadPreferences();
-            
+
             // Only load sounds if enabled and paths exist
             if (this.enabled) {
                 await this.loadSoundEffects();
-        }
-        
-        this.setupSoundTriggers();
+            }
+
+            this.setupSoundTriggers();
         }
 
         async loadSoundEffects() {
@@ -373,19 +373,19 @@
                 const audio = new Audio(url);
                 audio.volume = this.volume;
                 audio.preload = 'auto';
-                
+
                 // Wait for audio to load
                 await new Promise((resolve, reject) => {
                     audio.addEventListener('canplaythrough', resolve, { once: true });
                     audio.addEventListener('error', reject, { once: true });
-                    
+
                     // Timeout after 5 seconds
                     setTimeout(() => reject(new Error('Load timeout')), 5000);
                 });
-                
+
                 this.sounds.set(name, audio);
                 // console.log(`✅ Loaded sound: ${name}`);
-                
+
             } catch (error) {
                 // console.warn(`⚠️ Failed to load sound effect: ${name}`, error);
             }
@@ -393,21 +393,21 @@
 
         setupSoundTriggers() {
             // console.log('🔊 Setting up safe sound triggers...');
-            
+
             // Safe click handler with multiple fallbacks
             const safeClickHandler = (e) => {
                 try {
                     // Validate event and target
                     if (!e || !e.target) return;
-                    
+
                     // Get the actual element (handle text nodes)
                     let targetElement = e.target;
                     if (targetElement.nodeType === 3) { // Text node
                         targetElement = targetElement.parentElement;
                     }
-                    
+
                     if (!targetElement || targetElement.nodeType !== 1) return;
-                    
+
                     // Method 1: Try closest() if available
                     if (typeof targetElement.closest === 'function') {
                         try {
@@ -420,48 +420,48 @@
                             // Continue to fallback
                         }
                     }
-                    
+
                     // Method 2: Manual traversal fallback
                     let current = targetElement;
                     let levels = 0;
-                    
+
                     while (current && current.nodeType === 1 && levels < 5) {
                         const tagName = current.tagName.toLowerCase();
                         const classList = current.classList || [];
-                        
+
                         // Check if it's clickable
-                        if (tagName === 'button' || 
-                            tagName === 'a' || 
-                            classList.contains('btn') || 
+                        if (tagName === 'button' ||
+                            tagName === 'a' ||
+                            classList.contains('btn') ||
                             classList.contains('clickable')) {
                             this.playSound('click');
                             return;
                         }
-                        
+
                         current = current.parentElement;
                         levels++;
                     }
-                    
+
                 } catch (error) {
                     // Completely silent fallback - no console logs to avoid spam
                 }
             };
-            
+
             // Safe hover handler
             const safeHoverHandler = (() => {
                 let hoverTimeout;
-                
+
                 return (e) => {
                     try {
                         if (!e || !e.target) return;
-                        
+
                         let targetElement = e.target;
                         if (targetElement.nodeType === 3) {
                             targetElement = targetElement.parentElement;
                         }
-                        
+
                         if (!targetElement || targetElement.nodeType !== 1) return;
-                        
+
                         // Try closest first
                         if (typeof targetElement.closest === 'function') {
                             try {
@@ -479,7 +479,7 @@
                     }
                 };
             })();
-            
+
             // Attach listeners with error boundaries
             try {
                 document.addEventListener('click', safeClickHandler.bind(this));
@@ -492,7 +492,7 @@
 
         playSound(name) {
             if (!this.enabled || !this.soundsLoaded) return;
-        
+
             const sound = this.sounds.get(name);
             if (sound) {
                 try {
@@ -546,19 +546,19 @@
                 this.showErrorMessage('Tidak ada dokumen yang sedang diputar');
                 return;
             }
-            
+
             try {
                 // Use Laravel route pattern
                 const docUrl = `/dokumen/${this.currentDocument.slug || this.currentDocument.id}`;
-                
+
                 // Open in new tab
                 window.open(docUrl, '_blank');
-                
+
                 // console.log('✅ Opening document via route:', {
                 //     title: this.currentDocument.title,
                 //     url: docUrl
                 // });
-                
+
                 // Optional: Track view event
                 if (typeof gtag !== 'undefined') {
                     gtag('event', 'view_document', {
@@ -566,7 +566,7 @@
                         'document_id': this.currentDocument.id
                     });
                 }
-                
+
             } catch (error) {
                 // console.error('❌ Error opening document:', error);
                 this.showErrorMessage('Gagal membuka dokumen');
@@ -615,7 +615,7 @@
             this.textSoundEnabled = true;
             this._textSelector = '.text-sound, .hover-sound, p, h1, h2, h3, h4, h5, h6, span, div, label, button, a, td, th, li';
             this._lastSpoken = ''; // untuk mencegah pengulangan cepat
-            this._hoverTimers = new WeakMap();   
+            this._hoverTimers = new WeakMap();
             this._hoverDelay = 300;              // delay sebelum baca
             this._hoverCooldownMs = 3000;        // cooldown default 3 detik
         }
@@ -698,7 +698,7 @@
                 }
             });
         }
-        
+
         createActivationButton() {
             const btn = document.createElement('button');
             btn.innerText = '🔊 Aktifkan suara hover';
@@ -768,7 +768,7 @@
     // =============================================================================
     // UNIFIED AUDIO MANAGER
     // =============================================================================
-    
+
     class UnifiedAudioManager {
         constructor() {
             // Core properties
@@ -780,17 +780,17 @@
             this.playbackRate = 1.0;
             this.progressInterval = null;
             this.retryCount = 0;
-            
+
             // UI elements
             this.bottomPlayer = null;
             this.playPauseBtn = null;
             this.progressBar = null;
             this.currentTimeEl = null;
             this.totalTimeEl = null;
-            
+
             // Event handlers (bound methods)
             this.boundEventHandlers = {};
-            
+
             // Integration handlers
             this.integrationHandlers = new Map();
 
@@ -800,7 +800,7 @@
             this.seekStartTime = null;
             this.targetSeekTime = null;
             this.isWaitingForSeek = false;
-            
+
             // Performance properties
             this.lastSeekTime = 0;
             this.seekCooldown = 100;
@@ -808,98 +808,98 @@
 
         async init() {
             // console.log('🎵 Initializing Unified Audio Manager');
-            
+
             await this.initializeAudioElement();
             await this.initializeUI();
             await this.setupEventListeners();
             await this.setupIntegrations();
             await this.setupKeyboardShortcuts();
-            
+
             // console.log('✅ Unified Audio Manager initialized');
         }
 
         async initializeAudioElement() {
             // console.log('🎵 Initializing audio element with enhanced setup');
-            
+
             // Remove existing main audio element if any
             const existingAudio = document.getElementById('main-audio-element');
             if (existingAudio) {
                 // console.log('🗑️ Removing existing main audio element');
                 existingAudio.remove();
             }
-            
+
             // Create fresh audio element
             this.currentAudio = document.createElement('audio');
             this.currentAudio.id = 'main-audio-element';
             this.currentAudio.preload = 'none';
             this.currentAudio.crossOrigin = 'anonymous';
-            
+
             // Add to DOM but keep hidden
             this.currentAudio.style.display = 'none';
             document.body.appendChild(this.currentAudio);
-            
+
             // console.log('✅ Fresh main audio element created and added to DOM');
-            
+
             // Setup audio event listeners
             this.setupAudioEventListeners();
-            
+
             // Verify audio element
             const verification = document.getElementById('main-audio-element');
             if (!verification) {
                 throw new Error('Failed to create main audio element');
             }
-            
+
             // console.log('✅ Audio element verification passed');
         }
 
         async initializeUI() {
             // console.log('🎨 Initializing Audio Player UI with forced cleanup');
-            
+
             // STEP 1: Force remove ALL existing audio players
             this.forceCleanupExistingPlayers();
-            
+
             // STEP 2: Wait a bit for DOM cleanup
             await new Promise(resolve => setTimeout(resolve, 100));
-            
+
             // STEP 3: Create fresh player
             await this.createBottomPlayer();
-            
+
             // STEP 4: Cache UI elements
             this.cacheUIElements();
-            
+
             // STEP 5: Verify UI integrity
             this.verifyUIIntegrity();
         }
 
         forceCleanupExistingPlayers() {
             // console.log('🧹 Force cleaning existing audio players...');
-            
+
             // Remove by ID (most specific)
             const existingPlayer = document.getElementById('bottom-audio-player');
             if (existingPlayer) {
                 // console.log('🗑️ Removing existing bottom-audio-player');
                 existingPlayer.remove();
             }
-            
+
             // Remove by class (backup)
             const playersByClass = document.querySelectorAll('.audio-player, .bottom-audio-player, .fixed.bottom-0');
             playersByClass.forEach((player, index) => {
-                if (player.id !== 'bottom-audio-player' && 
-                    (player.classList.contains('audio-player') || 
-                    player.innerHTML.includes('play-pause-btn') ||
-                    player.innerHTML.includes('current-doc-title'))) {
+                if (player.id !== 'bottom-audio-player' &&
+                    (player.classList.contains('audio-player') ||
+                        player.innerHTML.includes('play-pause-btn') ||
+                        player.innerHTML.includes('current-doc-title'))) {
                     // console.log(`🗑️ Removing duplicate audio player ${index}`);
                     player.remove();
                 }
             });
-            
+
             // Remove sidebar if exists
             const existingSidebar = document.getElementById('right-sidebar');
             if (existingSidebar) {
                 // console.log('🗑️ Removing existing sidebar');
                 existingSidebar.remove();
             }
-            
+
             // Clear any cached references
             this.bottomPlayer = null;
             this.playPauseBtn = null;
@@ -911,7 +911,7 @@
 
         async createBottomPlayer() {
             // console.log('🏗️ Creating responsive Spotify-like audio player');
-            
+
             const playerHTML = `
                 <!-- Main Audio Player -->
                 <div id="bottom-audio-player" class="fixed bottom-0 left-0 bg-gray-900 text-white shadow-2xl transform translate-y-full transition-transform duration-300 hidden z-40" 
@@ -1135,34 +1135,34 @@
             // Remove existing elements
             const existingPlayer = document.getElementById('bottom-audio-player');
             const existingSidebar = document.getElementById('right-sidebar');
-            
+
             if (existingPlayer) existingPlayer.remove();
             if (existingSidebar) existingSidebar.remove();
-            
+
             // Add new elements
             document.body.insertAdjacentHTML('beforeend', playerHTML);
             document.body.insertAdjacentHTML('beforeend', sidebarHTML);
-            
+
             this.bottomPlayer = document.getElementById('bottom-audio-player');
-            
+
             // console.log('✅ Responsive audio player created successfully');
         }
 
         cacheUIElements() {
             // console.log('💾 Caching responsive UI elements...');
-            
+
             // Cache primary elements (desktop)
             this.playPauseBtn = document.getElementById('play-pause-btn');
             this.progressBar = document.getElementById('progress-bar');
             this.progressContainer = document.getElementById('progress-container');
             this.currentTimeEl = document.getElementById('current-time-main');
             this.totalTimeEl = document.getElementById('total-time-main');
-            
+
             // Cache mobile elements
             this.playPauseBtnMobile = document.getElementById('play-pause-btn-mobile');
             this.progressBarMobile = document.getElementById('progress-bar-mobile');
             this.progressContainerMobile = document.getElementById('progress-container-mobile');
-            
+
             // Verify core elements exist
             const coreElements = {
                 'Play/Pause Button (Desktop)': this.playPauseBtn,
@@ -1170,7 +1170,7 @@
                 'Progress Bar (Desktop)': this.progressBar,
                 'Progress Bar (Mobile)': this.progressBarMobile
             };
-            
+
             let missingElements = [];
             Object.entries(coreElements).forEach(([name, element]) => {
                 if (!element) {
@@ -1180,30 +1180,30 @@
                     // console.log(`✅ Cached: ${name}`);
                 }
             });
-            
+
             // console.log(`✅ Cached ${Object.keys(coreElements).length - missingElements.length}/${Object.keys(coreElements).length} responsive UI elements`);
-            
+
             return missingElements.length === 0;
         }
 
         verifyUIIntegrity() {
             // console.log('🔍 Verifying UI integrity...');
-            
+
             const playerCount = document.querySelectorAll('#bottom-audio-player').length;
             const sidebarCount = document.querySelectorAll('#right-sidebar').length;
-            
+
             // console.log(`📊 UI Integrity Check:
             // - Bottom Players: ${playerCount}
             // - Sidebars: ${sidebarCount}
             // - Play Button Exists: ${!!this.playPauseBtn}
             // - Progress Bar Exists: ${!!this.progressBar}`);
-            
+
             if (playerCount > 1) {
                 // console.warn('⚠️ Multiple bottom players detected! Cleaning up...');
                 this.forceCleanupExistingPlayers();
                 return false;
             }
-            
+
             return true;
         }
 
@@ -1241,25 +1241,25 @@
 
         async setupEventListeners() {
             // console.log('🎛️ Setting up responsive event listeners...');
-            
+
             // Verify UI elements exist
             if (!this.cacheUIElements()) {
                 // console.error('❌ Cannot setup event listeners - missing UI elements');
                 return false;
             }
-            
+
             // Setup desktop listeners
             this.setupDesktopListeners();
-            
+
             // Setup mobile listeners
             this.setupMobileListeners();
-            
+
             // Setup shared listeners
             this.setupSharedListeners();
-            
+
             // Verify listeners
             this.verifyEventListeners();
-            
+
             // console.log('✅ Responsive event listeners setup complete');
             return true;
         }
@@ -1270,41 +1270,41 @@
             if (playPauseBtn) {
                 this.attachListener(playPauseBtn, 'click', () => this.togglePlayPause());
             }
-            
+
             // Desktop progress
             const progressContainer = document.getElementById('progress-container');
             if (progressContainer) {
                 this.attachListener(progressContainer, 'click', (e) => this.handleProgressClick(e));
             }
-            
+
             // Desktop skip buttons
             this.attachListener(document.getElementById('skip-backward-btn'), 'click', () => this.skipBackward(10));
             this.attachListener(document.getElementById('skip-forward-btn'), 'click', () => this.skipForward(10));
-            
+
             // Volume controls
             const volumeSlider = document.getElementById('volume-slider');
             const muteBtn = document.getElementById('mute-btn');
-            
+
             if (volumeSlider) {
                 this.attachListener(volumeSlider, 'input', (e) => {
                     // console.log('🔊 Volume changed:', e.target.value);
                     this.setVolume(e.target.value / 100);
                 });
             }
-            
+
             if (muteBtn) {
                 this.attachListener(muteBtn, 'click', () => {
                     // console.log('🔇 Mute button clicked');
                     this.toggleMute();
                 });
             }
-            
+
             // Speed control
             this.attachListener(document.getElementById('speed-btn'), 'click', () => this.cyclePlaybackSpeed());
-            
+
             // More options
             this.attachListener(document.getElementById('more-options-btn'), 'click', () => this.showSidebar());
-            
+
             // Close button
             this.attachListener(document.getElementById('close-player-btn'), 'click', () => this.closePlayer());
         }
@@ -1312,14 +1312,14 @@
         setupMobileListeners() {
             // Mobile play/pause
             this.attachListener(document.getElementById('play-pause-btn-mobile'), 'click', () => this.togglePlayPause());
-            
+
             // Mobile progress
             this.attachListener(document.getElementById('progress-container-mobile'), 'click', (e) => this.handleProgressClick(e));
-            
+
             // Mobile skip buttons
             this.attachListener(document.getElementById('skip-backward-btn-mobile'), 'click', () => this.skipBackward(10));
             this.attachListener(document.getElementById('skip-forward-btn-mobile'), 'click', () => this.skipForward(10));
-            
+
             // Mobile more options
             this.attachListener(document.getElementById('more-options-btn-mobile'), 'click', () => this.showSidebar());
         }
@@ -1362,10 +1362,10 @@
                 // Remove existing listeners
                 const newBtn = playPauseBtn.cloneNode(true);
                 playPauseBtn.parentNode.replaceChild(newBtn, playPauseBtn);
-                
+
                 // Cache new reference
                 this.playPauseBtn = newBtn;
-                
+
                 // Add new listener
                 this.playPauseBtn.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1373,7 +1373,7 @@
                     // console.log('🎵 Play/Pause button clicked (enhanced)');
                     this.togglePlayPause();
                 });
-                
+
                 // Verify listener attachment
                 this.playPauseBtn.setAttribute('data-listener-attached', 'true');
                 // console.log('✅ Play/Pause listener attached and verified');
@@ -1388,11 +1388,11 @@
                 // Remove existing listeners
                 const newContainer = progressContainer.cloneNode(true);
                 progressContainer.parentNode.replaceChild(newContainer, progressContainer);
-                
+
                 // Cache new reference  
                 this.progressContainer = newContainer;
                 this.progressBar = newContainer.querySelector('#progress-bar');
-                
+
                 // Add new listener
                 this.progressContainer.addEventListener('click', (e) => {
                     e.preventDefault();
@@ -1400,7 +1400,7 @@
                     // console.log('📊 Progress bar clicked (enhanced)');
                     this.handleProgressClick(e);
                 });
-                
+
                 // Verify listener attachment
                 this.progressContainer.setAttribute('data-listener-attached', 'true');
                 // console.log('✅ Progress listener attached and verified');
@@ -1418,7 +1418,7 @@
                 });
                 // console.log('✅ Volume slider listener attached');
             }
-            
+
             // Mute button
             if (this.muteBtn) {
                 this.muteBtn.addEventListener('click', () => {
@@ -1433,21 +1433,21 @@
             // Skip buttons
             const skipBackBtn = document.getElementById('skip-backward-btn');
             const skipForwardBtn = document.getElementById('skip-forward-btn');
-            
+
             if (skipBackBtn) {
                 skipBackBtn.addEventListener('click', () => {
                     // console.log('⏮️ Skip backward clicked');
                     this.skipBackward(10);
                 });
             }
-            
+
             if (skipForwardBtn) {
                 skipForwardBtn.addEventListener('click', () => {
                     // console.log('⏭️ Skip forward clicked');
                     this.skipForward(10);
                 });
             }
-            
+
             // Speed control
             if (this.speedBtn) {
                 this.speedBtn.addEventListener('click', () => {
@@ -1455,7 +1455,7 @@
                     this.cyclePlaybackSpeed();
                 });
             }
-            
+
             // More options (show sidebar)
             const moreOptionsBtn = document.getElementById('more-options-btn');
             if (moreOptionsBtn) {
@@ -1464,7 +1464,7 @@
                     this.showSidebar();
                 });
             }
-            
+
             // Close button
             const closeBtn = document.getElementById('close-player-btn');
             if (closeBtn) {
@@ -1473,7 +1473,7 @@
                     this.closePlayer();
                 });
             }
-            
+
             // Title click (show sidebar)
             if (this.titleEl) {
                 this.titleEl.addEventListener('click', () => {
@@ -1492,7 +1492,7 @@
                     this.downloadCurrentAudio();
                 });
             }
-            
+
             // Share button
             const shareBtn = document.getElementById('share-btn');
             if (shareBtn) {
@@ -1501,7 +1501,7 @@
                     this.shareCurrentDocument();
                 });
             }
-            
+
             // Sidebar close
             const closeSidebarBtn = document.getElementById('close-sidebar-btn');
             if (closeSidebarBtn) {
@@ -1526,7 +1526,7 @@
                 'close-player-btn',
                 'current-doc-title'
             ];
-            
+
             elementsToClean.forEach(id => {
                 const element = document.getElementById(id);
                 if (element) {
@@ -1534,27 +1534,27 @@
                     element.parentNode.replaceChild(newElement, element);
                 }
             });
-            
+
             // console.log('🧹 Cleaned existing event listeners');
         }
 
         verifyEventListeners() {
             // console.log('🔍 Enhanced event listener verification...');
-            
+
             const testResults = {
                 playPause: this.testElementListener('play-pause-btn', 'click'),
-                progress: this.testElementListener('progress-container', 'click'), 
+                progress: this.testElementListener('progress-container', 'click'),
                 volume: this.testElementListener('volume-slider', 'input'),
                 mute: this.testElementListener('mute-btn', 'click')
             };
-            
+
             // console.log('📊 Enhanced Event Listener Verification:', testResults);
-            
+
             const workingListeners = Object.values(testResults).filter(Boolean).length;
             const totalListeners = Object.keys(testResults).length;
-            
+
             // console.log(`✅ ${workingListeners}/${totalListeners} core listeners verified (enhanced)`);
-            
+
             return workingListeners >= 2; // At least play and progress should work
         }
 
@@ -1564,23 +1564,23 @@
                 // console.warn(`⚠️ Element ${elementId} not found for listener test`);
                 return false;
             }
-            
+
             // Check for data attribute we set during listener attachment
             const hasListener = element.hasAttribute('data-listener-attached');
-            
+
             // Also check for actual event listeners (basic check)
             const hasOnClick = element.onclick !== null;
             const hasAttribute = element.getAttribute(`on${eventType}`) !== null;
-            
+
             const result = hasListener || hasOnClick || hasAttribute;
             // console.log(`🔍 Listener test for ${elementId}: ${result}`);
-            
+
             return result;
         }
 
         hasEventListener(element, eventType) {
             if (!element) return false;
-            
+
             // Check if element has event listeners (this is a simplified check)
             return element.getAttribute(`on${eventType}`) !== null || element[`on${eventType}`] !== null;
         }
@@ -1630,10 +1630,10 @@
                 // Only activate when player is visible and not typing
                 const playerVisible = this.bottomPlayer && !this.bottomPlayer.classList.contains('hidden');
                 const isTyping = e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable;
-                
+
                 if (!playerVisible || isTyping) return;
 
-                switch(e.code) {
+                switch (e.code) {
                     case 'Space':
                         e.preventDefault();
                         this.togglePlayPause();
@@ -1673,7 +1673,7 @@
         handleTimeUpdate() {
             this.updateProgressBar();
             this.updateTimeDisplays();
-            
+
             // Auto-save progress periodically
             if (this.currentDocument && this.currentAudio.currentTime > 0) {
                 this.saveProgressToBackend();
@@ -1734,10 +1734,10 @@
             // console.log('🔍 Button element:', button);
             // console.log('🔍 Button classes:', button.className);
             // console.log('🔍 Button dataset:', button.dataset);
-            
+
             // Determine context based on page URL and button location
             let context = 'publication'; // default
-            
+
             if (button.closest('.admin-panel, .admin-content, .admin-table')) {
                 context = 'admin';
             } else if (button.closest('.publication-grid, .document-grid, .grid')) {
@@ -1749,11 +1749,11 @@
             } else if (window.location.pathname.includes('/brs')) {
                 context = 'brs';
             }
-            
+
             // console.log('📍 Detected context:', context);
-            
+
             let docData = null;
-            
+
             try {
                 // Try context-specific extraction first
                 switch (context) {
@@ -1768,25 +1768,25 @@
                     default:
                         docData = this.extractDocumentDataFromButton(button, 'publication');
                 }
-                
+
                 if (docData && docData.id) {
                     // console.log('✅ Successfully extracted document data:', docData.title);
                     this.playDocument(docData);
                 } else {
                     // console.warn('⚠️ Could not extract document data from button');
                     // console.log('🔍 Attempted extraction result:', docData);
-                    
+
                     // Show user-friendly error
                     this.showErrorMessage('Tidak dapat memutar audio. Data dokumen tidak ditemukan.');
-                    
+
                     // Try fallback method
                     this.tryFallbackPlayback(button);
                 }
-                
+
             } catch (error) {
                 // console.error('❌ Error in universal button click handler:', error);
                 this.showErrorMessage('Terjadi kesalahan saat mencoba memutar audio.');
-                
+
                 // Try fallback method
                 this.tryFallbackPlayback(button);
             }
@@ -1795,7 +1795,7 @@
         // Fallback playback method
         tryFallbackPlayback(button) {
             // console.log('🔄 Attempting fallback playback...');
-            
+
             // Try to find any ID in the button or nearby elements
             const possibleIds = [
                 button.dataset.documentId,
@@ -1805,21 +1805,21 @@
                 button.closest('[data-document-id]')?.dataset.documentId,
                 button.closest('[data-id]')?.dataset.id
             ].filter(Boolean);
-            
+
             if (possibleIds.length > 0) {
                 const id = possibleIds[0];
                 // console.log('🆔 Found fallback ID:', id);
-                
+
                 // Create minimal document data
                 const fallbackData = {
                     id: id,
-                    title: button.getAttribute('aria-label') || 
-                        button.closest('.group')?.querySelector('.font-medium')?.textContent?.trim() || 
+                    title: button.getAttribute('aria-label') ||
+                        button.closest('.group')?.querySelector('.font-medium')?.textContent?.trim() ||
                         'Audio Document',
                     type: 'publication',
                     indicator: { name: 'Unknown' }
                 };
-                
+
                 // console.log('🎵 Attempting fallback playback with:', fallbackData);
                 this.playDocument(fallbackData);
             } else {
@@ -1830,20 +1830,20 @@
 
         extractDocumentDataFromButton(button, context) {
             // console.log('🔍 Extracting document data from button, context:', context);
-            
+
             let docData = {};
-            
+
             // Method 1: From data-document attribute (publications.blade.php menggunakan ini)
             const documentDataAttr = button.dataset.document || button.getAttribute('data-document');
             if (documentDataAttr) {
                 try {
                     // console.log('📄 Found data-document attribute');
                     const parsedData = JSON.parse(documentDataAttr);
-                    
+
                     // Ensure we have required fields
                     if (parsedData.id && parsedData.title) {
                         // console.log('✅ Successfully parsed document data from data-document:', parsedData.title);
-                        
+
                         // Normalize the data structure
                         docData = {
                             id: parsedData.id,
@@ -1857,7 +1857,7 @@
                             // Copy all other fields
                             ...parsedData
                         };
-                        
+
                         return docData;
                     }
                 } catch (error) {
@@ -1869,19 +1869,19 @@
             const id = button.dataset.documentId || button.dataset.id || button.getAttribute('data-document-id');
             if (id) {
                 // console.log('📄 Found individual data attributes, ID:', id);
-                
+
                 docData = {
                     id: id,
                     title: button.dataset.title || button.getAttribute('data-title') || button.getAttribute('aria-label') || 'Unknown Document',
                     slug: button.dataset.slug || button.getAttribute('data-slug'),
-                    indicator: { 
+                    indicator: {
                         name: button.dataset.indicator || button.getAttribute('data-indicator') || 'Unknown'
                     },
                     year: button.dataset.year || button.getAttribute('data-year') || new Date().getFullYear(),
                     audio_duration_formatted: button.dataset.duration || button.getAttribute('data-duration') || '00:00',
                     type: button.dataset.type || button.getAttribute('data-type') || 'publication'
                 };
-                
+
                 // console.log('✅ Extracted from individual attributes:', docData.title);
                 return docData;
             }
@@ -1890,37 +1890,37 @@
             const documentCard = button.closest('.document-card, .bg-white, .publication-item, .group');
             if (documentCard) {
                 // console.log('📄 Searching in parent document card');
-                
+
                 // Look for title in various selectors
                 const titleEl = documentCard.querySelector('.document-title, .doc-title, h3, h4, .font-medium, .text-lg') ||
-                            documentCard.querySelector('[data-title]') ||
-                            documentCard.querySelector('a[href*="/dokumen/"]');
-                
+                    documentCard.querySelector('[data-title]') ||
+                    documentCard.querySelector('a[href*="/dokumen/"]');
+
                 // Look for indicator
                 const indicatorEl = documentCard.querySelector('.indicator, .category, .type, .badge') ||
-                                documentCard.querySelector('[data-indicator]');
-                
+                    documentCard.querySelector('[data-indicator]');
+
                 // Look for year
                 const yearEl = documentCard.querySelector('.year, [data-year]') ||
-                            documentCard.querySelector('.text-gray-500, .text-sm');
-                
+                    documentCard.querySelector('.text-gray-500, .text-sm');
+
                 // Try to get ID from various sources
-                const cardId = documentCard.dataset.documentId || 
-                            documentCard.dataset.id ||
-                            documentCard.querySelector('[data-document-id]')?.dataset.documentId ||
-                            documentCard.querySelector('[data-id]')?.dataset.id;
-                
+                const cardId = documentCard.dataset.documentId ||
+                    documentCard.dataset.id ||
+                    documentCard.querySelector('[data-document-id]')?.dataset.documentId ||
+                    documentCard.querySelector('[data-id]')?.dataset.id;
+
                 if (titleEl || cardId) {
                     docData = {
                         id: cardId || this.extractIdFromElement(titleEl),
                         title: titleEl?.textContent?.trim() || titleEl?.dataset.title || 'Unknown Document',
-                        indicator: { 
+                        indicator: {
                             name: indicatorEl?.textContent?.trim() || indicatorEl?.dataset.indicator || 'Unknown'
                         },
                         year: this.extractYear(yearEl?.textContent) || new Date().getFullYear(),
                         type: 'publication'
                     };
-                    
+
                     if (docData.id) {
                         // console.log('✅ Extracted from document card:', docData.title);
                         return docData;
@@ -1932,18 +1932,18 @@
             const link = button.closest('a') || button.querySelector('a') || button.parentElement?.querySelector('a');
             if (link && link.href) {
                 // console.log('📄 Searching from link href:', link.href);
-                
+
                 const urlMatch = link.href.match(/\/dokumen\/(.+?)(?:\/|$|\?|#)/);
                 if (urlMatch) {
                     const slug = urlMatch[1];
-                    
+
                     docData = {
                         slug: slug,
                         title: link.textContent?.trim() || link.getAttribute('title') || 'Document',
                         id: this.getIdFromSlug(slug), // We'll implement this
                         type: 'publication'
                     };
-                    
+
                     // console.log('✅ Extracted from URL:', docData.title);
                     return docData;
                 }
@@ -1972,46 +1972,46 @@
             //     attributes: Array.from(button.attributes).map(attr => `${attr.name}="${attr.value}"`),
             //     innerHTML: button.innerHTML.substring(0, 100)
             // });
-            
+
             return null;
         }
 
         // Helper methods untuk data extraction:
         extractIdFromElement(element) {
             if (!element) return null;
-            
+
             // Try data attributes
             const id = element.dataset.documentId || element.dataset.id;
             if (id) return id;
-            
+
             // Try to extract from href
             if (element.href) {
                 const match = element.href.match(/\/dokumen\/(\d+)/);
                 if (match) return match[1];
             }
-            
+
             return null;
         }
 
         extractYear(text) {
             if (!text) return null;
-            
+
             const yearMatch = text.match(/\b(20\d{2})\b/);
             return yearMatch ? parseInt(yearMatch[1]) : null;
         }
 
         formatDuration(seconds) {
             if (!seconds || isNaN(seconds)) return null;
-            
+
             const minutes = Math.floor(seconds / 60);
             const remainingSeconds = Math.floor(seconds % 60);
-            
+
             return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
         }
 
         searchElementForDocumentData(element) {
             if (!element) return null;
-            
+
             // Check for data-document attribute
             const documentData = element.dataset.document || element.getAttribute('data-document');
             if (documentData) {
@@ -2021,11 +2021,11 @@
                     // console.warn('Failed to parse document data from element');
                 }
             }
-            
+
             // Check for individual data attributes
             const id = element.dataset.documentId || element.dataset.id;
             const title = element.dataset.title || element.querySelector('.font-medium, h3, h4')?.textContent?.trim();
-            
+
             if (id && title) {
                 return {
                     id: id,
@@ -2033,7 +2033,7 @@
                     type: 'publication'
                 };
             }
-            
+
             return null;
         }
 
@@ -2042,13 +2042,13 @@
             // Option 1: Make an API call to get ID from slug
             // Option 2: Extract ID if slug contains ID
             // Option 3: Use slug as ID temporarily
-            
+
             // For now, let's try to extract ID from slug if it's in format like "title-123"
             const idMatch = slug.match(/-(\d+)$/);
             if (idMatch) {
                 return idMatch[1];
             }
-            
+
             // Otherwise, we'll need to make an API call or use the slug
             // console.log('📞 Making API call to resolve slug to ID:', slug);
             this.resolveDocumentFromSlug(slug).then(doc => {
@@ -2057,7 +2057,7 @@
                     this.playDocument(doc);
                 }
             });
-            
+
             return null;
         }
 
@@ -2065,7 +2065,7 @@
         async resolveDocumentFromSlug(slug) {
             try {
                 // console.log('🔍 Resolving document from slug:', slug);
-                
+
                 // Try the API endpoint
                 const response = await fetch(`/api/documents/by-slug/${slug}`);
                 if (response.ok) {
@@ -2073,25 +2073,25 @@
                     // console.log('✅ Resolved document from API:', docData.title);
                     return docData;
                 }
-                
+
                 // Fallback: try to extract from current page context
                 const pageContext = this.getDocumentFromPageContext(slug);
                 if (pageContext) {
                     // console.log('✅ Resolved document from page context:', pageContext.title);
                     return pageContext;
                 }
-                
+
             } catch (error) {
                 // console.error('❌ Failed to resolve document from slug:', error);
             }
-            
+
             return null;
         }
 
         getDocumentFromPageContext(slug) {
             // Try to find document data in the current page
             const scripts = document.querySelectorAll('script');
-            
+
             for (const script of scripts) {
                 if (script.textContent.includes(slug)) {
                     // Try to extract document data from script content
@@ -2107,7 +2107,7 @@
                     }
                 }
             }
-            
+
             return null;
         }
 
@@ -2115,25 +2115,25 @@
         async playDocument(docData) {
             try {
                 // console.log('🎵 Starting playDocument for:', docData.title);
-                
+
                 // Stop all existing audio
                 this.stopAllAudio();
-                
+
                 // Set current document
                 this.currentDocument = docData;
-                
+
                 // Show and update UI
                 this.showAudioPlayer();
                 this.updatePlayerUI(docData);
-                
+
                 // Load and play audio
                 await this.loadAndPlayAudio(docData);
-                
+
                 // Announce to screen reader
                 this.announceToScreenReader(`Memutar dokumen: ${docData.title}`);
-                
+
                 // console.log('✅ Document playback initiated successfully');
-                
+
             } catch (error) {
                 // console.error('❌ playDocument error:', error);
                 this.showErrorMessage('Gagal memutar dokumen audio');
@@ -2209,7 +2209,7 @@
 
             try {
                 // console.log(`🎵 Toggle play/pause - Current state: ${this.isPlaying ? 'Playing' : 'Paused'}`);
-                
+
                 if (this.isPlaying) {
                     // Pause audio
                     this.currentAudio.pause();
@@ -2220,16 +2220,16 @@
                     // Play audio with enhanced error handling
                     await this.playAudioSafely();
                 }
-                
+
                 this.updatePlayPauseButton();
-                
+
             } catch (error) {
                 // console.error('❌ Play/pause error:', error);
-                
+
                 // Handle specific AbortError
                 if (error.name === 'AbortError') {
                     // console.log('🔄 Handling AbortError - retrying playback');
-                    
+
                     // Wait a moment then retry
                     setTimeout(async () => {
                         try {
@@ -2252,23 +2252,23 @@
             if (!this.currentAudio) {
                 throw new Error('No audio element available');
             }
-            
+
             // Check if audio is ready
             if (this.currentAudio.readyState < 2) {
                 // console.log('⏳ Waiting for audio to be ready...');
                 await this.waitForAudioReady();
             }
-            
+
             // Check if source is loaded
             if (!this.currentAudio.src || this.currentAudio.src === window.location.href) {
                 // console.log('🔄 Reloading audio source...');
                 await this.loadAndPlayAudio(this.currentDocument);
                 return;
             }
-            
+
             // Play with promise handling
             const playPromise = this.currentAudio.play();
-            
+
             if (playPromise !== undefined) {
                 await playPromise;
                 this.isPlaying = true;
@@ -2282,27 +2282,27 @@
                 const timeout = setTimeout(() => {
                     reject(new Error('Audio ready timeout'));
                 }, 5000);
-                
+
                 if (this.currentAudio.readyState >= 2) {
                     clearTimeout(timeout);
                     resolve();
                     return;
                 }
-                
+
                 const onCanPlay = () => {
                     clearTimeout(timeout);
                     this.currentAudio.removeEventListener('canplay', onCanPlay);
                     this.currentAudio.removeEventListener('error', onError);
                     resolve();
                 };
-                
+
                 const onError = (error) => {
                     clearTimeout(timeout);
                     this.currentAudio.removeEventListener('canplay', onCanPlay);
                     this.currentAudio.removeEventListener('error', onError);
                     reject(error);
                 };
-                
+
                 this.currentAudio.addEventListener('canplay', onCanPlay, { once: true });
                 this.currentAudio.addEventListener('error', onError, { once: true });
             });
@@ -2312,80 +2312,80 @@
             if (!this.currentDocument || format === this.currentFormat) {
                 return;
             }
-            
+
             const wasPlaying = this.isPlaying;
             const currentTime = this.currentAudio ? this.currentAudio.currentTime : 0;
-            
+
             try {
                 // console.log(`🔄 Switching to ${format} format`);
-                
+
                 this.showLoadingState(true);
                 this.currentFormat = format;
-                
+
                 // Update format button states immediately
                 this.updateFormatButtons();
-                
+
                 // Pause current audio
                 if (this.currentAudio && !this.currentAudio.paused) {
                     this.currentAudio.pause();
                 }
-                
+
                 // Construct new URL
                 const audioUrl = `/audio/stream/${this.currentDocument.id}/${format}`;
                 // console.log('🔗 New format URL:', audioUrl);
-                
+
                 // Set new source
                 this.currentAudio.src = audioUrl;
                 this.currentAudio.load();
-                
+
                 // Wait for new format to load with better timeout handling
                 await new Promise((resolve, reject) => {
                     const timeout = setTimeout(() => {
                         reject(new Error('Format switch timeout after 30 seconds'));
                     }, 30000); // Increased timeout
-                    
+
                     const onCanPlay = () => {
                         clearTimeout(timeout);
                         this.currentAudio.removeEventListener('canplay', onCanPlay);
                         this.currentAudio.removeEventListener('error', onError);
-                        
+
                         // Restore position and playing state
                         if (currentTime > 0 && this.currentAudio.duration) {
                             this.currentAudio.currentTime = Math.min(currentTime, this.currentAudio.duration);
                         }
-                        
+
                         if (wasPlaying) {
                             // this.currentAudio.play().catch(console.error);
                         }
-                        
+
                         resolve();
                     };
-                    
+
                     const onError = (error) => {
                         clearTimeout(timeout);
                         this.currentAudio.removeEventListener('canplay', onCanPlay);
                         this.currentAudio.removeEventListener('error', onError);
                         reject(new Error(`Failed to load ${format} format: ${error.message || 'Unknown error'}`));
                     };
-                    
+
                     this.currentAudio.addEventListener('canplay', onCanPlay, { once: true });
                     this.currentAudio.addEventListener('error', onError, { once: true });
                 });
-                
+
                 this.showLoadingState(false);
                 this.updateSidebarFormat();
                 this.announceToScreenReader(`Format audio diubah ke ${format.toUpperCase()}`);
-                
+
                 // console.log(`✅ Successfully switched to ${format} format`);
-                
+
             } catch (error) {
                 // console.error('❌ Error switching format:', error);
                 this.showLoadingState(false);
-                
+
                 // Revert to previous format
                 this.currentFormat = format === 'mp3' ? 'flac' : 'mp3';
                 this.updateFormatButtons();
-                
+
                 this.showErrorMessage(`Gagal mengganti ke format ${format.toUpperCase()}. ${error.message}`);
             }
         }
@@ -2467,7 +2467,7 @@
             const seekTime = progress * this.currentAudio.duration;
 
             // console.log(`🎯 Seeking to ${this.formatTime(seekTime)} (${Math.round(progress * 100)}%)`);
-            
+
             this.performSeek(seekTime);
             this.lastSeekTime = now;
         }
@@ -2483,33 +2483,33 @@
                 this.isSeeking = true;
                 this.isWaitingForSeek = true;
                 this.seekStartTime = Date.now();
-                
+
                 // Show loading state immediately
                 this.showSeekingState(true);
-                
+
                 // Update progress bar visually (optimistic update)
                 this.updateProgressBarOptimistic(targetTime);
-                
+
                 // Perform the actual seek
                 await this.seekToTime(targetTime);
-                
+
             } catch (error) {
                 // console.error('Seek failed:', error);
                 this.showErrorMessage('Gagal melompat ke posisi tersebut');
-                
+
                 // Restore original progress bar position
                 this.updateProgressBar();
-                
+
             } finally {
                 this.isSeeking = false;
                 this.isWaitingForSeek = false;
                 this.showSeekingState(false);
-                
+
                 // Handle queued seek if any
                 if (this.targetSeekTime !== null) {
                     const queuedTime = this.targetSeekTime;
                     this.targetSeekTime = null;
-                    
+
                     // Slight delay to prevent overwhelming
                     setTimeout(() => {
                         this.performSeek(queuedTime);
@@ -2560,10 +2560,10 @@
                 // Perform the seek
                 try {
                     this.currentAudio.currentTime = targetTime;
-                    
+
                     // Update time display immediately for better UX
                     this.updateTimeDisplays();
-                    
+
                 } catch (error) {
                     cleanup();
                     reject(error);
@@ -2575,7 +2575,7 @@
         showSeekingState(show) {
             // Update progress bar with seeking class
             const progressBars = ['progress-bar', 'progress-bar-mobile'];
-            
+
             progressBars.forEach(id => {
                 const bar = document.getElementById(id);
                 if (bar) {
@@ -2624,7 +2624,7 @@
             if (!this.currentAudio || !this.currentAudio.duration) return;
 
             const progress = (seekTime / this.currentAudio.duration) * 100;
-            
+
             // Update both desktop and mobile progress bars
             const progressBars = ['progress-bar', 'progress-bar-mobile'];
             progressBars.forEach(id => {
@@ -2647,7 +2647,7 @@
         // Enhanced progress bar with drag support
         setupEnhancedProgressBar() {
             const progressContainers = ['progress-container', 'progress-container-mobile'];
-            
+
             progressContainers.forEach(containerId => {
                 const container = document.getElementById(containerId);
                 if (!container) return;
@@ -2669,42 +2669,42 @@
             // Mouse events
             container.addEventListener('mousedown', (e) => {
                 if (!this.currentAudio || !this.currentAudio.duration) return;
-                
+
                 isDragging = true;
                 dragStartX = e.clientX;
                 dragStartTime = this.currentAudio.currentTime;
-                
+
                 container.classList.add('dragging');
                 document.body.style.userSelect = 'none';
-                
+
                 e.preventDefault();
             });
 
             document.addEventListener('mousemove', (e) => {
                 if (!isDragging || !this.currentAudio || !this.currentAudio.duration) return;
-                
+
                 const rect = container.getBoundingClientRect();
                 const progress = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
                 const seekTime = progress * this.currentAudio.duration;
-                
+
                 // Update visual progress immediately
                 this.updateProgressBarOptimistic(seekTime);
-                
+
                 e.preventDefault();
             });
 
             document.addEventListener('mouseup', (e) => {
                 if (!isDragging) return;
-                
+
                 isDragging = false;
                 container.classList.remove('dragging');
                 document.body.style.userSelect = '';
-                
+
                 if (this.currentAudio && this.currentAudio.duration) {
                     const rect = container.getBoundingClientRect();
                     const progress = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
                     const seekTime = progress * this.currentAudio.duration;
-                    
+
                     this.performSeek(seekTime);
                 }
             });
@@ -2712,39 +2712,39 @@
             // Touch events for mobile
             container.addEventListener('touchstart', (e) => {
                 if (!this.currentAudio || !this.currentAudio.duration) return;
-                
+
                 const touch = e.touches[0];
                 isDragging = true;
                 dragStartX = touch.clientX;
-                
+
                 container.classList.add('dragging');
                 e.preventDefault();
             });
 
             container.addEventListener('touchmove', (e) => {
                 if (!isDragging || !this.currentAudio || !this.currentAudio.duration) return;
-                
+
                 const touch = e.touches[0];
                 const rect = container.getBoundingClientRect();
                 const progress = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
                 const seekTime = progress * this.currentAudio.duration;
-                
+
                 this.updateProgressBarOptimistic(seekTime);
                 e.preventDefault();
             });
 
             container.addEventListener('touchend', (e) => {
                 if (!isDragging) return;
-                
+
                 isDragging = false;
                 container.classList.remove('dragging');
-                
+
                 if (this.currentAudio && this.currentAudio.duration && e.changedTouches.length > 0) {
                     const touch = e.changedTouches[0];
                     const rect = container.getBoundingClientRect();
                     const progress = Math.max(0, Math.min(1, (touch.clientX - rect.left) / rect.width));
                     const seekTime = progress * this.currentAudio.duration;
-                    
+
                     this.performSeek(seekTime);
                 }
             });
@@ -2752,7 +2752,7 @@
             // Click for non-drag users
             container.addEventListener('click', (e) => {
                 if (isDragging) return; // Ignore clicks during drag
-                
+
                 this.handleProgressClick(e);
             });
         }
@@ -2763,7 +2763,7 @@
 
             // Set preload to metadata initially
             this.currentAudio.preload = 'metadata';
-            
+
             // Upgrade to auto preloading after user interaction
             const upgradePreload = () => {
                 if (this.currentAudio) {
@@ -2792,9 +2792,9 @@
                     const bufferedEnd = this.currentAudio.buffered.end(this.currentAudio.buffered.length - 1);
                     const duration = this.currentAudio.duration || 0;
                     const bufferPercent = duration > 0 ? (bufferedEnd / duration) * 100 : 0;
-                    
+
                     // console.log(`📊 Audio buffered: ${bufferPercent.toFixed(1)}%`);
-                    
+
                     // Update buffer indicator if exists
                     const bufferIndicator = document.getElementById('buffer-indicator');
                     if (bufferIndicator) {
@@ -2804,31 +2804,31 @@
             };
 
             this.currentAudio.addEventListener('progress', checkBuffer);
-            
+
             // Initial check
             setTimeout(checkBuffer, 1000);
         }
-        
+
         showSidebar() {
             const sidebar = document.getElementById('right-sidebar');
             const bottomPlayer = document.getElementById('bottom-audio-player');
-            
+
             if (sidebar) {
                 // Adjust bottom player margin to accommodate sidebar
                 if (bottomPlayer && window.innerWidth >= 768) {
                     bottomPlayer.style.right = '380px';
                     bottomPlayer.style.width = 'calc(100% - 380px)';
                 }
-                
+
                 sidebar.classList.remove('translate-x-full');
                 sidebar.classList.add('translate-x-0');
-                
+
                 // Focus management
                 const firstFocusable = sidebar.querySelector('button');
                 if (firstFocusable) {
                     setTimeout(() => firstFocusable.focus(), 300);
                 }
-                
+
                 this.announceToScreenReader('Detail dokumen dibuka');
                 // console.log('✅ Sidebar shown with proper spacing');
             }
@@ -2837,17 +2837,17 @@
         hideSidebar() {
             const sidebar = document.getElementById('right-sidebar');
             const bottomPlayer = document.getElementById('bottom-audio-player');
-            
+
             if (sidebar) {
                 // Reset bottom player to full width
                 if (bottomPlayer) {
                     bottomPlayer.style.right = '0';
                     bottomPlayer.style.width = '100%';
                 }
-                
+
                 sidebar.classList.add('translate-x-full');
                 sidebar.classList.remove('translate-x-0');
-                
+
                 this.announceToScreenReader('Detail dokumen ditutup');
                 // console.log('✅ Sidebar hidden and player restored to full width');
             }
@@ -2855,13 +2855,13 @@
 
         shareCurrentDocument() {
             if (!this.currentDocument) return;
-            
+
             const shareData = {
                 title: this.currentDocument.title,
                 text: `Dengarkan: ${this.currentDocument.title}`,
                 url: window.location.origin + `/dokumen/${this.currentDocument.slug || this.currentDocument.id}`
             };
-            
+
             if (navigator.share) {
                 // navigator.share(shareData).catch(console.error);
             } else {
@@ -2885,14 +2885,14 @@
             const speeds = [0.5, 0.75, 1.0, 1.25, 1.5, 2.0];
             const currentIndex = speeds.indexOf(this.playbackRate);
             const nextIndex = (currentIndex + 1) % speeds.length;
-            
+
             this.setPlaybackRate(speeds[nextIndex]);
-            
+
             const speedDisplay = document.getElementById('speed-display');
             if (speedDisplay) {
                 speedDisplay.textContent = `${speeds[nextIndex]}x`;
             }
-            
+
             this.announceToScreenReader(`Kecepatan playback: ${speeds[nextIndex]}x`);
         }
 
@@ -2905,7 +2905,7 @@
 
         downloadCurrentAudio() {
             if (!this.currentDocument) return;
-            
+
             const downloadUrl = `/documents/${this.currentDocument.id}/audio/${this.currentFormat}/download`;
             const link = document.createElement('a');
             link.href = downloadUrl;
@@ -2913,7 +2913,7 @@
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
+
             this.announceToScreenReader(`Mengunduh audio dalam format ${this.currentFormat.toUpperCase()}`);
         }
 
@@ -2942,51 +2942,51 @@
 
         updatePlayerUI(docData) {
             // console.log('🎨 Updating responsive player UI for:', docData?.title);
-            
+
             if (!docData) {
                 // console.warn('⚠️ No document data provided for UI update');
                 return;
             }
-            
+
             // Update desktop elements
             this.updateElementSafely('current-doc-title', docData.title);
             this.updateElementSafely('current-doc-indicator', docData.indicator?.name || 'Unknown');
             this.updateElementSafely('total-time-main', docData.audio_duration_formatted || '00:00');
             this.updateElementSafely('total-time-desktop', docData.audio_duration_formatted || '00:00');
-            
+
             // Update mobile elements
             this.updateElementSafely('current-doc-title-mobile', docData.title);
             this.updateElementSafely('current-doc-indicator-mobile', docData.indicator?.name || 'Unknown');
             this.updateElementSafely('total-time-mobile', docData.audio_duration_formatted || '00:00');
-            
+
             // Update cover images
             if (docData.id) {
                 const coverUrl = `/documents/${docData.id}/cover`;
-                
+
                 const coverDesktop = document.getElementById('current-doc-cover');
                 const coverMobile = document.getElementById('current-doc-cover-mobile');
-                
+
                 if (coverDesktop) this.updateImageSafely(coverDesktop, coverUrl, `Cover ${docData.title}`);
                 if (coverMobile) this.updateImageSafely(coverMobile, coverUrl, `Cover ${docData.title}`);
             }
-            
+
             // Update sidebar
             this.updateSidebarInfo(docData);
-            
+
             // console.log('✅ Responsive player UI updated successfully');
         }
 
         updateSidebarInfo(docData) {
             // console.log('🎨 Updating sidebar info for:', docData?.title);
-            
+
             if (!docData) {
                 // console.warn('⚠️ No document data provided for sidebar update');
                 return;
             }
-            
+
             const sidebarElements = {
                 'sidebar-doc-title': docData.title || 'Unknown Document',
-                'sidebar-doc-indicator': docData.indicator?.name || 'Unknown Category', 
+                'sidebar-doc-indicator': docData.indicator?.name || 'Unknown Category',
                 'sidebar-doc-description': docData.description || docData.excerpt || 'Tidak ada deskripsi tersedia.',
                 'sidebar-doc-date': docData.year ? `Tahun ${docData.year}` : 'Tahun tidak diketahui',
                 'sidebar-audio-duration': docData.audio_duration_formatted || docData.duration || '00:00',
@@ -3003,7 +3003,7 @@
                 const coverUrl = `/documents/${docData.id}/cover`;
                 this.updateImageSafely(sidebarCover, coverUrl, `Cover ${docData.title}`);
             }
-            
+
             // console.log('✅ Sidebar info updated successfully');
         }
 
@@ -3022,18 +3022,18 @@
                 // Show loading state
                 const loadingEl = document.getElementById('cover-loading');
                 if (loadingEl) loadingEl.classList.remove('hidden');
-                
+
                 imgElement.onload = () => {
                     if (loadingEl) loadingEl.classList.add('hidden');
                     // console.log('✅ Cover image loaded');
                 };
-                
+
                 imgElement.onerror = () => {
                     if (loadingEl) loadingEl.classList.add('hidden');
                     imgElement.src = '/images/default-document-cover.jpg';
                     // console.warn('⚠️ Cover image failed to load, using default');
                 };
-                
+
                 imgElement.src = src;
                 imgElement.alt = alt;
             }
@@ -3044,7 +3044,7 @@
                 document.getElementById('play-pause-btn'),
                 document.getElementById('play-pause-btn-mobile')
             ];
-            
+
             buttons.forEach(button => {
                 if (button) {
                     const icon = button.querySelector('i');
@@ -3064,7 +3064,7 @@
         updateFormatButtons() {
             const mp3Btn = document.getElementById('format-mp3');
             const flacBtn = document.getElementById('format-flac');
-            
+
             if (mp3Btn && flacBtn) {
                 if (this.currentFormat === 'mp3') {
                     mp3Btn.classList.add('bg-gray-700');
@@ -3082,23 +3082,23 @@
 
         updateProgressBar() {
             if (!this.currentAudio) return;
-            
+
             if (this.currentAudio.duration && this.currentAudio.duration > 0) {
                 const progress = (this.currentAudio.currentTime / this.currentAudio.duration) * 100;
                 const progressValue = `${Math.max(0, Math.min(100, progress))}%`;
-                
+
                 // Update desktop progress bar
                 const progressBarDesktop = document.getElementById('progress-bar');
                 if (progressBarDesktop) {
                     progressBarDesktop.style.width = progressValue;
                 }
-                
+
                 // Update mobile progress bar
                 const progressBarMobile = document.getElementById('progress-bar-mobile');
                 if (progressBarMobile) {
                     progressBarMobile.style.width = progressValue;
                 }
-                
+
                 // Update time displays
                 this.updateTimeDisplays();
             }
@@ -3106,27 +3106,27 @@
 
         updateTimeDisplays() {
             if (!this.currentAudio) return;
-            
+
             const currentTime = this.formatTime(this.currentAudio.currentTime);
             const totalTime = this.currentAudio.duration ? this.formatTime(this.currentAudio.duration) : '00:00';
-            
+
             // Update all time displays
             const timeElements = [
                 'current-time-main',
-                'current-time-desktop', 
+                'current-time-desktop',
                 'current-time-mobile'
             ];
-            
+
             const totalTimeElements = [
                 'total-time-main',
                 'total-time-desktop',
                 'total-time-mobile'
             ];
-            
+
             timeElements.forEach(id => {
                 this.updateElementSafely(id, currentTime);
             });
-            
+
             totalTimeElements.forEach(id => {
                 this.updateElementSafely(id, totalTime);
             });
@@ -3134,7 +3134,7 @@
 
         updateDurationDisplay() {
             if (!this.currentAudio || !this.totalTimeEl) return;
-            
+
             if (this.currentAudio.duration) {
                 this.totalTimeEl.textContent = this.formatTime(this.currentAudio.duration);
             }
@@ -3162,11 +3162,11 @@
         // Error Handling
         handleAudioError(error) {
             // console.error('💥 Audio error:', error);
-            
+
             if (this.retryCount < CONFIG.audio.maxRetries) {
                 this.retryCount++;
                 // console.log(`🔄 Retrying audio playback (${this.retryCount}/${CONFIG.audio.maxRetries})`);
-                
+
                 setTimeout(() => {
                     if (this.currentDocument) {
                         this.loadAndPlayAudio(this.currentDocument).catch(retryError => {
@@ -3190,7 +3190,7 @@
         showErrorMessage(message) {
             // console.error('🔔 Error:', message);
             this.announceToScreenReader(message);
-            
+
             // Show toast notification if available
             if (window.showToast) {
                 window.showToast(message, 'error');
@@ -3224,7 +3224,7 @@
 
                 // Also save to localStorage as backup
                 localStorage.setItem(`audio_progress_${this.currentDocument.id}`, JSON.stringify(progressData));
-                
+
             } catch (error) {
                 // console.warn('⚠️ Failed to save progress:', error);
             }
@@ -3258,10 +3258,10 @@
         // Utility Methods
         formatTime(seconds) {
             if (isNaN(seconds) || seconds < 0) return '00:00';
-            
+
             const minutes = Math.floor(seconds / 60);
             const remainingSeconds = Math.floor(seconds % 60);
-            
+
             return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
         }
 
@@ -3275,9 +3275,9 @@
                 announcement.setAttribute('aria-atomic', 'true');
                 announcement.className = 'sr-only';
                 announcement.textContent = message;
-                
+
                 document.body.appendChild(announcement);
-                
+
                 setTimeout(() => {
                     document.body.removeChild(announcement);
                 }, 1000);
@@ -3321,11 +3321,11 @@
         cleanup() {
             this.stopAllAudio();
             this.removeAudioEventListeners();
-            
+
             if (this.progressInterval) {
                 clearInterval(this.progressInterval);
             }
-            
+
             // Save final progress
             this.saveProgressToBackend();
         }
@@ -3337,17 +3337,17 @@
         diagnoseAudioPlayer() {
             // console.log('🔍 AUDIO PLAYER DIAGNOSIS:');
             // console.log('========================');
-            
+
             // Check DOM elements
             const playerCount = document.querySelectorAll('#bottom-audio-player').length;
             const sidebarCount = document.querySelectorAll('#right-sidebar').length;
-            
+
             // console.log(`📊 DOM Elements:
             // - Bottom Players: ${playerCount}
             // - Sidebars: ${sidebarCount}
             // - Audio Element: ${!!this.currentAudio}
             // - Player Reference: ${!!this.bottomPlayer}`);
-            
+
             // Check UI elements
             const uiElements = {
                 playPauseBtn: !!this.playPauseBtn,
@@ -3356,20 +3356,20 @@
                 currentTimeEl: !!this.currentTimeEl,
                 totalTimeEl: !!this.totalTimeEl
             };
-            
+
             // console.log('🎛️ UI Elements:', uiElements);
-            
+
             // Check current state
             // console.log(`🎵 Current State:
             // - Is Playing: ${this.isPlaying}
             // - Current Document: ${this.currentDocument?.title || 'None'}
             // - Current Format: ${this.currentFormat}
             // - Audio Source: ${this.currentAudio?.src || 'None'}`);
-            
+
             // Check event listeners
             const listenersWorking = this.verifyEventListeners();
             // console.log(`🎛️ Event Listeners Working: ${listenersWorking}`);
-            
+
             return {
                 domElementsOk: playerCount === 1 && sidebarCount === 1,
                 uiElementsOk: Object.values(uiElements).every(Boolean),
@@ -3383,7 +3383,7 @@
     // =============================================================================
     // ACCESSIBILITY MANAGER
     // =============================================================================
-    
+
     class AccessibilityManager {
         constructor() {
             this.announcements = [];
@@ -3410,7 +3410,7 @@
         setupScreenReaderSupport() {
             // Create aria-live region for announcements
             this.createLiveRegion();
-            
+
             // Announce page changes
             this.announcePageContent();
         }
@@ -3433,27 +3433,27 @@
                 height: 1px;
                 overflow: hidden;
             `;
-            
+
             document.body.appendChild(liveRegion);
         }
 
         announce(message, priority = 'polite') {
             if (!message || message === this.lastAnnouncement) return;
-            
+
             this.lastAnnouncement = message;
-            
+
             // Clear existing timeout
             if (this.announceTimeout) {
                 clearTimeout(this.announceTimeout);
             }
-            
+
             // Delay announcement to prevent overwhelming screen readers
             this.announceTimeout = setTimeout(() => {
                 const liveRegion = document.getElementById('aria-live-region');
                 if (liveRegion) {
                     liveRegion.setAttribute('aria-live', priority);
                     liveRegion.textContent = message;
-                    
+
                     // Clear after announcement
                     setTimeout(() => {
                         liveRegion.textContent = '';
@@ -3470,7 +3470,7 @@
             // Improve tab navigation for audio player
             const focusableElements = this.getFocusableElements();
             const currentIndex = focusableElements.indexOf(document.activeElement);
-            
+
             if (e.shiftKey && currentIndex === 0) {
                 // Shift+Tab from first element
                 e.preventDefault();
@@ -3520,15 +3520,15 @@
                 z-index: 10001;
                 transition: top 0.3s;
             `;
-            
+
             skipLink.addEventListener('focus', () => {
                 skipLink.style.top = '6px';
             });
-            
+
             skipLink.addEventListener('blur', () => {
                 skipLink.style.top = '-40px';
             });
-            
+
             document.body.insertBefore(skipLink, document.body.firstChild);
         }
 
@@ -3536,7 +3536,7 @@
             // Announce page title and main content
             const pageTitle = document.title;
             const mainHeading = document.querySelector('h1');
-            
+
             if (mainHeading) {
                 this.announce(`Halaman ${pageTitle}. ${mainHeading.textContent}`);
             } else {
@@ -3554,7 +3554,7 @@
     // =============================================================================
     // HEALTH MONITOR MANAGER
     // =============================================================================
-    
+
     class HealthMonitorManager {
         constructor() {
             this.healthChecks = [];
@@ -3581,12 +3581,12 @@
 
         startHealthChecks() {
             if (this.isMonitoring) return;
-            
+
             this.isMonitoring = true;
             this.healthInterval = setInterval(() => {
                 this.runHealthCheck();
             }, CONFIG.audio.healthCheckInterval);
-            
+
             // console.log('🟢 Health monitoring started');
         }
 
@@ -3610,7 +3610,7 @@
                 }
             } else {
                 // console.warn('⚠️ System health issues detected:', results.filter(r => !r.healthy));
-                
+
                 if (this.healthCheckCount >= this.maxHealthChecks) {
                     this.triggerRecovery(results);
                 }
@@ -3619,7 +3619,7 @@
 
         checkAudioManagerHealth() {
             const audioManager = window.unifiedApp?.modules.audioPlayer;
-            
+
             if (!audioManager) {
                 return { healthy: false, issue: 'Audio manager not found' };
             }
@@ -3654,8 +3654,8 @@
 
             // More lenient health check - allow some buttons to be unhandled
             if (audioButtons.length > 0 && handledButtons.length === 0) {
-                return { 
-                    healthy: false, 
+                return {
+                    healthy: false,
                     issue: 'Audio buttons not properly initialized',
                     details: {
                         totalButtons: audioButtons.length,
@@ -3666,8 +3666,8 @@
 
             // If less than 50% are handled, consider it unhealthy
             if (audioButtons.length > 0 && (handledButtons.length / audioButtons.length) < 0.5) {
-                return { 
-                    healthy: false, 
+                return {
+                    healthy: false,
                     issue: 'Many audio buttons not properly initialized',
                     details: {
                         totalButtons: audioButtons.length,
@@ -3685,7 +3685,7 @@
                 const memInfo = performance.memory;
                 const usedMB = memInfo.usedJSHeapSize / 1024 / 1024;
                 const limitMB = memInfo.jsHeapSizeLimit / 1024 / 1024;
-                
+
                 if (usedMB > limitMB * 0.8) {
                     return { healthy: false, issue: 'High memory usage', usage: usedMB, limit: limitMB };
                 }
@@ -3708,10 +3708,10 @@
 
         triggerRecovery(healthResults) {
             // console.warn('🚨 Triggering system recovery due to health issues');
-            
+
             // Reset health check count
             this.healthCheckCount = 0;
-            
+
             // Attempt targeted recovery based on issues
             healthResults.forEach(result => {
                 if (!result.healthy) {
@@ -3729,7 +3729,7 @@
                     this.recoverAudioButtons();
                     break;
                 default:
-                    // console.log('🔧 General recovery for:', result.issue);
+                // console.log('🔧 General recovery for:', result.issue);
             }
         }
 
@@ -3753,7 +3753,7 @@
                 document.querySelectorAll('[data-audio-handled]').forEach(btn => {
                     btn.removeAttribute('data-audio-handled');
                 });
-                
+
                 // Reinitialize buttons
                 if (window.unifiedApp?.modules.audioPlayer) {
                     window.unifiedApp.modules.audioPlayer.setupUniversalIntegration();
@@ -3767,7 +3767,7 @@
         getSystemHealth() {
             const results = this.healthChecks.map(check => check());
             const isHealthy = results.every(result => result.healthy);
-            
+
             return {
                 healthy: isHealthy,
                 checks: results,
@@ -3783,33 +3783,35 @@
     // =============================================================================
     // INITIALIZATION & GLOBAL EXPORTS
     // =============================================================================
-    
+
     // console.log('📦 Clean Unified Web Application Script Loaded - Ready for Initialization');
-    
+
     // Initialize when DOM is ready
     function initializeApplication() {
         // console.log('🚀 Starting Clean Unified Web Application initialization...');
-        
-        try {
-            // Create global unified app instance
-            window.unifiedApp = new UnifiedWebApplication();
-            
-            // Global backward compatibility functions
-            setupBackwardCompatibility();
-            
-            // Setup development tools (if in development)
-            if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
-                setupDevelopmentTools();
+        const role = document.getElementById('role-user')
+        if (role.textContent != 'admin') {
+            try {
+                // Create global unified app instance
+                window.unifiedApp = new UnifiedWebApplication();
+
+                // Global backward compatibility functions
+                setupBackwardCompatibility();
+
+                // Setup development tools (if in development)
+                if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
+                    setupDevelopmentTools();
+                }
+
+            } catch (error) {
+                // console.error('❌ Failed to initialize Clean Unified Web Application:', error);
             }
-            
-        } catch (error) {
-            // console.error('❌ Failed to initialize Clean Unified Web Application:', error);
         }
     }
 
     function setupBackwardCompatibility() {
         // Audio player compatibility
-        window.playDocumentAudio = function(documentData) {
+        window.playDocumentAudio = function (documentData) {
             if (window.unifiedApp?.modules?.audioPlayer) {
                 if (typeof documentData === 'object' && documentData.id) {
                     return window.unifiedApp.modules.audioPlayer.playDocument(documentData);
@@ -3819,29 +3821,29 @@
             }
             // console.error('❌ Audio player not available or invalid document data');
         };
-        
-        window.stopAudio = function() {
+
+        window.stopAudio = function () {
             if (window.unifiedApp?.modules?.audioPlayer) {
                 window.unifiedApp.modules.audioPlayer.stopCurrent();
                 window.unifiedApp.modules.audioPlayer.hidePlayer();
             }
         };
-        
-        window.toggleAudioPlayPause = function() {
+
+        window.toggleAudioPlayPause = function () {
             if (window.unifiedApp?.modules?.audioPlayer) {
                 window.unifiedApp.modules.audioPlayer.togglePlayPause();
             }
         };
 
         // Toast notifications compatibility
-        window.showToast = function(message, type = 'info', duration) {
+        window.showToast = function (message, type = 'info', duration) {
             if (window.unifiedApp?.modules?.toast) {
                 return window.unifiedApp.modules.toast.show(message, type, duration);
             }
         };
 
         // Accessibility compatibility
-        window.announceToScreenReader = function(message, priority = 'polite') {
+        window.announceToScreenReader = function (message, priority = 'polite') {
             if (window.unifiedApp?.modules?.accessibility) {
                 window.unifiedApp.modules.accessibility.announce(message, priority);
             }
@@ -3850,9 +3852,9 @@
 
     function setupDevelopmentTools() {
         // console.log('🔧 Setting up development tools...');
-        
+
         // Debug functions
-        window.debugUnifiedApp = function() {
+        window.debugUnifiedApp = function () {
             // console.group('🔍 Clean Unified App Debug Info');
             // console.log('Initialized:', window.unifiedApp?.initialized);
             // console.log('Modules:', Object.keys(window.unifiedApp?.modules || {}));
@@ -3860,7 +3862,7 @@
             // console.groupEnd();
         };
 
-        window.testAudioPlayer = function() {
+        window.testAudioPlayer = function () {
             if (window.unifiedApp?.modules?.audioPlayer) {
                 // console.log('🎵 Audio Player Available');
                 // console.log('State:', window.unifiedApp.modules.audioPlayer.getPlaybackState());
@@ -3869,7 +3871,7 @@
             }
         };
 
-        window.testToast = function() {
+        window.testToast = function () {
             if (window.unifiedApp?.modules?.toast) {
                 window.unifiedApp.modules.toast.success('Test Toast Message');
                 // console.log('✅ Toast system working');
@@ -3879,7 +3881,7 @@
         };
 
         // Global error reporting
-        window.reportAppError = function(error, context = 'general') {
+        window.reportAppError = function (error, context = 'general') {
             // console.error(`❌ App Error [${context}]:`, error);
             if (window.unifiedApp?.modules?.toast) {
                 window.unifiedApp.modules.toast.error(`Error in ${context}: ${error.message}`);
@@ -3894,7 +3896,7 @@
         announcement.className = 'sr-only';
         announcement.textContent = message;
         document.body.appendChild(announcement);
-        
+
         setTimeout(() => {
             if (document.body.contains(announcement)) {
                 document.body.removeChild(announcement);
@@ -3903,43 +3905,46 @@
     }
 
     // Keyboard shortcuts
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', function (e) {
         // Skip shortcuts if user is typing in an input
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
-            return;
-        }
-        
-        switch(e.key) {
-            case 'h':
-                if (!e.ctrlKey && !e.altKey && !e.metaKey) {
-                    window.location.href = '/';
-                    announceToScreenReader('Menuju ke beranda');
-                }
-                break;
-            case 'p':
-                if (!e.ctrlKey && !e.altKey && !e.metaKey) {
-                    window.location.href = '/publikasi';
-                    announceToScreenReader('Menuju ke halaman publikasi');
-                }
-                break;
-            case 'b':
-                if (!e.ctrlKey && !e.altKey && !e.metaKey) {
-                    window.location.href = '/brs';
-                    announceToScreenReader('Menuju ke halaman BRS');
-                }
-                break;
-            case ' ':
-                if (currentDocument && !e.ctrlKey && !e.altKey && !e.metaKey) {
-                    e.preventDefault();
-                    const playBtn = document.getElementById('play-pause-main-btn');
-                    if (playBtn) playBtn.click();
-                }
-                break;
-            case '?':
-                if (!e.ctrlKey && !e.altKey && !e.metaKey) {
-                    showKeyboardHelp();
-                }
-                break;
+        const role = document.getElementById('role-user')
+        if (role.textContent != 'admin') {
+            if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) {
+                return;
+            }
+
+            switch (e.key) {
+                case 'h':
+                    if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+                        window.location.href = '/';
+                        announceToScreenReader('Menuju ke beranda');
+                    }
+                    break;
+                case 'p':
+                    if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+                        window.location.href = '/publikasi';
+                        announceToScreenReader('Menuju ke halaman publikasi');
+                    }
+                    break;
+                case 'b':
+                    if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+                        window.location.href = '/brs';
+                        announceToScreenReader('Menuju ke halaman BRS');
+                    }
+                    break;
+                case ' ':
+                    if (currentDocument && !e.ctrlKey && !e.altKey && !e.metaKey) {
+                        e.preventDefault();
+                        const playBtn = document.getElementById('play-pause-main-btn');
+                        if (playBtn) playBtn.click();
+                    }
+                    break;
+                case '?':
+                    if (!e.ctrlKey && !e.altKey && !e.metaKey) {
+                        showKeyboardHelp();
+                    }
+                    break;
+            }
         }
     });
 
@@ -3985,7 +3990,7 @@
                 </button>
             </div>
         `;
-        
+
         document.body.appendChild(helpModal);
         announceToScreenReader('Menampilkan bantuan pintasan keyboard');
     }
@@ -3998,7 +4003,7 @@
     }
 
     // Cleanup on page unload
-    window.addEventListener('beforeunload', function() {
+    window.addEventListener('beforeunload', function () {
         if (window.unifiedApp && typeof window.unifiedApp.cleanup === 'function') {
             window.unifiedApp.cleanup();
         }
@@ -4007,7 +4012,7 @@
     // Final setup and logging
     setTimeout(() => {
         // console.log('✅ Clean Unified Web Application loaded successfully!');
-        
+
         // Check if voice features are loaded
         const voiceFeatures = [];
         if (window.AudioStatistik?.Voice?.Search) voiceFeatures.push('Voice Search');
@@ -4015,11 +4020,11 @@
         if (window.AudioStatistik?.Voice?.NavigationBRS) voiceFeatures.push('BRS Navigation');
         if (window.AudioStatistik?.Voice?.NavigationPublications) voiceFeatures.push('Publications Navigation');
         if (window.AudioStatistik?.Voice?.NavigationSearch) voiceFeatures.push('Search Navigation');
-        
+
         if (voiceFeatures.length > 0) {
             // console.log('🎤 Voice Features Loaded:', voiceFeatures.join(', '));
         }
-        
+
     }, 1000);
 
     // console.log('🔧 Audio Player UI Conflicts Fix loaded successfully!');

@@ -259,16 +259,18 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // Auto-update badge even when dropdown is closed
-    setInterval(async function() {
-        if (!isOpen) {
-            try {
-                const response = await fetch('{{ route("admin.progress.all") }}');
-                const data = await response.json();
-                updateNotificationBadge(data);
-            } catch (error) {
-                // console.error('Failed to fetch progress for badge:', error);
-            }
-        }
-    }, 5000); // Check every 5 seconds
+
+    // setInterval(async function() {
+    //     if (!isOpen) {
+    //         try {
+    //             const response = await fetch('{{ route("admin.progress.all") }}');
+    //             const data = await response.json();
+    //             updateNotificationBadge(data);
+    //         } catch (error) {
+    //             // console.error('Failed to fetch progress for badge:', error);
+    //         }
+    //     }
+    // }, 5000);
+     // Check every 5 seconds
 });
 </script>

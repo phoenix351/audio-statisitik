@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     // Namespace management
@@ -191,12 +191,12 @@
             };
             speechSynthesis.speak(msg);
         }
-        
+
         const audioPlay = () => {
             try {
                 const audioElement = document.querySelector('#main-audio, audio, .audio-player audio');
                 const playButton = document.querySelector('.play-pause-btn, .fa-play, .play-button, #play-btn');
-                
+
                 if (audioElement && audioElement.paused) {
                     speak('Audio diputar');
                     setTimeout(() => {
@@ -220,7 +220,7 @@
             try {
                 const audioElement = document.querySelector('#main-audio, audio, .audio-player audio');
                 const pauseButton = document.querySelector('.play-pause-btn, .fa-pause, .pause-button, #pause-btn');
-                
+
                 if (audioElement && !audioElement.paused) {
                     audioElement.pause();
                     speak('Audio dijeda');
@@ -580,7 +580,7 @@
                 /pilih dokumen nomor\s*(\d+|satu|dua|tiga|empat|lima|enam|tujuh|delapan|sembilan|sepuluh)/,
                 /pilih nomor\s*(\d+|satu|dua|tiga|empat|lima|enam|tujuh|delapan|sembilan|sepuluh)/
             ];
-            
+
             for (const pattern of selectPatterns) {
                 const match = command.match(pattern);
                 if (match) {
@@ -591,8 +591,8 @@
                         speak(`Membuka dokumen nomor ${docNumber}`, () => {
                             selectDocument(docNumber);
                             // 🆕 Tambahkan panduan setelah dokumen terbuka
-                            speak( 'Dokumen telah terbuka. Anda dapat mengucapkan, "putar audio" untuk mendengarkan dokumen ini, ' +
-                                    'atau ucapkan, "unduh audio" untuk mengunduh file suara.'
+                            speak('Dokumen telah terbuka. Anda dapat mengucapkan, "putar audio" untuk mendengarkan dokumen ini, ' +
+                                'atau ucapkan, "unduh audio" untuk mengunduh file suara.'
                             );
                         });
                     }
@@ -616,7 +616,7 @@
             if (command.includes("unduh audio") || command.includes("unduh mp3")) {
                 const buttons = Array.from(document.querySelectorAll("a, button"));
                 const downloadBtn = buttons.find(btn => btn.textContent.trim().toLowerCase().includes("unduh mp3"));
-                
+
                 if (downloadBtn) {
                     speak("Mengunduh audio", () => downloadBtn.click());
                 } else {
@@ -630,7 +630,7 @@
                 /putar dokumen nomor\s*(\d+|satu|dua|tiga|empat|lima|enam|tujuh|delapan|sembilan|sepuluh)/,
                 /putar nomor\s*(\d+|satu|dua|tiga|empat|lima|enam|tujuh|delapan|sembilan|sepuluh)/
             ];
-            
+
             for (const pattern of playPatterns) {
                 const match = command.match(pattern);
                 if (match) {
@@ -652,43 +652,43 @@
                 audioPlay();
                 return true;
             }
-            
+
             if (command.match(/^(pause|jeda)$/)) {
                 // console.log('⏸️ Audio pause command detected');
                 audioPause();
                 return true;
             }
-            
+
             if (command.match(/^(stop|berhenti)$/)) {
                 // console.log('⏹️ Audio stop command detected');
                 audioStop();
                 return true;
             }
-            
+
             if (command.match(/^(maju)$/)) {
                 // console.log('⏩ Audio seek forward command detected');
                 audioSeekForward();
                 return true;
             }
-            
+
             if (command.match(/^(mundur)$/)) {
                 // console.log('⏪ Audio seek backward command detected');
                 audioSeekBackward();
                 return true;
             }
-            
+
             if (command.match(/^(percepat)$/)) {
                 // console.log('⚡ Audio speed up command detected');
                 audioSpeedUp();
                 return true;
             }
-            
+
             if (command.match(/^(normal)$/)) {
                 // console.log('🔄 Audio normal speed command detected');
                 audioSpeedNormal();
                 return true;
             }
-            
+
             if (command.match(/^(unduh|download|simpan)$/)) {
                 // console.log('💾 Audio download command detected');
                 audioDownload();
@@ -724,7 +724,7 @@
                 let year = null;
                 if (yearMatch) {
                     year = yearMatch[0];
-                    query = query.replace(year, "").replace(/\btahun\b/gi, "").trim(); 
+                    query = query.replace(year, "").replace(/\btahun\b/gi, "").trim();
                 }
 
                 // 🔎 Cari indikator
@@ -795,7 +795,7 @@
                 nextPage();
                 return true;
             }
-            
+
             if (command.match(/^(halaman sebelumnya|page sebelumnya)/)) {
                 // console.log('⬅️ Previous page command detected');
                 previousPage();
@@ -836,11 +836,11 @@
 
             // console.log('🎤 Opening voice search modal...');
             isVoiceSearchActive = true;
-            
-            try { 
-                window.speechSynthesis.cancel(); 
-            } catch {}
-            
+
+            try {
+                window.speechSynthesis.cancel();
+            } catch { }
+
             const modal = document.getElementById('voice-search-modal');
             if (modal) {
                 modal.classList.remove('hidden');
@@ -848,27 +848,27 @@
                 // console.warn('⚠️ Voice search modal not found');
                 showVoiceIndicator();
             }
-            
+
             if (wakeRec && isWakeListeningActive) {
-                try { 
+                try {
                     wakeRec.stop();
                     isWakeListeningActive = false;
                 } catch (error) {
                     // console.warn('⚠️ Error stopping wake recognition:', error);
                 }
             }
-            
+
             setTimeout(() => {
                 if (!searchRec) {
                     // console.error('❌ Search recognition not initialized');
                     resetVoiceSearch();
                     return;
                 }
-                
+
                 try {
                     const state = searchRec.state || 'inactive';
                     // console.log('🔍 Search recognition state:', state);
-                    
+
                     if (state === 'inactive') {
                         searchRec.start();
                         // console.log('🎤 Search recognition started successfully');
@@ -917,16 +917,16 @@
         const speak = (text, callback = null) => {
             try {
                 window.speechSynthesis.cancel();
-                
+
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = "id-ID";
                 utterance.rate = 1.1;
                 utterance.volume = 0.8;
-                
+
                 if (callback) {
                     utterance.onend = callback;
                 }
-                
+
                 window.speechSynthesis.speak(utterance);
             } catch (error) {
                 // console.warn("⚠️ Speech synthesis error:", error);
@@ -939,7 +939,7 @@
             isVoiceSearchActive = false;
             hideModal();
             hideVoiceIndicator();
-            
+
             try {
                 if (searchRec && searchRec.state && searchRec.state !== 'inactive') {
                     searchRec.stop();
@@ -947,7 +947,7 @@
             } catch (error) {
                 // console.warn('⚠️ Error stopping search recognition:', error);
             }
-            
+
             try {
                 if (wakeRec && wakeRec.state && wakeRec.state !== 'inactive') {
                     wakeRec.stop();
@@ -956,7 +956,7 @@
             } catch (error) {
                 // console.warn('⚠️ Error stopping wake recognition:', error);
             }
-            
+
             setTimeout(() => {
                 restartWakeListening();
             }, 1000);
@@ -973,7 +973,7 @@
                     // console.error('❌ Wake recognition not initialized');
                     return;
                 }
-                
+
                 try {
                     const state = wakeRec.state || 'inactive';
                     if (state === 'inactive' && !isWakeListeningActive) {
@@ -993,10 +993,10 @@
         // Speech Recognition Setup
         let wakeRec = null;
         let searchRec = null;
-        
+
         try {
             const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            
+
             wakeRec = new SpeechRecognition();
             wakeRec.continuous = true;
             wakeRec.interimResults = false;
@@ -1006,7 +1006,7 @@
             searchRec.continuous = false;
             searchRec.interimResults = false;
             searchRec.lang = 'id-ID';
-            
+
             // console.log('🎤 Recognition objects created successfully');
         } catch (error) {
             // console.error('❌ Failed to create recognition objects:', error);
@@ -1021,13 +1021,13 @@
             // console.log('🎤 Search recognition started');
         };
 
-        searchRec.onresult = function(event) {
+        searchRec.onresult = function (event) {
             const rawQuery = event.results[0][0].transcript;
             const searchQuery = sanitizeQuery(rawQuery);
-            
+
             // console.log('🔍 Raw query:', rawQuery);
             // console.log('🔍 Sanitized query:', searchQuery);
-            
+
             isVoiceSearchActive = false;
             hideModal();
             hideVoiceIndicator();
@@ -1039,32 +1039,32 @@
                 fetch(searchUrl + `?query=${encodeURIComponent(searchQuery)}&voice=1`, {
                     headers: { "Accept": "application/json" }
                 })
-                .then(res => res.json())
-                .then(data => {
-                    if (data.voiceMessage) {
-                        speak(data.voiceMessage);
-                    }
-                })
-                .catch(err => {
-                    // console.warn('⚠️ Voice feedback fetch error:', err);
-                })
-                .finally(() => {
-                    setTimeout(() => {
-                        window.location.href = searchUrl + `?query=${encodeURIComponent(searchQuery)}`;
-                    }, 500);
-                });
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.voiceMessage) {
+                            speak(data.voiceMessage);
+                        }
+                    })
+                    .catch(err => {
+                        // console.warn('⚠️ Voice feedback fetch error:', err);
+                    })
+                    .finally(() => {
+                        setTimeout(() => {
+                            window.location.href = searchUrl + `?query=${encodeURIComponent(searchQuery)}`;
+                        }, 500);
+                    });
             } catch (error) {
                 // console.error('❌ Search error:', error);
                 window.location.href = searchUrl + `?query=${encodeURIComponent(searchQuery)}`;
             }
         };
 
-        searchRec.onerror = function(event) {
+        searchRec.onerror = function (event) {
             // console.log('❌ Search recognition error:', event.error);
             isVoiceSearchActive = false;
             hideModal();
             hideVoiceIndicator();
-            
+
             switch (event.error) {
                 case 'no-speech':
                     speak('Tidak ada suara yang terdeteksi, silakan coba lagi');
@@ -1075,11 +1075,11 @@
                 default:
                     speak('Terjadi kesalahan, silakan coba lagi');
             }
-            
+
             restartWakeListening();
         };
 
-        searchRec.onend = function() {
+        searchRec.onend = function () {
             // console.log('🎤 Search recognition ended');
             isVoiceSearchActive = false;
             hideModal();
@@ -1093,7 +1093,7 @@
             // console.log('👂 Wake word listening started');
         };
 
-        wakeRec.onresult = function(event) {
+        wakeRec.onresult = function (event) {
             const command = event.results[event.results.length - 1][0].transcript
                 .toLowerCase()
                 .trim();
@@ -1140,10 +1140,10 @@
             // console.log('❌ Command not recognized:', command);
         };
 
-        wakeRec.onerror = function(event) {
+        wakeRec.onerror = function (event) {
             // console.log('👂 Wake word error:', event.error);
             isWakeListeningActive = false;
-            
+
             setTimeout(() => {
                 if (!isVoiceSearchActive && wakeRec?.state === 'inactive') {
                     try {
@@ -1170,15 +1170,15 @@
         }
 
         // Keyboard shortcut (Ctrl key)
-        document.addEventListener('keydown', function(event) {
+        document.addEventListener('keydown', function (event) {
             if (event.ctrlKey && !event.shiftKey && !event.altKey && !event.metaKey) {
                 event.preventDefault();
-                
+
                 if (isVoiceSearchActive) {
                     // console.log('🔄 Voice search already active, ignoring Ctrl press');
                     return;
                 }
-                
+
                 // console.log('⌨️ Manual voice search activation');
                 openModal();
             }
@@ -1187,10 +1187,10 @@
         // Stop button in modal
         const stopBtn = document.getElementById('stop-listening');
         if (stopBtn) {
-            stopBtn.addEventListener('click', function() {
+            stopBtn.addEventListener('click', function () {
                 try {
                     searchRec.stop();
-                } catch {}
+                } catch { }
                 hideModal();
                 hideVoiceIndicator();
                 restartWakeListening();
@@ -1200,11 +1200,11 @@
         // Modal click outside to close
         const modal = document.getElementById('voice-search-modal');
         if (modal) {
-            modal.addEventListener('click', function(event) {
+            modal.addEventListener('click', function (event) {
                 if (event.target === modal) {
                     try {
                         searchRec.stop();
-                    } catch {}
+                    } catch { }
                     hideModal();
                     restartWakeListening();
                 }
@@ -1227,7 +1227,7 @@
         };
 
         window.resetVoiceSearch = resetVoiceSearch;
-        
+
         // Make all functions globally accessible for debugging
         window.selectDocument = selectDocument;
         window.playDocument = playDocument;
@@ -1265,16 +1265,16 @@
         //     // console.log('  - window.voiceRecognition:', !!window.voiceRecognition);
         //     console.groupEnd();
         // };
-        
+
         // window.debugDocumentButtons = () => {
         //     console.group('📄 Document Buttons Debug');
-            
+
         //     const eyeButtons = document.querySelectorAll('.fa-eye, [title*="Lihat"], [title*="View"], .view-btn');
         //     // console.log('Eye/View buttons found:', eyeButtons.length);
         //     eyeButtons.forEach((btn, index) => {
         //         // console.log(`  ${index + 1}:`, btn.outerHTML.substring(0, 100));
         //     });
-            
+
         //     const playButtons = document.querySelectorAll(
         //         '.play-document-btn, .fa-play, [title*="Play"], [title*="Putar"], .audio-play-btn, .play-btn'
         //     );
@@ -1282,18 +1282,18 @@
         //     playButtons.forEach((btn, index) => {
         //         // console.log(`  ${index + 1}:`, btn.outerHTML.substring(0, 100));
         //     });
-            
+
         //     console.groupEnd();
         // };
-        
+
         window.testDocumentCommand = (command) => {
             // console.log(`🧪 Testing command: "${command}"`);
             return processVoiceCommand(command.toLowerCase().trim());
         };
-        
+
         // window.testAllVoiceCommands = () => {
         //     // console.group('🧪 Testing All Voice Commands');
-            
+
         //     const testCommands = [
         //         'baca dokumen',
         //         'pilih dokumen nomor 1',
@@ -1315,13 +1315,13 @@
         //         'reset filter',
         //         'bantuan'
         //     ];
-            
+
         //     testCommands.forEach(command => {
         //         // console.log(`\n🔍 Testing: "${command}"`);
         //         const result = processVoiceCommand(command);
         //         // console.log(`${result ? '✅ SUCCESS' : '❌ FAILED'} - "${command}"`);
         //     });
-            
+
         //     // console.groupEnd();
         // };
 
@@ -1373,7 +1373,7 @@
                 try {
                     wakeRec.stop();
                     searchRec.stop();
-                } catch {}
+                } catch { }
                 return true;
             },
             forceStop: () => {
@@ -1394,16 +1394,16 @@
             // console.error('❌ Recognition objects not properly initialized');
             return;
         }
-        
+
         try {
             isWakeListeningActive = true;
             wakeRec.start();
             // console.log('✅ Enhanced Voice Search initialized successfully');
-            
+
             document.dispatchEvent(new CustomEvent('voiceSearchReady', {
                 detail: { instance: voiceSearchInstance }
             }));
-            
+
         } catch (error) {
             // console.error('❌ Failed to start wake word listening:', error);
             isWakeListeningActive = false;
@@ -1412,8 +1412,11 @@
 
     // Initialization
     function init() {
-        const searchRoute = document.body.dataset.searchUrl || '/search';
-        initializeEnhancedVoiceSearch(searchRoute);
+        const role = document.getElementById('role-user')
+        if (role.textContent != 'admin') {
+            const searchRoute = document.body.dataset.searchUrl || '/search';
+            initializeEnhancedVoiceSearch(searchRoute);
+        }
     }
 
     if (document.readyState === 'loading') {
@@ -1432,7 +1435,10 @@
 
     // console.log('✅ Enhanced Voice Search script loaded');
 
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeEnhancedVoiceSearch();
+    document.addEventListener('DOMContentLoaded', function () {
+        const role = document.getElementById('role-user')
+        if (role.textContent != 'admin') {
+            initializeEnhancedVoiceSearch()
+        }
     });
 })();
