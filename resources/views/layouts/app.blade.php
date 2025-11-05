@@ -157,7 +157,9 @@
 
     <!-- Main Content -->
     <main id="main-content" class="min-h-screen pb-32 pt-0" role="main">
+        @auth
         <div class="hidden">Akun ini : <span id="role-user">{{ auth()->user()->role }}</span></div>
+        @endauth 
         @yield('content')
     </main>
 

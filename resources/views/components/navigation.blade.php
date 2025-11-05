@@ -32,6 +32,7 @@
                     @if(request()->routeIs('documents.brs')) aria-current="page" @endif>
                     BRS
                 </a>
+                @auth
                 @if (!auth()->user()->isAdmin())
                 <button type="button"
                     data-voice-search
@@ -44,6 +45,7 @@
                     <span class="text-sound">Voice</span>
                 </button>
                 @endif
+                @endauth
                 @auth
                 @if(auth()->user()->isAdmin())
                 {{-- Progress Notifications untuk Admin --}}
@@ -173,6 +175,7 @@
                 class="block px-3 py-2 text-base font-medium text-gray-700 hover:text-blue-600 hover:bg-white rounded-md hover-sound text-sound {{ request()->routeIs('documents.brs') ? 'text-blue-600 bg-blue-50' : '' }}">
                 <i class="fas fa-newspaper mr-2" aria-hidden="true"></i>BRS
             </a>
+            @auth
             @if (!auth()->user()->isAdmin())
             <button type="button"
                 data-voice-search
@@ -182,6 +185,7 @@
                 <i class="fas fa-microphone mr-2" aria-hidden="true"></i>Voice Search
             </button>
             @endif
+            @endauth
             @auth
             @if(auth()->user()->isAdmin())
             {{-- Admin Mobile Menu --}}
