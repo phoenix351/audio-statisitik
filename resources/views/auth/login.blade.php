@@ -73,10 +73,10 @@
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="fas fa-lock text-gray-400" aria-hidden="true"></i>
                         </div>
-                        <button type="button" class="absolute inset-y-0 right-0 pr-3 flex items-center"
-                            onclick="togglePassword('password')" aria-label="Toggle password visibility">
-                            <i class="fas fa-eye text-gray-400 hover:text-gray-600" aria-hidden="true"
-                                id="password-toggle-icon"></i>
+                        <button id="password-toggle-icon" type="button"
+                            class="absolute inset-y-0 right-0 pr-3 flex items-center"
+                            aria-label="Toggle password visibility">
+                            <i class="fas fa-eye text-gray-400 hover:text-gray-600" aria-hidden="true"></i>
                         </button>
                     </div>
                 </div>
@@ -128,54 +128,4 @@
         </div>
     </div>
 
-    @push('scripts')
-        <script>
-            function togglePassword(fieldId) {
-                const field = document.getElementById(fieldId);
-                const icon = document.getElementById(fieldId + '-toggle-icon');
-
-                if (field.type === 'password') {
-                    field.type = 'text';
-                    icon.classList.replace('fa-eye', 'fa-eye-slash');
-                } else {
-                    field.type = 'password';
-                    icon.classList.replace('fa-eye-slash', 'fa-eye');
-                }
-            }
-
-            // Focus management for accessibility
-            document.addEventListener('DOMContentLoaded', function() {
-                // Focus on email field when page loads
-                const emailField = document.getElementById('email');
-                if (emailField) {
-                    emailField.focus();
-                }
-
-                // Disable voice search on this page by overriding global functions
-                window.recognition = null;
-
-                // Remove any existing voice search event listeners
-                document.removeEventListener('keydown', handleVoiceSearchKeydown);
-
-                // Announce page context to screen readers
-                const announcement = document.createElement('div');
-                announcement.setAttribute('aria-live', 'polite');
-                announcement.setAttribute('aria-atomic', 'true');
-                announcement.className = 'sr-only';
-                announcement.textContent = 'Halaman login admin. Pencarian suara tidak aktif di halaman ini.';
-                document.body.appendChild(announcement);
-
-                setTimeout(() => {
-                    if (document.body.contains(announcement)) {
-                        document.body.removeChild(announcement);
-                    }
-                }, 3000);
-            });
-
-            function handleVoiceSearchKeydown(e) {
-                // This function is defined to prevent errors, but does nothing on auth pages
-                return;
-            }
-        </script>
-    @endpush
 @endsection

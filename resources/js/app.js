@@ -10,11 +10,18 @@ import { initCoverImage } from "./cover-image";
 import { initCharCounter } from "./char-counter";
 import { bindCopyButtons } from "./clipboard";
 import initDocumentCreate from "./admin-documents-create";
+import { initLogin } from "./src/pages/login";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
   const routeName = body.dataset.routeName || "";
-  const enableVoice = body.dataset.enableVoice === "1";
+  const isAuthAdminRoute =
+    routeName.includes("login") ||
+    routeName.includes("admin") ||
+    routeName.includes("auth") ||
+    routeName.includes("register");
+
+  const enableVoice = !isAuthAdminRoute;
   const searchUrl = body.dataset.searchUrl || "/search";
 
   // Simpan ke global minimalis bila perlu oleh modul lain
@@ -71,5 +78,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (routeName.includes("documents") && routeName.includes("create")) {
     initDocumentCreate();
+  }
+  if (routeName.includes("login")) {
+    initLogin();
   }
 });
