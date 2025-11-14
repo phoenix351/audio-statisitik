@@ -1,0 +1,1171 @@
+[26-Sep-2025 01:49:54 UTC] PHP Fatal error:  Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.0.30. in /home/austatwe/public_html/vendor/composer/platform_check.php on line 24
+[26-Sep-2025 01:50:43 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[26-Sep-2025 01:51:08 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[26-Sep-2025 01:51:24 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[26-Sep-2025 01:53:12 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[26-Sep-2025 01:54:20 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[26-Sep-2025 01:54:24 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[26-Sep-2025 01:55:01 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[26-Sep-2025 02:00:37 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[29-Sep-2025 07:14:27 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 01:12:04 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 01:14:34 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 02:25:58 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 02:36:56 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 02:37:35 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 02:42:36 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 02:42:46 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 03:21:18 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 03:26:43 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 05:45:49 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 05:45:57 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 06:53:02 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[30-Sep-2025 06:53:19 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[22-Oct-2025 02:06:07 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[22-Oct-2025 02:06:12 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[22-Oct-2025 02:06:19 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[22-Oct-2025 02:08:37 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[22-Oct-2025 02:08:42 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[22-Oct-2025 02:08:49 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[27-Oct-2025 02:00:47 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162
+[27-Oct-2025 02:05:39 UTC] PHP Fatal error:  Uncaught ReflectionException: Class "config" does not exist in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1160
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1160): ReflectionClass->__construct('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#14 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#16 {main}
+
+Next Illuminate\Contracts\Container\BindingResolutionException: Target class [config] does not exist. in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php:1162
+Stack trace:
+#0 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(971): Illuminate\Container\Container->build('config')
+#1 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1077): Illuminate\Container\Container->resolve('config', Array, true)
+#2 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(902): Illuminate\Foundation\Application->resolve('config', Array)
+#3 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1057): Illuminate\Container\Container->make('config', Array)
+#4 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php(1822): Illuminate\Foundation\Application->make('config')
+#5 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(575): Illuminate\Container\Container->offsetGet('config')
+#6 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(629): Illuminate\Log\LogManager->getDefaultDriver()
+#7 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(125): Illuminate\Log\LogManager->parseDriver(NULL)
+#8 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Log/LogManager.php(703): Illuminate\Log\LogManager->driver()
+#9 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(403): Illuminate\Log\LogManager->error('Call to undefin...', Array)
+#10 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(366): Illuminate\Foundation\Exceptions\Handler->reportThrowable(Object(Error))
+#11 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(620): Illuminate\Foundation\Exceptions\Handler->report(Object(Error))
+#12 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Console/Kernel.php(199): Illuminate\Foundation\Console\Kernel->reportException(Object(Error))
+#13 /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1234): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 /home/austatwe/public_html/artisan(16): Illuminate\Foundation\Application->handleCommand(Object(Symfony\Component\Console\Input\ArgvInput))
+#15 {main}
+  thrown in /home/austatwe/public_html/vendor/laravel/framework/src/Illuminate/Container/Container.php on line 1162

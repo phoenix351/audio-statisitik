@@ -1,0 +1,122 @@
+/* resources/css/app.css (Tailwind v4) */
+
+/* Fonts & icons (atau pasang via npm kalau mau) */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css");
+
+/* Tailwind v4 core (preflight + utilities) */
+@import "tailwindcss";
+@import "./components/buttons.css";
+
+/* (Opsional) kalau mau cuma preflight saja:
+   @import "tailwindcss/preflight";
+*/
+
+/* Theme tokens (Tailwind v4 pakai @theme, bukan tailwind.config.js) */
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+@theme {
+  --font-inter: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  --color-primary-50: #eff6ff;
+  --color-primary-100: #dbeafe;
+  --color-primary-500: #3b82f6;
+  --color-primary-600: #2563eb;
+  --color-primary-700: #1d4ed8;
+  --color-primary-800: #1e40af;
+  --color-primary-900: #1e3a8a;
+}
+
+/* ==== Custom CSS kamu yang dulu di <style> ==== */
+.font-inter {
+  font-family: var(--font-inter);
+}
+
+.text-sound {
+  transition: color 0.1s ease;
+}
+.text-sound:hover {
+  color: #1d4ed8 !important;
+}
+
+* {
+  transition: color 0.15s ease, background-color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.sticky-navbar-compensation {
+  padding-top: 4rem;
+}
+html {
+  scroll-behavior: smooth;
+}
+
+header.sticky {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background-color: rgba(255, 255, 255, 0.95);
+  border-bottom: 1px solid rgba(229, 231, 235, 0.8);
+}
+header {
+  transition: all 0.3s ease;
+}
+
+.z-navbar {
+  z-index: 40;
+}
+.z-modal {
+  z-index: 50;
+}
+.z-dropdown {
+  z-index: 45;
+}
+
+#mobile-menu {
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+  max-height: 0;
+  opacity: 0;
+  overflow: hidden;
+}
+#mobile-menu:not(.hidden) {
+  max-height: 300px;
+  opacity: 1;
+}
+
+.text-sound:focus-within,
+.hover-sound:focus-within {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #a1a1a1;
+}
+
+@media print {
+  .no-print {
+    display: none !important;
+  }
+}
+
+#voice-search-modal {
+  pointer-events: none;
+}
+#voice-search-modal > .relative {
+  pointer-events: auto;
+}

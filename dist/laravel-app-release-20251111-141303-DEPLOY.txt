@@ -1,0 +1,4 @@
+App: laravel-app
+Release: laravel-app-release-20251111-141303
+Date: Tue 11/11/2025 14:16:49.34
+Git: de05521
