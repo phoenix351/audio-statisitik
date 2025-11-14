@@ -220,11 +220,5 @@
         </div>
     </div>
 
-    @push('scripts')
-        <script>
-            function clearAllFilters() {
-                window.location.href = "{{ route('documents.brs') }}";
-            }
-        </script>
-    @endpush
+
 @endsection

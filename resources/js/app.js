@@ -11,6 +11,8 @@ import { initCharCounter } from "./char-counter";
 import { bindCopyButtons } from "./clipboard";
 import initDocumentCreate from "./admin-documents-create";
 
+import { initSearch } from "./src/pages/search";
+
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
   const routeName = body.dataset.routeName || "";
@@ -71,5 +73,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (routeName.includes("documents") && routeName.includes("create")) {
     initDocumentCreate();
+  }
+  if (routeName.includes("search")) {
+    initSearch();
+  }
+  if (routeName.includes("brs") || routeName.includes("publikasi")) {
+    function clearAllFilters() {
+      window.location.href = window.location.pathname;
+    }
+    window.clearAllFilters = clearAllFilters;
   }
 });
