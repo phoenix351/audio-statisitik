@@ -1050,7 +1050,10 @@
       if (
         path.includes("login") ||
         path.includes("register") ||
-        path.includes("admin")
+        path.includes("admin") ||
+        path.includes("search") ||
+        path.includes("publikasi") ||
+        path.includes("brs")
       ) {
         return;
       }
