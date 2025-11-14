@@ -3,8 +3,7 @@
 @section('title', 'Edit Dokumen - Admin')
 
 @section('content')
-    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-
+    <div class="max-w-6xl lg:max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Header -->
         <div class="mb-8">
             <div class="flex items-center space-x-2 text-sm text-gray-500 mb-2">
@@ -318,6 +317,56 @@
                             <dd class="mt-1 text-gray-600 text-sound">{{ number_format($document->play_count) }}x</dd>
                         </div>
                     </div>
+                    @if (isset($conversionLogs) && $conversionLogs->isNotEmpty())
+                        <div class="mt-6">
+                            <h4 class="text-sm font-medium text-gray-700 mb-3 text-sound">
+                                <i class="fas fa-history mr-2 text-indigo-600" aria-hidden="true"></i>
+                                Riwayat Proses Konversi
+                            </h4>
+
+                            <div class="space-y-3 max-h-64 overflow-y-auto pr-1">
+                                @foreach ($conversionLogs as $log)
+                                    <div class="border border-gray-100 rounded-md p-3 bg-gray-50">
+                                        <div class="flex items-center justify-between">
+                                            <span
+                                                class="text-xs font-semibold 
+                            @if ($log->status === 'success') text-green-600
+                            @elseif ($log->status === 'error') text-red-600
+                            @elseif ($log->status === 'warning') text-yellow-600
+                            @else text-gray-600 @endif text-sound">
+                                                {{ strtoupper($log->status) }}
+                                            </span>
+                                            <span class="text-[11px] text-gray-400 text-sound">
+                                                {{ $log->created_at?->format('d M Y H:i') ?? '-' }}
+                                            </span>
+                                        </div>
+
+                                        @if ($log->stage)
+                                            <p class="text-xs text-gray-700 mt-1 font-medium text-sound">
+                                                Stage: {{ $log->stage }}
+                                            </p>
+                                        @endif
+
+                                        @if ($log->message)
+                                            <p class="text-xs text-gray-600 mt-1 text-sound">
+                                                {{ $log->message }}
+                                            </p>
+                                        @endif
+
+                                        @if (!empty($log->meta['percent'] ?? null))
+                                            <p class="text-[11px] text-gray-500 mt-1 text-sound">
+                                                Progress: {{ $log->meta['percent'] }}%
+                                            </p>
+                                        @endif
+                                    </div>
+                                @endforeach
+                            </div>
+
+                            <p class="mt-2 text-[11px] text-gray-400 text-sound">
+                                Menampilkan {{ $conversionLogs->count() }} log terakhir.
+                            </p>
+                        </div>
+                    @endif
 
                     @if ($document->status === 'failed')
                         <div class="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
