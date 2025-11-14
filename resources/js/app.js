@@ -83,13 +83,14 @@ document.addEventListener("DOMContentLoaded", () => {
   }
   if (routeName.includes("login")) {
     initLogin();
-  if (routeName.includes("search")) {
-    initSearch();
-  }
-  if (routeName.includes("brs") || routeName.includes("publikasi")) {
-    function clearAllFilters() {
-      window.location.href = window.location.pathname;
+    if (routeName.includes("search")) {
+      initSearch();
     }
-    window.clearAllFilters = clearAllFilters;
+    if (routeName.includes("brs") || routeName.includes("publikasi")) {
+      function clearAllFilters() {
+        window.location.href = window.location.pathname;
+      }
+      window.clearAllFilters = clearAllFilters;
+    }
   }
 });
