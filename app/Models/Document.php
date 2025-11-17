@@ -71,6 +71,7 @@ class Document extends Model
         static::deleting(function (Document $document) {
             if (is_null($document->deleted_at)) {
                 $document->deleted_by = auth()->id();
+                $document->slug = 'deleted-' . $document->uuid;
                 $document->deleted_reason = $document->deleted_reason
                     ?? request()->input('deleted_reason', 'delete by admin');
                 $document->saveQuietly();
