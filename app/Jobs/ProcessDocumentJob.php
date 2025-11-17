@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Storage;
+use App\Support\LogsDocumentConversion;
 
 class ProcessDocumentJob implements ShouldQueue
 {
-    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, LogsDocumentConversion;
 
     protected $documentId; // Change from $document to $documentId
     public $timeout = 3600;
@@ -43,10 +44,14 @@ class ProcessDocumentJob implements ShouldQueue
             $document = Document::find($this->documentId);
 
             if (!$document) {
-                Log::warning("🗑️ [Queue] Document {$this->documentId} not found in database, job will be deleted", [
-                    'document_id' => $this->documentId,
-                    'job_id' => $this->job->getJobId() ?? 'unknown'
-                ]);
+                $this->logConversion(
+                    status: 'error',
+                    stage: 'document_not_found',
+                    message: 'Dokumen tidak ditemukan di database, job dihentikan.',
+                    meta: [
+                        'document_id' => $this->documentId,
+                    ],
+                );
 
                 // Clean up any progress cache
                 $progressKey = "document_progress_{$this->documentId}";
@@ -59,13 +64,18 @@ class ProcessDocumentJob implements ShouldQueue
             }
 
             // Continue with normal processing
+
             $this->processDocument($document, $textExtraction, $ttsService, $startTime);
         } catch (ModelNotFoundException $e) {
             // Handle the specific case where model is not found
-            Log::warning("🗑️ [Queue] Document {$this->documentId} model not found during processing", [
-                'error' => $e->getMessage(),
-                'document_id' => $this->documentId
-            ]);
+            $this->logConversion(
+                status: 'error',
+                stage: 'model_not_found',
+                message: 'Model tidak ditemukan , job dihentikan.',
+                meta: [
+                    'document_id' => $this->documentId,
+                ],
+            );
 
             // Clean up and delete job
             $this->cleanupAndDelete();
@@ -90,14 +100,23 @@ class ProcessDocumentJob implements ShouldQueue
             // Validate document state
             $this->validateDocumentState($document);
 
-            $this->updateProgress($progressKey, 0, 'Memulai proses...', 'initializing');
+            // $this->updateProgress($progressKey, 0, 'Memulai proses...', 'initializing');
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 0,
+                message: "Memulai proses...",
+                stage: "initializing"
+            );
 
-            Log::info("🔄 [Queue] Starting processing for document {$documentId}", [
-                'attempt' => $this->attempts() + 1,
-                'max_attempts' => $this->tries,
-                'document_title' => $document->title,
-                'file_size' => $document->file_size
-            ]);
+
+            // Log::info("🔄 [Queue] Starting processing for document {$documentId}", [
+            //     'attempt' => $this->attempts() + 1,
+            //     'max_attempts' => $this->tries,
+            //     'document_title' => $document->title,
+            //     'file_size' => $document->file_size
+            // ]);
+
+            // log awal
 
             // Set initial processing state
             $document->update([
@@ -113,36 +132,86 @@ class ProcessDocumentJob implements ShouldQueue
             ]);
 
             // Step 1: Extract text (0% - 20%)
-            $this->updateProgress($progressKey, 5, 'Mengekstrak teks dari dokumen...', 'extracting_text');
-            $extractedText = $this->extractTextWithValidation($document, $textExtraction);
+            // $this->updateProgress($progressKey, 5, 'Mengekstrak teks dari dokumen...', 'extracting_text');
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 5,
+                message: "Mengekstrak teks dari dokumen...",
+                stage: "extracting_text"
+            );
 
+            $extractedText = $this->extractTextWithValidation($document, $textExtraction);
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 10,
+                message: "Selesai ekstrak teks dari dokumen...",
+                stage: "extracting_text"
+            );
             // Step 2: Prepare for TTS (20% - 25%)
-            $this->updateProgress($progressKey, 20, 'Mempersiapkan konversi audio...', 'preparing_tts');
+            // $this->updateProgress($progressKey, 20, 'Mempersiapkan konversi audio...', 'preparing_tts');
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 15,
+                message: "Mempersiapkan teks (cleaning and validating) untuk dikonversi ke audio...",
+                stage: "preparing_tts"
+            );
             $this->validateTextForTTS($extractedText);
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 20,
+                message: "Selesai cleaning and validating teks untuk dikonversi ke audio...",
+                stage: "preparing_tts"
+            );
 
             // Step 3: Convert to audio with progress updates (25% - 85%)
-            $this->updateProgress($progressKey, 25, 'Memulai konversi audio...', 'tts_starting');
+            // $this->updateProgress($progressKey, 25, 'Memulai konversi audio...', 'tts_starting');
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 25,
+                message: "Memulai konversi ke audio...",
+                stage: "tts_starting"
+            );
+
             $audioFiles = $this->convertToAudioWithProgress($document, $ttsService, $extractedText, $progressKey);
+            // $this->updateProgress(
+            //     progressKey: $progressKey,
+            //     percent: 80,
+            //     message: "Selesai konversi ke audio...",
+            //     stage: "tts_starting"
+            // );
 
             // Step 4: Generate cover if needed (85% - 90%)
-            $this->updateProgress($progressKey, 85, 'Membuat cover dokumen...', 'generating_cover');
+            // $this->updateProgress($progressKey, 85, 'Membuat cover dokumen...', 'generating_cover');
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 80,
+                message: "Membuat cover dokumen (kalau belum ada)...",
+                stage: "generating_cover"
+            );
             $this->generateCoverIfNeeded($document);
 
             // Step 5: Save final data (90% - 100%)
-            $this->updateProgress($progressKey, 90, 'Menyimpan hasil akhir...', 'saving_data');
+            // $this->updateProgress($progressKey, 90, 'Menyimpan hasil akhir...', 'saving_data');
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 90,
+                message: "Menyimpan hasil akhir...",
+                stage: "saving_data"
+            );
             $this->saveFinalResults($document, $audioFiles, $extractedText, $startTime);
 
-            $this->updateProgress($progressKey, 100, 'Proses selesai!', 'completed');
+            // $this->updateProgress($progressKey, 100, 'Proses selesai!', 'completed');
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 100,
+                message: "Alhamdulillah semua proses selesai!...",
+                stage: "completed!"
+            );
 
             // Keep progress for 10 minutes then clean up
             Cache::put($progressKey . '_completed', true, 600);
 
             $processingTime = round(microtime(true) - $startTime, 2);
-            Log::info("✅ [Queue] Document {$documentId} processing completed successfully", [
-                'processing_time' => $processingTime,
-                'attempt' => $this->attempts() + 1,
-                'final_status' => 'completed'
-            ]);
         } catch (\Exception $e) {
             $this->handleProcessingError($document, $e, $progressKey, $startTime);
         }
@@ -171,7 +240,7 @@ class ProcessDocumentJob implements ShouldQueue
     private function extractTextWithValidation(Document $document, TextExtractionService $textExtraction): string
     {
         try {
-            Log::info("📄 [Queue] Extracting text from document {$document->id}");
+            // Log::info("📄 [Queue] Extracting text from document {$document->id}");
 
             $disk = 'documents';
             $path = $document->file_path;              // e.g. '2025/10-document.pdf'
@@ -257,27 +326,46 @@ class ProcessDocumentJob implements ShouldQueue
         $wordCount = str_word_count($text);
 
         if ($textLength < 10) {
-            throw new \Exception("Extracted text too short for TTS conversion");
+            // throw new \Exception("Extracted text too short for TTS conversion");
+            $this->logConversion(
+                status: 'error',
+                stage: 'validate_tts',
+                message: 'Isi dokumen terlalu sedikit (kurang dari 10 karakter).',
+                meta: [
+                    'document_id' => $this->documentId,
+                ],
+            );
         }
 
         if ($textLength > 500000) { // 500KB limit
-            Log::warning("⚠️ [Queue] Very large text detected", [
-                'text_length' => $textLength,
-                'word_count' => $wordCount
-            ]);
+            $this->logConversion(
+                status: 'error',
+                stage: 'validate_tts',
+                message: 'Isi dokumen terlalu besar (kurang dari 500.000 karakter).',
+                meta: [
+                    'document_id' => $this->documentId,
+                ],
+            );
         }
     }
 
     private function convertToAudioWithProgress(Document $document, $ttsService, $extractedText, $progressKey): array
     {
         try {
-            Log::info("🎙️ [Queue] Starting TTS conversion for document {$document->id}");
+            // Log::info("🎙️ [Queue] Starting TTS conversion for document {$document->id}");
 
             // Estimate chunks for better progress tracking
             $estimatedChunks = max(1, ceil(strlen($extractedText) / 500));
             $progressPerChunk = 60 / $estimatedChunks; // 60% total for TTS (25% - 85%)
 
-            $this->updateProgress($progressKey, 25, "Memulai konversi audio (estimasi {$estimatedChunks} bagian)...", 'tts_starting');
+            // $this->updateProgress($progressKey, 25, "Memulai konversi audio (estimasi {$estimatedChunks} bagian)...", 'tts_starting');
+
+            $this->updateProgress(
+                progressKey: $progressKey,
+                percent: 25,
+                message: "Memulai konversi ke audio (estimasi {$estimatedChunks} bagian)...",
+                stage: "tts_starting"
+            );
 
             // Create progress callback with better error handling
             $progressCallback = function ($chunkIndex, $totalChunks, $chunkStatus) use ($progressKey, $progressPerChunk, $document) {
@@ -291,7 +379,13 @@ class ProcessDocumentJob implements ShouldQueue
                         $message .= " - Selesai";
                     }
 
-                    $this->updateProgress($progressKey, min($currentProgress, 84), $message, 'tts_processing');
+                    // $this->updateProgress($progressKey, min($currentProgress, 84), $message, 'tts_processing');
+                    $this->updateProgress(
+                        progressKey: $progressKey,
+                        percent: min($currentProgress, 84),
+                        message: $message,
+                        stage: "tts_processing"
+                    );
 
                     // Update document metadata with current progress
                     try {
@@ -441,54 +535,71 @@ class ProcessDocumentJob implements ShouldQueue
     {
         $processingTime = round(microtime(true) - $startTime, 2);
         $currentAttempt = $this->attempts() + 1;
-        $isLastAttempt = $currentAttempt >= $this->tries;
+        $isLastAttempt  = $currentAttempt >= $this->tries;
 
+        // Log ke file tetap boleh, biar dev punya jejak lengkap di laravel.log
         Log::error("❌ [Queue] Document {$document->id} processing failed", [
-            'error' => $e->getMessage(),
-            'attempt' => $currentAttempt,
-            'max_attempts' => $this->tries,
-            'is_last_attempt' => $isLastAttempt,
-            'processing_time' => $processingTime
+            'error'            => $e->getMessage(),
+            'attempt'          => $currentAttempt,
+            'max_attempts'     => $this->tries,
+            'is_last_attempt'  => $isLastAttempt,
+            'processing_time'  => $processingTime,
         ]);
 
-        // Update progress with error
-        $this->updateProgress($progressKey, -1, 'Error: ' . $e->getMessage(), 'failed');
+        // 🔹 Update progress + log ke database
+        $this->updateProgress(
+            progressKey: $progressKey,
+            percent: -1,
+            message: 'Error: ' . $e->getMessage(),
+            stage: $isLastAttempt ? 'failed_permanently' : 'failed_retrying',
+            status: 'error',
+            meta: [
+                'document_id'        => $document->id,
+                'attempt'            => $currentAttempt,
+                'max_attempts'       => $this->tries,
+                'is_last_attempt'    => $isLastAttempt,
+                'processing_time'    => $processingTime,
+                'exception_message'  => $e->getMessage(),
+                // kalau mau, bisa tambahkan:
+                // 'exception_trace' => $e->getTraceAsString(),
+            ]
+        );
 
-        // Update document with error information
+        // Update document dengan info error (seperti sebelumnya)
         $errorMetadata = array_merge($document->processing_metadata ?? [], [
-            'error' => $e->getMessage(),
-            'failed_at' => now(),
-            'failed_attempt' => $currentAttempt,
-            'processing_time_seconds' => $processingTime,
-            'processed_via' => 'queue'
+            'error'                     => $e->getMessage(),
+            'failed_at'                 => now(),
+            'failed_attempt'            => $currentAttempt,
+            'processing_time_seconds'   => $processingTime,
+            'processed_via'             => 'queue',
         ]);
 
         if ($isLastAttempt) {
             // Final failure - mark as failed
             $document->update([
-                'status' => 'failed',
+                'status'              => 'failed',
                 'processing_metadata' => array_merge($errorMetadata, [
-                    'final_status' => 'failed',
-                    'all_attempts_exhausted' => true
-                ])
+                    'final_status'          => 'failed',
+                    'all_attempts_exhausted' => true,
+                ]),
             ]);
 
             Log::error("💥 [Queue] Document {$document->id} permanently failed after {$this->tries} attempts");
         } else {
             // Temporary failure - reset to pending for retry
             $document->update([
-                'status' => 'pending',
+                'status'                => 'pending',
                 'processing_started_at' => null,
-                'processing_metadata' => array_merge($errorMetadata, [
-                    'will_retry' => true,
-                    'next_attempt' => $currentAttempt + 1
-                ])
+                'processing_metadata'   => array_merge($errorMetadata, [
+                    'will_retry'   => true,
+                    'next_attempt' => $currentAttempt + 1,
+                ]),
             ]);
 
             Log::warning("🔄 [Queue] Document {$document->id} will be retried (attempt {$currentAttempt}/{$this->tries})");
         }
 
-        // Always throw to trigger Laravel's retry mechanism
+        // Tetap lempar error supaya mekanisme retry Laravel jalan
         throw $e;
     }
 
@@ -531,27 +642,34 @@ class ProcessDocumentJob implements ShouldQueue
         }
     }
 
-    private function updateProgress(string $progressKey, int $percentage, string $message, string $stage): void
-    {
-        try {
-            $progressData = [
-                'percentage' => $percentage,
-                'message' => $message,
-                'stage' => $stage,
-                'updated_at' => now()->toISOString(),
-                'document_id' => $this->documentId,
-                'job_id' => $this->job->getJobId() ?? null
-            ];
+    protected function updateProgress(
+        string $progressKey,
+        int $percent,
+        string $message,
+        ?string $stage = null,
+        string $status = 'info',
+        array $meta = []
+    ) {
+        // 1. Update progress ke cache (tetap)
+        Cache::put($progressKey, [
+            'percent' => $percent,
+            'message' => $message,
+            'stage'   => $stage,
+            'time'    => now(),
+        ], 1800);
 
-            Cache::put($progressKey, $progressData, 1800); // 30 minutes
-
-        } catch (\Exception $e) {
-            Log::warning("⚠️ [Queue] Failed to update progress", [
-                'error' => $e->getMessage(),
-                'progress_key' => $progressKey
-            ]);
-        }
+        // 2. Logging ke database (pakai trait LogsDocumentConversion)
+        $this->logConversion(
+            status: $status,       // info|success|error
+            stage: $stage ?? 'progress_update',
+            message: $message,
+            meta: array_merge($meta, [
+                'percent' => $percent,
+                'progress_key' => $progressKey,
+            ])
+        );
     }
+
 
     private function generateCoverFromPDF(): ?string
     {

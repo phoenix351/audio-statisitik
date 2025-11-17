@@ -209,7 +209,11 @@ class DocumentManagementController extends Controller
     public function edit(Document $document)
     {
         $indicators = Indicator::where('is_active', true)->orderBy('name')->get();
-        return view('admin.documents.edit', compact('document', 'indicators'));
+        $conversionLogs = $document->conversionLogs()
+            ->latest('created_at')
+            ->limit(30)
+            ->get();
+        return view('admin.documents.edit', compact('document', 'indicators', 'conversionLogs'));
     }
 
     public function update(Request $request, Document $document)

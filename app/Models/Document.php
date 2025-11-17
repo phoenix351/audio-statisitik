@@ -96,6 +96,12 @@ class Document extends Model
     {
         return $this->hasMany(VisitorLog::class);
     }
+    // app/Models/Document.php
+
+    public function conversionLogs()
+    {
+        return $this->hasMany(DocumentConversionLog::class);
+    }
 
     // Scope methods
     public function scopeActive($query)
