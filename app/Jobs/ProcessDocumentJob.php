@@ -21,10 +21,12 @@ class ProcessDocumentJob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels, LogsDocumentConversion;
 
     protected $documentId; // Change from $document to $documentId
+    protected $tags = [];
     public $timeout = 3600;
     public $tries = 3;
     public $maxExceptions = 5;
     public $backoff = [60, 300, 900];
+
 
     public function __construct(Document $document)
     {
@@ -81,13 +83,14 @@ class ProcessDocumentJob implements ShouldQueue
             $this->cleanupAndDelete();
             return;
         } catch (\Exception $e) {
-            Log::error("❌ [Queue] Unexpected error processing document {$this->documentId}", [
-                'error' => $e->getMessage(),
-                'trace' => $e->getTraceAsString()
-            ]);
-
-            // Let Laravel handle retries for other errors
-            throw $e;
+            $this->logConversion(
+                status: 'error',
+                stage: 'unknown exception',
+                message: 'Error terjadi.' . $e->getMessage(),
+                meta: [
+                    'document_id' => $this->documentId,
+                ],
+            );
         }
     }
 
@@ -573,6 +576,21 @@ class ProcessDocumentJob implements ShouldQueue
             'processing_time_seconds'   => $processingTime,
             'processed_via'             => 'queue',
         ]);
+        $message = $e->getMessage();
+        if (
+            str_contains($message, '429') ||
+            str_contains(strtolower($message), 'rate limit') ||
+            str_contains(strtolower($message), 'quota')
+        ) {
+            // Jadwalkan ulang untuk besok (misal jam 02:00)
+            $tomorrow = now()->addDay()->setTime(2, 0);
+
+            self::dispatch($document, $progressKey)
+                ->delay($tomorrow);
+
+            // Optional: tandai status sementara di dokumen
+            // $this->document->update(['tts_status' => 'queued_tomorrow']);
+        }
 
         if ($isLastAttempt) {
             // Final failure - mark as failed

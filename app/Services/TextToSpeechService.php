@@ -165,8 +165,14 @@ class TextToSpeechService
                     }
 
                     // Abort if too many total failures
-                    if ($failedChunks >= $maxFailedChunks) {
-                        throw new \Exception("Terlalu banyak chunk gagal ({$failedChunks}/{$totalChunks}). Proses dihentikan.");
+                    if ($failedChunks > 0) {
+                        throw new \Exception(
+                            "Beberapa chunk TTS gagal diproses ({$failedChunks}/{$totalChunks}). " .
+                                "Konversi dianggap gagal demi menjaga kelengkapan audio."
+                        );
+                    }
+                    if (empty($audioSegments)) {
+                        throw new \Exception("Semua chunk TTS gagal diproses. Periksa koneksi internet dan quota API.");
                     }
 
                     // Skip failed chunk and continue
