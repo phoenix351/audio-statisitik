@@ -3,16 +3,16 @@ import "./voice-ui"; // util & helper voice system (di bawah)
 import "./scroll-top"; // contoh utility terpisah (opsional)
 import "./src/main"; // hasil refactor app1.js kamu
 import "./enhanced-voice-search"; // jika ada file terpisah untuk voice
-import "./auto-filter";
 import "./welcome-message";
 import { initApiMonitor } from "./api-test";
-import { initCoverImage } from "./cover-image";
 import { initCharCounter } from "./char-counter";
 import { bindCopyButtons } from "./clipboard";
 import initDocumentCreate from "./admin-documents-create";
 import { initLogin } from "./src/pages/login";
 
 import { initSearch } from "./src/pages/search";
+import { initAutoFilter } from "./auto-filter";
+import { initEditAdmin } from "./src/admin/edit";
 
 document.addEventListener("DOMContentLoaded", () => {
   const body = document.body;
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initApiMonitor();
   }
   if (routeName.includes("edit")) {
-    initCoverImage();
+    initEditAdmin();
     initCharCounter({
       textareaId: "description",
       counterId: "desc-count",
@@ -73,7 +73,7 @@ document.addEventListener("DOMContentLoaded", () => {
     initCharCounter({
       textareaId: "extracted_text",
       counterId: "extracted-count",
-      warnAt: 900,
+      warnAt: 45000,
     });
 
     bindCopyButtons("data-copy-url");
@@ -85,8 +85,10 @@ document.addEventListener("DOMContentLoaded", () => {
     initLogin();
     if (routeName.includes("search")) {
       initSearch();
+      initAutoFilter();
     }
     if (routeName.includes("brs") || routeName.includes("publikasi")) {
+      initAutoFilter();
       function clearAllFilters() {
         window.location.href = window.location.pathname;
       }

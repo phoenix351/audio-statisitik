@@ -166,13 +166,13 @@
                                     <textarea id="extracted_text" name="extracted_text" rows="4"
                                         placeholder="Berikan deskripsi singkat tentang isi dokumen..."
                                         class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 hover-sound"
-                                        maxlength="1000">{{ old('extracted_text', $document->extracted_text) }}</textarea>
+                                        maxlength="50000">{{ old('extracted_text', $document->extracted_text) }}</textarea>
                                     <div class="flex justify-between items-center mt-1">
                                         <p class="text-xs text-gray-500 text-sound">Deskripsi akan muncul di halaman detail
                                             dan
                                             hasil pencarian</p>
                                         <p class="text-xs text-gray-400 text-sound"><span
-                                                id="extracted-count">{{ strlen($document->extracted_text ?? '') }}</span>/1000
+                                                id="extracted-count">{{ strlen($document->extracted_text ?? '') }}</span>/50000
                                         </p>
                                     </div>
                                 </div>
@@ -248,6 +248,76 @@
                                 </div>
                             </div>
                         </div>
+                        {{-- Update File Dokumen --}}
+                        <div class="bg-white rounded-lg shadow-sm p-6 mt-8">
+                            <h2 class="text-xl font-semibold text-gray-900 mb-4 text-sound">
+                                <i class="fas fa-file-pdf mr-2 text-red-600" aria-hidden="true"></i>
+                                Update File Dokumen
+                            </h2>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                {{-- Dokumen Saat Ini --}}
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-700 mb-2 text-sound">Dokumen Saat Ini</h3>
+
+                                    @if ($document->file_path ?? false)
+                                        <div class="space-y-2">
+                                            <p class="text-xs text-gray-500 text-sound">
+                                                Dokumen ini masih tersimpan di sistem. Anda dapat melihat atau mengunduhnya
+                                                sebelum mengganti.
+                                            </p>
+
+                                            <a href="{{ Storage::disk('documents')->url($document->file_path) }}"
+                                                target="_blank"
+                                                class="inline-flex items-center px-4 py-2 rounded-md border border-blue-500 text-blue-600 text-sm hover:bg-blue-50 hover-sound">
+                                                <i class="fas fa-eye mr-2" aria-hidden="true"></i>
+                                                <span class="text-sound">Lihat / Download Dokumen Lama</span>
+                                            </a>
+                                        </div>
+                                    @else
+                                        <p class="text-xs text-gray-500 text-sound">
+                                            Belum ada file dokumen yang tersimpan.
+                                        </p>
+                                    @endif
+                                </div>
+
+                                {{-- Upload Dokumen Baru --}}
+                                <div>
+                                    <h3 class="text-sm font-medium text-gray-700 mb-2 text-sound">
+                                        Upload Dokumen Baru (Opsional)
+                                    </h3>
+
+                                    <div
+                                        class="border-2 border-dashed border-gray-300 rounded-lg p-4 hover:border-blue-400 transition-colors">
+                                        <label for="document_file" class="flex flex-col items-center cursor-pointer">
+                                            <div
+                                                class="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center mb-3">
+                                                <i class="fas fa-file-upload text-xl text-blue-600"
+                                                    aria-hidden="true"></i>
+                                            </div>
+
+                                            <span
+                                                class="text-sm font-medium text-gray-900 hover:text-blue-600 transition-colors text-sound">
+                                                Pilih file dokumen baru
+                                            </span>
+
+                                            <input type="file" id="document_file" name="document_file"
+                                                class="sr-only" accept=".pdf,.doc,.docx" />
+                                            <p class="mt-1 text-xs text-gray-500 text-sound">
+                                                PDF/DOC/DOCX, maksimal 20 MB. Biarkan kosong jika tidak ingin mengganti
+                                                dokumen.
+                                            </p>
+                                        </label>
+                                        <div id="document-file-info" class="mt-3 hidden">
+                                            <p class="text-xs text-gray-600 text-sound">
+                                                File terpilih: <span id="document-file-name" class="font-medium"></span>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <!-- Action Buttons -->
                         <div class="bg-white rounded-lg shadow-sm p-6">
@@ -374,7 +444,7 @@
                             <p class="text-xs text-red-600 mt-1 text-sound">Dokumen ini gagal diproses. Anda dapat mencoba
                                 memproses ulang.</p>
                             <form action="{{ route('admin.documents.reprocess', $document) }}" method="POST"
-                                class="mt-3">
+                                enctype="multipart/form-data" class="mt-3">
                                 @csrf
                                 <button type="submit"
                                     class="inline-flex items-center px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-md transition-colors hover-sound"
@@ -421,5 +491,6 @@
             </div>
         </div>
     </div>
+
 
 @endsection
