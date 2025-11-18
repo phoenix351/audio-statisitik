@@ -1,5 +1,5 @@
 // Auto Filter Script untuk Search, Publikasi, dan BRS
-document.addEventListener("DOMContentLoaded", function () {
+export function initAutoFilter() {
   const searchInput = document.getElementById("search");
   const queryInput = document.getElementById("query");
   const typeSelect = document.getElementById("type");
@@ -511,4 +511,4 @@ document.addEventListener("DOMContentLoaded", function () {
   showFilterStatus();
 
   // console.log('🔍 Enhanced Auto Filter System initialized - No page reload mode');
-});
+}

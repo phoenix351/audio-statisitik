@@ -218,26 +218,70 @@ class DocumentManagementController extends Controller
 
     public function update(Request $request, Document $document)
     {
-        $request->validate([
+        $validated =  $request->validate([
             'title' => 'required|string|max:255',
             'type' => ['required', Rule::in(['publication', 'brs'])],
             'year' => 'required|integer|min:2020|max:' . (date('Y') + 1),
             'indicator_id' => 'required|exists:indicators,id',
             'description' => 'nullable|string|max:1000',
+            'extracted_text' => 'nullable|string',
             'is_active' => 'boolean',
+            'cover_image'    => 'nullable|image|max:2048',
         ]);
 
-        $document->update([
-            'title' => $request->title,
-            'slug' => Str::slug($request->title . '-' . $request->year),
-            'type' => $request->type,
-            'year' => $request->year,
-            'indicator_id' => $request->indicator_id,
-            'description' => $request->description,
-            'is_active' => $request->boolean('is_active', true),
+        $document->fill([
+            'title'          => $validated['title'],
+            'type'           => $validated['type'],
+            'year'           => $validated['year'],
+            'indicator_id'   => $validated['indicator_id'],
+            'description'    => $validated['description'] ?? null,
+            'extracted_text' => $validated['extracted_text'] ?? null,
+            'is_active'      => $request->boolean('is_active'),
         ]);
+        // kalau cover baru diupload
+        if ($request->hasFile('cover_image')) {
+            // hapus cover lama kalau perlu
+            if ($document->cover_path && Storage::disk('documents')->exists($document->cover_path)) {
+                Storage::disk('documents')->delete($document->cover_path);
+            }
 
-        return redirect()->route('admin.documents.index')
+            $coverPath = $request->file('cover_image')->store('covers', 'documents');
+            $document->cover_path = $coverPath;
+        }
+        $shouldReprocess = false;
+        // kalau dokumen baru diupload
+        // dd([
+        //     'hasFile' => $request->hasFile('document_file'),
+        //     'file' => $request->file('document_file'),
+        //     'isValid' => optional($request->file('document_file'))->isValid(),
+        //     'error' => optional($request->file('document_file'))->getError(),
+        //     'errorMessage' => optional($request->file('document_file'))->getErrorMessage(),
+        //     '_FILES_raw' => $_FILES,
+        // ]);
+        if ($request->hasFile('document_file')) {
+            // hapus file lama kalau perlu
+            if ($document->file_path && Storage::disk('documents')->exists($document->file_path)) {
+                Storage::disk('documents')->delete($document->file_path);
+            }
+
+            $filePath = $request->file('document_file')->store('files', 'documents');
+            $document->file_path = $filePath;
+
+            $document->status      = 'pending';   // misal: pending | processing | success | failed
+            $document->mp3_path    = null;
+            $document->flac_path   = null;
+            $document->play_count  = 0;
+            $document->download_count = $document->download_count ?? 0;
+
+            $shouldReprocess = true;
+        }
+
+        $document->save();
+        if ($shouldReprocess) {
+            ProcessDocumentJob::dispatch($document);
+        }
+        return redirect()
+            ->route('admin.documents.edit', $document)
             ->with('success', 'Dokumen berhasil diperbarui.');
     }
 
