@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\Indicator;
 use App\Jobs\ProcessDocumentJob;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Log;
@@ -246,8 +247,8 @@ class DocumentManagementController extends Controller
         try {
             if ($document->trashed()) {
                 // Permanently delete both record & files
-                Storage::disk("documents")->delete($document->file_path);
-                Storage::disk("documents")->delete($document->cover_path);
+                Storage::disk(name: "documents")->delete($document->file_path);
+                Storage::disk(name: "documents")->delete($document->cover_path);
                 $document->forceDelete();
 
                 $message = 'Dokumen dihapus permanen.';
@@ -264,6 +265,62 @@ class DocumentManagementController extends Controller
 
             return redirect()->back()
                 ->with('error', 'Gagal menghapus dokumen. Error: ' . $e->getMessage());
+        }
+    }
+
+    public function recycleBin()
+    {
+        $documents = Document::with(['indicator', 'creator'])
+            ->onlyTrashed()
+            ->when(request('type'), fn($q) => $q->where('type', request('type')))
+            ->latest()
+            ->paginate(20);
+
+        return view('admin.documents.recycle-bin', compact('documents'));
+    }
+
+    public function restoreBin(Request $request)
+    {
+        $validated = $request->validate(['id' => 'required']);
+        try {
+            //code...
+            DB::beginTransaction();
+            $restoredCount = Document::onlyTrashed()
+                ->whereIn('uuid', $validated['id'])
+                ->restore();
+            DB::commit();
+            if ($restoredCount > 0)
+                return response()->json(['type' => 'success', 'message' => 'Berhasil melakukan restore ' . $restoredCount . ' dokumen']);
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return response()->json(['type' => 'error', 'message' => 'Error ketika restore, Error : ' . $th->getMessage()]);
+        }
+    }
+
+    public function forceDeleteBin(Request $request)
+    {
+        $validated = $request->validate(['id' => 'required']);
+        try {
+            //code...
+            DB::beginTransaction();
+            $documentsToDelete = Document::onlyTrashed()
+                ->whereIn('uuid', $validated['id'])
+                ->get(['uuid', 'file_path', 'cover_path']);
+            $deleteCount = Document::onlyTrashed()
+                ->whereIn('uuid', $validated['id'])
+                ->forceDelete();
+            DB::commit();
+            foreach ($documentsToDelete as $document) {
+                Storage::disk(name: "documents")->delete($document->file_path);
+                Storage::disk(name: "documents")->delete($document->cover_path);
+            }
+            if ($deleteCount > 0)
+                return response()->json(['type' => 'success', 'message' => 'Berhasil force delete ' . $deleteCount . ' dokumen']);
+        } catch (\Throwable $th) {
+            //throw $th;
+            DB::rollBack();
+            return response()->json(['type' => 'error', 'message' => 'Error ketika force delete, Error : ' . $th->getMessage()]);
         }
     }
 

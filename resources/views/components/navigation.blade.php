@@ -89,6 +89,16 @@
                                             <div class="text-xs text-gray-500">Kelola dokumen</div>
                                         </div>
                                     </a>
+                                    
+                                    <a href="{{ route('admin.recycle-bin') }}"
+                                        class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors hover-sound {{ request()->routeIs('admin.recycle-bin.*') ? 'bg-blue-50 text-blue-600' : '' }}"
+                                        role="menuitem">
+                                        <i class="fa-solid fa-trash mr-3 w-5 h-5" aria-hidden="true"></i>
+                                        <div>
+                                            <div class="font-medium text-sound">Recycle Bin</div>
+                                            <div class="text-xs text-gray-500">Kelola sampah</div>
+                                        </div>
+                                    </a>
 
                                     <a href="{{ route('admin.api-monitor') }}"
                                         class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors hover-sound {{ request()->routeIs('admin.api-monitor') ? 'bg-blue-50 text-blue-600' : '' }}"
