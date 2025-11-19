@@ -223,7 +223,7 @@ class DocumentManagementController extends Controller
             'title' => 'required|string|max:255',
             'type' => ['required', Rule::in(['publication', 'brs'])],
             'year' => 'required|integer|min:2020|max:' . (date('Y') + 1),
-            'indicator_id' => 'required|exists:indicators,id',
+            'indicator_id' => 'nullable|exists:indicators,id',
             'description' => 'nullable|string|max:1000',
             'extracted_text' => 'nullable|string',
             'is_active' => 'boolean',

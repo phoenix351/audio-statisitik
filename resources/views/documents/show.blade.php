@@ -9,9 +9,9 @@
         <div class="bg-white rounded-lg shadow-sm p-8 mb-8">
             <div class="flex flex-col lg:flex-row lg:items-start lg:space-x-8">
                 <!-- Document Cover -->
-                <div class="flex-shrink-0 mb-6 lg:mb-0">
-                    <img src="{{ Storage::disk('documents')->url($document->cover_path) }}?v={{ $document->updated_at->timestamp }}"
-                        alt="Cover {{ $document->title }}" class="w-48 h-64 object-cover rounded-lg shadow-md mx-auto lg:mx-0"
+                <div class="shrink-0 mb-6 lg:mb-0">
+                    <img src="{{ $document->cover_url }}" alt="Cover {{ $document->title }}"
+                        class="w-48 h-64 object-cover rounded-lg shadow-md mx-auto lg:mx-0"
                         onerror="this.src='/images/default-document-cover.jpg'">
                 </div>
 
@@ -47,7 +47,9 @@
                     <div class="space-y-2 text-gray-600 mb-6">
                         <p class="flex items-center">
                             <i class="fas fa-tag w-4 mr-3 text-gray-400" aria-hidden="true"></i>
-                            {{ $document->indicator->name }}
+                            @if ($document->indicator)
+                                {{ $document->indicator->name }}
+                            @endif
                         </p>
                         {{-- <p class="flex items-center">
                         <i class="fas fa-user w-4 mr-3 text-gray-400" aria-hidden="true"></i>

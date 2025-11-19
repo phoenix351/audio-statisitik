@@ -38,6 +38,21 @@ class TextExtractionService
         $this->currentKeyIndex = ($this->currentKeyIndex + 1) % count($this->aiApiKeys);
         Log::warning("🔄 Switching AI API Key {$old} → {$this->currentKeyIndex}");
     }
+    private function validateExtractedText(string $text): void
+    {
+        // Condition 1: Less than 15 characters
+        if (strlen(trim($text)) < 15) {
+
+            throw new \Exception("Extracted text is too short to be valid.");
+        }
+
+        // Condition 2: Fewer than 5 words (weak sentence)
+        $wordCount = str_word_count($text);
+        if ($wordCount < 5) {
+            throw new \Exception("Extracted text does not contain enough words to form a meaningful sentence.");
+        }
+    }
+
 
     public function extract(string $fileContent, string $mimeType): string
     {
@@ -56,6 +71,8 @@ class TextExtractionService
             } else {
                 $rawText = $this->extractRawText($fileContent, $mimeType);
             }
+
+            $this->validateExtractedText($rawText);
 
             $cleanText = $this->sanitizeText($rawText);
             Log::info('✅ Text extracted successfully', [
@@ -100,7 +117,7 @@ class TextExtractionService
         try {
             return $this->extractFromPath($tmpPath, $mimeType);
         } finally {
-            // tmpfile() auto-deletes on fclose
+            // tmpfile(ex) auto-deletes on fclose
             fclose($tmp);
         }
     }
@@ -189,7 +206,7 @@ class TextExtractionService
 
         // Strategy 2: Try alternative PDF libraries
         try {
-            return $this->extractWithAlternativeLibraries($fileContent);
+            return $this->extractWithPoppler($fileContent);
         } catch (\Exception $e) {
             Log::warning("⚠️ Alternative library extraction failed: " . $e->getMessage());
         }
@@ -328,38 +345,77 @@ class TextExtractionService
         }
     }
 
+    private function extractWithPoppler(string $fileContent): string
+    {
+        $tempPdf = tempnam(sys_get_temp_dir(), 'pdf_dec_');
+        $tempTxt = tempnam(sys_get_temp_dir(), 'txt_');
+        Log::info("📄 Using poppler-utils for PDF text extraction");
+
+        file_put_contents($tempPdf, $fileContent);
+
+        // Use poppler-utils (pdftotext)
+        $cmd = sprintf(
+            'pdftotext -layout %s %s 2>&1',
+            escapeshellarg($tempPdf),
+            escapeshellarg($tempTxt)
+        );
+
+        exec($cmd, $output, $code);
+
+        if ($code !== 0) {
+            unlink($tempPdf);
+            unlink($tempTxt);
+            throw new \Exception("pdftotext gagal: " . implode("\n", $output));
+        }
+
+        $text = file_get_contents($tempTxt);
+
+        unlink($tempPdf);
+        unlink($tempTxt);
+
+        return $this->sanitizeText($text);
+    }
+
     private function extractFromPdf(string $fileContent): string
     {
-        // Validasi apakah file benar-benar PDF
+        // Validasi PDF
         if (substr($fileContent, 0, 4) !== '%PDF') {
             throw new \Exception("File bukan PDF yang valid");
         }
 
         $tempFile = tempnam(sys_get_temp_dir(), 'pdf_');
-        file_put_contents($tempFile, $fileContent); // Jangan ubah $fileContent!
+        file_put_contents($tempFile, $fileContent);
 
         try {
-            // Coba ekstraksi dengan spipu/html-to-pdf parser
+            // 1) DETECT ENCRYPTION ------------------------------------------
+            $header = file_get_contents($tempFile, false, null, 0, 4096);
+            if (strpos($header, '/Encrypt') !== false) {
+                // langsung gunakan fallback karena Smalot tidak bisa
+                unlink($tempFile);
+                return $this->extractWithPoppler($fileContent);
+            }
+
+            // 2) TRY NORMAL SMALOT PARSER ----------------------------------
             $parser = new \Smalot\PdfParser\Parser();
             $pdf = $parser->parseFile($tempFile);
-            $text = $pdf->getText();
-
-            // Baru sanitize SETELAH ekstraksi teks berhasil
-            $text = $this->sanitizeText($text);
+            $text = trim($pdf->getText());
 
             unlink($tempFile);
-            return $text;
+
+            // Smalot returns "" for encrypted PDFs => fallback
+            if ($text === '') {
+                return $this->extractWithPoppler($fileContent);
+            }
+
+            return $this->sanitizeText($text);
         } catch (\Exception $e) {
             unlink($tempFile);
 
-            // Coba metode alternatif jika parser gagal
-            if (strpos($e->getMessage(), 'Invalid object reference') !== false) {
-                return $this->tryAlternativePdfExtraction($fileContent);
-            }
-
-            throw new \Exception('PDF extraction failed: ' . $e->getMessage());
+            // Fallback for any failure
+            return $this->extractWithPoppler($fileContent);
         }
     }
+
 
     private function tryAlternativePdfExtraction(string $fileContent): string
     {
