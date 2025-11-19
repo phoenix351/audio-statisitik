@@ -117,8 +117,7 @@
                                     <td class="px-6 py-4">
                                         <div class="flex items-center">
                                             <img class="h-10 w-8 rounded object-cover mr-3"
-                                                src="{{ Storage::disk('documents')->url($document->cover_path) }}?v={{ $document->updated_at->timestamp }}"
-                                                alt="Cover">
+                                                src="{{ $document->cover_url }}" alt="Cover">
                                             <div>
                                                 <div class="text-sm font-medium text-gray-900 text-hover">
                                                     {{ Str::limit($document->title, 50) }}</div>
@@ -182,7 +181,7 @@
                                                 </button>
                                             @endif
 
-                                            <a href="{{ route('documents.show', $document) }}"
+                                            <a href="{{ '/documents/uuid/' . $document->uuid }}"
                                                 class="text-green-600 hover:text-green-700 p-1 hover-sound"
                                                 title="Lihat Detail" target="_blank">
                                                 <i class="fas fa-eye" aria-hidden="true"></i>

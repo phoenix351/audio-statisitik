@@ -5,10 +5,10 @@
     data-document-id="{{ $document->id }}">
 
     <!-- Document Cover -->
-    <div class="aspect-[3/4] bg-gray-200 relative overflow-hidden shrink-0"> <img
-            src="{{ Storage::disk('documents')->url($document->cover_path) }}" alt="Cover {{ $document->title }}"
+    <div class="aspect-[3/4] bg-gray-200 relative overflow-hidden shrink-0"> <img src="{{ $document->cover_url }}"
+            alt="Cover {{ $document->title }}"
             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300" loading="lazy"
-            onerror="this.src='/images/default-document-cover.jpg'">
+            {{-- onerror="this.src='/images/default-document-cover.jpg'" --}}>
 
         <!-- Play Overlay -->
         <div

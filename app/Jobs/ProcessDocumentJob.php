@@ -15,6 +15,10 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Support\Facades\Storage;
 use App\Support\LogsDocumentConversion;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Schema;
+
 
 class ProcessDocumentJob implements ShouldQueue
 {
@@ -243,41 +247,136 @@ class ProcessDocumentJob implements ShouldQueue
     private function extractTextWithValidation(Document $document, TextExtractionService $textExtraction): string
     {
         try {
-            // Log::info("📄 [Queue] Extracting text from document {$document->id}");
-
             $disk = 'documents';
-            $path = $document->file_path;              // e.g. '2025/10-document.pdf'
+            $path = $document->file_path;
 
-            // --- 1) Determine source + mime
-            if ($path && Storage::disk($disk)->exists($path)) {
-                // Prefer mime from DB; fallback to disk mime
-                $mime = $document->file_mime_type ?: (Storage::disk($disk)->mimeType($path) ?? 'application/octet-stream');
+            $extractedText = null;
+            $mime = $document->file_mime_type ?: 'application/octet-stream';
 
-                // If your service supports path/stream, use it to avoid loading whole file in memory:
+            // 1) REMOTE URL (webapi BPS)
+            if ($path && filter_var($path, FILTER_VALIDATE_URL)) {
+
+                // 1. Siapkan lokasi file permanen di disk 'documents'
+                $documentsDisk = Storage::disk('documents');
+
+                $year = $document->year ?? now()->year;
+                $fileDir = "files/{$year}";
+                $documentsDisk->makeDirectory($fileDir);
+
+                // Tentukan ekstensi (default pdf)
+                $ext = 'pdf';
+                if ($document->file_mime_type && stripos($document->file_mime_type, 'pdf') === false) {
+                    $ext = 'bin';
+                }
+
+                $fileName         = "{$document->id}-document.{$ext}";
+                $fileRelativePath = "{$fileDir}/{$fileName}";
+                $fileAbsolutePath = $documentsDisk->path($fileRelativePath);
+
+                // 2. Download langsung ke file permanen (bukan ke memory)
+                $response = Http::withHeaders([
+                    'User-Agent' => config('app.name') . ' text-extractor',
+                    'Accept'     => 'application/pdf,application/octet-stream;q=0.9,*/*;q=0.8',
+                ])
+                    ->timeout(120) // boleh dinaikkan lagi kalau perlu
+                    ->sink($fileAbsolutePath)
+                    ->get($path);
+
+                $status     = $response->status();
+                $remoteMime = $response->header('Content-Type');
+
+                Log::info('🌐 [Queue] Remote PDF fetched', [
+                    'url'         => $path,
+                    'http_status' => $status,
+                    'remote_mime' => $remoteMime,
+                    'stored_path' => $fileRelativePath,
+                ]);
+
+                if ($status !== 200) {
+                    // Kalau gagal, hapus file yang mungkin terpotong
+                    if (is_file($fileAbsolutePath)) {
+                        @unlink($fileAbsolutePath);
+                    }
+                    throw new \Exception("Failed to download remote PDF (status {$status})");
+                }
+
+                // 3. Cek ukuran file hasil download
+                $downloadedSize = @filesize($fileAbsolutePath);
+                if ($downloadedSize === false || $downloadedSize === 0) {
+                    if (is_file($fileAbsolutePath)) {
+                        @unlink($fileAbsolutePath);
+                    }
+                    throw new \Exception("Remote PDF is empty or could not be downloaded");
+                }
+
+                // Sesuaikan mime
+                if ($remoteMime && stripos($remoteMime, 'pdf') !== false) {
+                    $mime = $document->file_mime_type ?: $remoteMime;
+                }
+
+                // 4. Update kolom path & checksum di Document (PERMANEN)
+                $document->file_path = $fileRelativePath;
+
+                if (Schema::hasColumn('documents', 'file_checksum')) {
+                    $document->file_checksum = hash_file('sha256', $fileAbsolutePath);
+                }
+
+                $document->save(); // simpan perubahan
+
+                // 5. Ekstrak teks dari file lokal permanen
                 if (method_exists($textExtraction, 'extractFromPath')) {
-                    $absolutePath = Storage::disk($disk)->path($path);
+                    $extractedText = $textExtraction->extractFromPath($fileAbsolutePath, $mime);
+                } elseif (method_exists($textExtraction, 'extractFromStream')) {
+                    $stream = fopen($fileAbsolutePath, 'rb');
+                    try {
+                        $extractedText = $textExtraction->extractFromStream($stream, $mime);
+                    } finally {
+                        if (is_resource($stream)) {
+                            fclose($stream);
+                        }
+                    }
+                } else {
+                    $content       = file_get_contents($fileAbsolutePath);
+                    $extractedText = $textExtraction->extract($content, $mime);
+                }
+            }
+
+            // 2) LOCAL FILE (path internal)
+            elseif ($path && Storage::disk($disk)->exists($path)) {
+                $mime = $document->file_mime_type
+                    ?: (Storage::disk($disk)->mimeType($path) ?? 'application/octet-stream');
+
+                if (method_exists($textExtraction, 'extractFromPath')) {
+                    $absolutePath  = Storage::disk($disk)->path($path);
                     $extractedText = $textExtraction->extractFromPath($absolutePath, $mime);
                 } elseif (method_exists($textExtraction, 'extractFromStream')) {
                     $stream = Storage::disk($disk)->readStream($path);
                     try {
                         $extractedText = $textExtraction->extractFromStream($stream, $mime);
+                    } catch (\Exception $e) {
+                        $document->update([
+                            'status' => 'failed',
+                        ]);
+                        // throw $e;
                     } finally {
-                        if (is_resource($stream)) fclose($stream);
+                        if (is_resource($stream)) {
+                            fclose($stream);
+                        }
                     }
                 } else {
-                    // Legacy signature: content + mime
-                    $content = Storage::disk($disk)->get($path);  // loads into memory
+                    $content       = Storage::disk($disk)->get($path);
                     $extractedText = $textExtraction->extract($content, $mime);
                 }
+
+                // 3) LEGACY file_content
             } elseif (!empty($document->file_content)) {
-                // --- 2) Legacy fallback (old rows still have file_content)
-                $mime = $document->file_mime_type ?: 'application/octet-stream';
+                $mime          = $document->file_mime_type ?: 'application/octet-stream';
                 $extractedText = $textExtraction->extract($document->file_content, $mime);
             } else {
-                throw new \Exception("File not found on disk and no legacy file_content present.");
+                throw new \Exception("File not found on disk / remote and no legacy file_content present.");
             }
 
-            // --- 3) Validate result
+            // 4) VALIDASI HASIL
             if (empty($extractedText)) {
                 throw new \Exception("Text extraction returned empty result");
             }
@@ -288,35 +387,53 @@ class ProcessDocumentJob implements ShouldQueue
             Log::info("✅ [Queue] Text extracted successfully", [
                 'text_length' => $textLength,
                 'word_count'  => $wordCount,
+                'mime'        => $mime,
+                'source'      => filter_var($path, FILTER_VALIDATE_URL) ? 'remote_url' : 'local_disk',
             ]);
 
-            // --- 4) Persist result
             $document->update([
-                'extracted_text'     => $extractedText,
-                'text_extracted_at'  => now(),
+                'extracted_text'    => $extractedText,
+                'text_extracted_at' => now(),
             ]);
 
             return $extractedText;
         } catch (\Exception $e) {
+            $msg = strtolower($e->getMessage());
+
             Log::error("❌ [Queue] Text extraction failed", [
                 'error'     => $e->getMessage(),
                 'file_type' => $document->file_mime_type,
                 'file_size' => $document->file_size,
                 'disk'      => 'documents',
                 'path'      => $document->file_path,
+                'is_remote' => $document->file_path && filter_var($document->file_path, FILTER_VALIDATE_URL),
             ]);
 
-            // protected PDF heuristics (keep yours)
-            $msg = strtolower($e->getMessage());
-            if (
-                str_contains($msg, 'secured') || str_contains($msg, 'password') ||
-                str_contains($msg, 'protected') || str_contains($msg, 'encrypted')
-            ) {
-
+            // Khusus: timeout saat download (cURL error 28)
+            if (str_contains($msg, 'curl error 28')) {
+                // Bisa ditandai sebagai "download_timeout", terserah implementasimu
                 $this->handleProtectedPdfError($document, $e->getMessage());
+
                 throw new \Exception(
-                    "PDF terproteksi: Dokumen memiliki proteksi keamanan dan memerlukan tindakan manual. " .
-                        "Silakan hapus proteksi PDF atau konversi ke format lain sebelum upload ulang."
+                    "Gagal mengunduh PDF dari webapi.bps.go.id (timeout). " .
+                        "Server sedang lambat atau koneksi tidak stabil. Silakan coba lagi beberapa saat lagi."
+                );
+            }
+
+            // Kasus lain: PDF terlindungi / tidak bisa diekstrak otomatis
+            if (
+                str_contains($msg, 'secured') ||
+                str_contains($msg, 'password') ||
+                str_contains($msg, 'protected') ||
+                str_contains($msg, 'encrypted') ||
+                str_contains($msg, 'empty pdf data given')
+            ) {
+                $this->handleProtectedPdfError($document, $e->getMessage());
+
+                throw new \Exception(
+                    "PDF tidak dapat diekstrak secara otomatis: " .
+                        "Dokumen kemungkinan terproteksi, full gambar, atau formatnya tidak didukung. " .
+                        "Silakan lakukan ekstraksi teks manual dan unggah kembali."
                 );
             }
 

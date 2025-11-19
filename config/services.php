@@ -48,4 +48,9 @@ return [
         'bin' => env('FFMPEG_BIN', 'ffmpeg'),   // biarkan 'ffmpeg' agar bisa pakai PATH
         'probe' => env('FFPROBE_BIN', 'ffprobe'),
     ],
+    'bps' => [
+        'key'    => env('BPS_API_KEY'),
+        'domain' => env('BPS_DOMAIN', '7100'),
+        'base_url' => 'https://webapi.bps.go.id/v1/api',
+    ],
 ];

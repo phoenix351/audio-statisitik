@@ -15,6 +15,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\IndicatorController;
 use App\Http\Controllers\Admin\ApiMonitorController;
 use App\Http\Controllers\Admin\DocumentManagementController;
+use App\Http\Controllers\BPSDocumentController;
 
 // Public routes (no authentication required)
 Route::view('/unsupported', 'unsupported')->name('unsupported');
@@ -84,10 +85,11 @@ Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 // Admin routes (protected by auth and admin middleware)
 Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/api-bps', function () {
-        return view('admin.api-bps');
-    })->name('api-bps');
+    Route::get('/bps-documents', [BPSDocumentController::class, 'index'])
+        ->name('bps-documents.index');
 
+    Route::post('/bps-documents/import', [BPSDocumentController::class, 'import'])
+        ->name('bps-documents.import');
     // Document management
     Route::resource('documents', DocumentManagementController::class);
     Route::post('/documents/{document}/reprocess', [DocumentManagementController::class, 'reprocess'])->name('documents.reprocess');

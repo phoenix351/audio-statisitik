@@ -200,13 +200,13 @@
 
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                                 <!-- Current Cover -->
+
                                 <div>
                                     <h3 class="text-sm font-medium text-gray-700 mb-2 text-sound">Cover Saat Ini</h3>
-                                    <img id="current-doc-cover"
-                                        src="{{ Storage::disk('documents')->url($document->cover_path) }}?v={{ $document->updated_at->timestamp }}"
+                                    <img id="current-doc-cover" src="{{ $document->cover_url }}"
                                         alt="Cover {{ $document->title }}"
                                         class="w-full aspect-[3/4] object-cover rounded-lg border border-gray-300"
-                                        onerror="this.src='/images/default-document-cover.jpg'">
+                                        {{-- onerror="this.src='/images/default-document-cover.jpg'" --}}>
                                 </div>
 
                                 <!-- New Cover Upload -->
@@ -267,8 +267,7 @@
                                                 sebelum mengganti.
                                             </p>
 
-                                            <a href="{{ Storage::disk('documents')->url($document->file_path) }}"
-                                                target="_blank"
+                                            <a href="{{ $document->file_url }}" target="_blank"
                                                 class="inline-flex items-center px-4 py-2 rounded-md border border-blue-500 text-blue-600 text-sm hover:bg-blue-50 hover-sound">
                                                 <i class="fas fa-eye mr-2" aria-hidden="true"></i>
                                                 <span class="text-sound">Lihat / Download Dokumen Lama</span>

@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Document extends Model
@@ -66,6 +68,7 @@ class Document extends Model
             }
         });
     }
+    /** @var User $user */
     protected static function booted()
     {
         static::deleting(function (Document $document) {
@@ -200,7 +203,11 @@ class Document extends Model
 
         // Include indicator data
         if ($this->relationLoaded('indicator')) {
-            $array['indicator'] = $this->indicator->toArray();
+            if (isset($this->indicator)) {
+
+                $array['indicator'] = $this->indicator->toArray();
+            }
+            $array['indicator'] = "belum ada";
         }
 
         return $array;
@@ -259,5 +266,51 @@ class Document extends Model
 
         $isValidUtf8 = mb_check_encoding($text, 'UTF-8');
         return trim($text);
+    }
+    /**
+     * Resolve local path or external URL.
+     *
+     * @param string|null $path
+     * @return string|null
+     */
+    protected function resolvePath(?string $path): ?string
+    {
+        if (!$path) return null;
+
+        if (\Illuminate\Support\Str::startsWith($path, ['http://', 'https://'])) {
+            return $path;
+        }
+
+        /** @var \Illuminate\Filesystem\FilesystemAdapter $disk */
+        $disk = \Illuminate\Support\Facades\Storage::disk('documents');
+        return $disk->url($path);
+    }
+
+    // --- Accessors ---
+    public function getCoverUrlAttribute(): ?string
+    {
+        return $this->resolvePath($this->cover_path);
+    }
+    protected function coverUrl(): Attribute
+    {
+        return Attribute::get(function ($value, $attributes) {
+            // Ambil nilai cover_path dari atribut mentah
+            $path = $attributes['cover_path'] ?? null;
+
+            return $this->resolvePath($path);
+        });
+    }
+    // 3. Accessor file_url
+    protected function fileUrl(): Attribute
+    {
+        return Attribute::get(function ($value, $attributes) {
+            $path = $attributes['file_path'] ?? null;
+
+            return $this->resolvePath($path);
+        });
+    }
+    public function getMp3UrlAttribute(): ?string
+    {
+        return $this->resolvePath($this->mp3_path);
     }
 }
