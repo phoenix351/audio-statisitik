@@ -45,6 +45,9 @@ Route::prefix('documents')->name('documents.')->group(function () {
     Route::middleware(['auth', 'admin'])->group(function () {
         Route::post('/metadata/update-legacy/{document}', [DocumentController::class, 'updateLegacyMetadata'])->name('metadata.update-legacy');
         Route::post('/metadata/batch-update-legacy', [DocumentController::class, 'batchUpdateLegacyMetadata'])->name('metadata.batch-update-legacy');
+
+        //recycle bin
+
     });
 });
 
@@ -92,7 +95,9 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(fun
     Route::resource('documents', DocumentManagementController::class);
     Route::post('/documents/{document}/reprocess', [DocumentManagementController::class, 'reprocess'])->name('documents.reprocess');
     Route::get('/documents/{document}/status', [DocumentManagementController::class, 'getStatus'])->name('documents.status');
-
+    Route::get('/recycle-bin', [DocumentManagementController::class, 'recycleBin'])->name('recycle-bin');
+    Route::post('/recycle-bin/restore', [DocumentManagementController::class, 'restoreBin'])->name('restore-bin');
+    Route::post('/recycle-bin/force-delete', [DocumentManagementController::class, 'forceDeleteBin'])->name('force-delete-bin');
     // Progress monitoring
     Route::get('/progress/all', [ProgressController::class, 'getAllProgress'])->name('progress.all');
     Route::get('/progress/{document}', [ProgressController::class, 'getDocumentProgress'])->name('progress.document');

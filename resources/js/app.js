@@ -9,7 +9,7 @@ import { initCharCounter } from "./char-counter";
 import { bindCopyButtons } from "./clipboard";
 import initDocumentCreate from "./admin-documents-create";
 import { initLogin } from "./src/pages/login";
-
+import { initRecycleBinFunction } from "./recycle-bin";
 import { initSearch } from "./src/pages/search";
 import { initAutoFilter } from "./auto-filter";
 import { initEditAdmin } from "./src/admin/edit";
@@ -81,6 +81,7 @@ document.addEventListener("DOMContentLoaded", () => {
   if (routeName.includes("documents") && routeName.includes("create")) {
     initDocumentCreate();
   }
+  if (routeName.includes('admin.recycle-bin')) initRecycleBinFunction();
   if (routeName.includes("login")) {
     initLogin();
     if (routeName.includes("search")) {
