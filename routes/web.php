@@ -16,6 +16,10 @@ use App\Http\Controllers\Admin\IndicatorController;
 use App\Http\Controllers\Admin\ApiMonitorController;
 use App\Http\Controllers\Admin\DocumentManagementController;
 use App\Http\Controllers\BPSDocumentController;
+use App\Http\Middleware\SetDbActor;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 // Public routes (no authentication required)
 Route::view('/unsupported', 'unsupported')->name('unsupported');
@@ -86,7 +90,7 @@ Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Admin routes (protected by auth and admin middleware)
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin'])->group(function () {
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', SetDbActor::class])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/bps-documents', [BPSDocumentController::class, 'index'])
         ->name('bps-documents.index');
