@@ -289,8 +289,18 @@ class DocumentManagementController extends Controller
                 ->whereIn('uuid', $validated['id'])
                 ->restore();
             DB::commit();
-            if ($restoredCount > 0)
-                return response()->json(['type' => 'success', 'message' => 'Berhasil melakukan restore ' . $restoredCount . ' dokumen']);
+            $documents = Document::with(['indicator', 'creator'])
+                ->onlyTrashed()
+                ->latest()
+                ->paginate(20);
+            $html = view('admin.documents.partial-from-recycle-bin', ['documents' => $documents])->render();
+            if ($restoredCount > 0) {
+                return response()->json([
+                    'type' => 'success',
+                    'message' => 'Berhasil melakukan restore ' . $restoredCount . ' dokumen',
+                    'html' => $html,
+                ]);
+            }
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();
@@ -315,8 +325,18 @@ class DocumentManagementController extends Controller
                 Storage::disk(name: "documents")->delete($document->file_path);
                 Storage::disk(name: "documents")->delete($document->cover_path);
             }
-            if ($deleteCount > 0)
-                return response()->json(['type' => 'success', 'message' => 'Berhasil force delete ' . $deleteCount . ' dokumen']);
+            $documents = Document::with(['indicator', 'creator'])
+                ->onlyTrashed()
+                ->latest()
+                ->paginate(20);
+            $html = view('admin.documents.partial-from-recycle-bin', ['documents' => $documents])->render();
+            if ($deleteCount > 0) {
+                return response()->json([
+                    'type' => 'success',
+                    'message' => 'Berhasil force delete ' . $deleteCount . ' dokumen',
+                    'html' => $html,
+                ]);
+            }
         } catch (\Throwable $th) {
             //throw $th;
             DB::rollBack();

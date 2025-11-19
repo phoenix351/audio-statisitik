@@ -1,29 +1,87 @@
 var checkedRow = []
 const initRecycleBinFunction = () => {
     document.querySelectorAll('.document-table').forEach((row) => {
-        row.addEventListener('click', (e) => {
-            const documentUuid = row.getAttribute('data-document-uuid')
-            const checkbox = row.querySelector(`#check-${documentUuid}`)
-            checkbox.checked = !checkbox.checked
-            handleSelection(documentUuid, checkbox.checked)
+        const uuid = row.getAttribute('data-document-uuid')
+        const restoreButton = row.querySelector(`#restore-single-${uuid}`)
+        const deleteButton = row.querySelector(`#forcedelete-single-${uuid}`)
+
+        if (restoreButton) {
+            restoreButton.addEventListener('click', (e) => {
+                const singleSelection = [uuid]
+                restoreData(singleSelection)
+            })
+        }
+        if (deleteButton) {
+            deleteButton.addEventListener('click', () => {
+                const singleSelection = [uuid]
+                forceDelete(singleSelection)
+            })
+        }
+    })
+    //     row.addEventListener('click', (e) => {
+    //         const documentUuid = row.getAttribute('data-document-uuid')
+    //         const checkbox = row.querySelector(`#check-${documentUuid}`)
+    //         checkbox.checked = !checkbox.checked
+    //         handleSelection(documentUuid, checkbox.checked)
+    //         document.querySelectorAll('.button-checked').forEach((btn) => {
+    //             if (checkedRow.length > 0)
+    //                 btn.classList.remove('hidden')
+    //             else btn.classList.add('hidden')
+    //         })
+    //     }
+
+    document.querySelectorAll('input[type="checkbox"]').forEach((e) => {
+        e.addEventListener('click', () => {
+            let uuid = e.getAttribute('data-document-uuid')
+            if (e.checked) checkedRow.push(uuid)
+            else checkedRow = checkedRow.filter(x => x != uuid)
             document.querySelectorAll('.button-checked').forEach((btn) => {
-                if (checkedRow.length > 0)
-                    btn.classList.remove('hidden')
+                if (checkedRow.length > 0) btn.classList.remove('hidden')
                 else btn.classList.add('hidden')
             })
         })
     })
     document.getElementById('restore-batch').addEventListener('click', () => {
+        checkedRow = addSelectedBox()
         restoreData(checkedRow)
+        checkedRow = []
+        removeChecked()
+        hiddenAgenda()
     })
     document.getElementById('force-delete-batch').addEventListener('click', () => {
+        checkedRow = addSelectedBox()
         forceDelete(checkedRow)
+        checkedRow = []
+        removeChecked()
+        hiddenAgenda()
     })
+}
+const addSelectedBox = () => {
+    let selected = []
+    document.querySelectorAll('input[type="checkbox"]').forEach((e) => {
+        if (e.checked) {
+            const uuid = e.getAttribute('data-document-uuid')
+            selected.push(uuid)
+        }
+    })
+
+
+    return selected
 }
 const handleSelection = (id, checked) => {
     if (checked)
         checkedRow.push(id)
     else checkedRow = checkedRow.filter(x => x != id)
+}
+const removeChecked = () => {
+    document.querySelectorAll('input[type="checkbox"]').forEach((e) => {
+        e.checked = false
+    })
+}
+const hiddenAgenda = () => {
+    document.querySelectorAll('.button-checked').forEach((btn) => {
+        btn.classList.add('hidden')
+    })
 }
 const restoreData = async (uuids) => {
     try {
@@ -39,12 +97,19 @@ const restoreData = async (uuids) => {
         })
         const data = await response.json()
         displayAlert(data.type, data.message)
-        window.location.reload()
+        if (data.type == 'success') {
+            // window.location.reload()
+            document.querySelector('#container-list-recycle-bin').innerHTML = data.html
+        }
     } catch (error) {
         console.error('Error when fetching...')
     }
 }
 const forceDelete = async (uuids) => {
+    const isConfirmed = confirm('Apakah yakin melakukan force delete? Data akan hilang selamanya!');
+    if (!isConfirmed) {
+        return
+    }
     try {
         const response = await fetch('/admin/recycle-bin/force-delete', {
             method: 'POST',
@@ -58,7 +123,9 @@ const forceDelete = async (uuids) => {
         })
         const data = await response.json()
         displayAlert(data.type, data.message)
-        window.location.reload()
+        if (data.type == 'success')
+            // window.location.reload()
+            document.querySelector('#container-list-recycle-bin').innerHTML = data.html
     } catch (error) {
         console.error('Error when fetching...')
     }
