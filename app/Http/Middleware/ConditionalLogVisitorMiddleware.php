@@ -12,7 +12,7 @@ class ConditionalLogVisitorMiddleware
     public function handle(Request $request, Closure $next)
     {
         // Only log visitors for non-admin and non-auth routes
-        if (!$request->is('admin/*') && !$request->is('api/*') && !$request->is('login') && !$request->is('register')) {
+        if (!$request->is('admin/*') && !$request->is('api/*') && !$request->is('admin.login') && !$request->is('register')) {
             VisitorLog::logVisit($request->path());
         }
 

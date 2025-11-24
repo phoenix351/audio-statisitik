@@ -16,7 +16,7 @@
 
 <body class="bg-gray-50 font-inter" data-route-name="{{ Route::currentRouteName() }}"
     data-search-url="{{ route('search') }}"
-    data-enable-voice="@unless (request()->routeIs('login') ||
+    data-enable-voice="@unless (request()->routeIs('admin.login') ||
             request()->routeIs('register') ||
             request()->routeIs('brs.') ||
             request()->routeIs('publications.')) 1 @else 0 @endunless">

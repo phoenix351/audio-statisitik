@@ -89,7 +89,7 @@
                                             <div class="text-xs text-gray-500">Kelola dokumen</div>
                                         </div>
                                     </a>
-                                    
+
                                     <a href="{{ route('admin.recycle-bin') }}"
                                         class="flex items-center px-4 py-3 text-sm text-gray-700 hover:bg-blue-50 hover:text-blue-600 transition-colors hover-sound {{ request()->routeIs('admin.recycle-bin.*') ? 'bg-blue-50 text-blue-600' : '' }}"
                                         role="menuitem">
@@ -113,7 +113,7 @@
 
                                 {{-- Logout Section --}}
                                 <div class="py-1">
-                                    <form action="{{ route('logout') }}" method="POST" class="block">
+                                    <form action="{{ route('admin.logout') }}" method="POST" class="block">
                                         @csrf
                                         <button type="submit"
                                             class="flex items-center w-full px-4 py-3 text-sm text-gray-700 hover:bg-red-50 hover:text-red-600 transition-colors hover-sound text-left"
@@ -136,7 +136,7 @@
                             <span class="text-sm text-gray-600">
                                 Halo, <span class="font-medium text-sound">{{ auth()->user()->name }}</span>
                             </span>
-                            <form action="{{ route('logout') }}" method="POST" class="inline">
+                            <form action="{{ route('admin.logout') }}" method="POST" class="inline">
                                 @csrf
                                 <button type="submit"
                                     class="text-gray-700 hover:text-blue-600 font-medium transition-colors hover-sound text-sound">
@@ -148,11 +148,7 @@
                     @endif
                 @else
                     {{-- Guest User - Show Login --}}
-                    <a href="{{ route('login') }}"
-                        class="inline-flex items-center px-4 py-2 border border-blue-600 text-blue-600 hover:bg-blue-600 hover:text-white font-medium rounded-lg transition-colors hover-sound">
-                        <i class="fas fa-sign-in-alt mr-2" aria-hidden="true"></i>
-                        <span class="text-sound">Login Admin</span>
-                    </a>
+
                 @endauth
             </div>
 
@@ -222,7 +218,7 @@
 
                 {{-- Logout --}}
                 <div class="border-t border-gray-200 pt-3 mt-3">
-                    <form action="{{ route('logout') }}" method="POST">
+                    <form action="{{ route('admin.logout') }}" method="POST">
                         @csrf
                         <button type="submit"
                             class="block w-full text-left px-3 py-2 text-base font-medium text-gray-700 hover:text-red-600 hover:bg-red-50 rounded-md hover-sound text-sound">
@@ -237,12 +233,7 @@
                 </div>
             @else
                 {{-- Guest Login --}}
-                <div class="border-t border-gray-200 pt-3 mt-3">
-                    <a href="{{ route('login') }}"
-                        class="block px-3 py-2 text-base font-medium text-blue-600 hover:text-blue-700 hover:bg-blue-50 rounded-md hover-sound text-sound">
-                        <i class="fas fa-sign-in-alt mr-2" aria-hidden="true"></i>Login Admin
-                    </a>
-                </div>
+
             @endauth
         </div>
     </div>

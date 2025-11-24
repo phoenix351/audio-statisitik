@@ -23,7 +23,9 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->web(append: [
             // \App\Http\Middleware\ConditionalLogVisitorMiddleware::class,
         ]);
-        $middleware->append(SetDbActor::class);
+        $middleware->redirectGuestsTo('/admin/login');
+
+        // $middleware->append(SetDbActor::class);
     })
     ->withExceptions(function (Exceptions $exceptions) {
         //
