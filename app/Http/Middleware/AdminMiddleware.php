@@ -14,7 +14,7 @@ class AdminMiddleware
             if ($request->ajax()) {
                 return response()->json(['error' => 'Unauthorized'], 403);
             }
-            return redirect()->route('login')
+            return redirect()->route('admin.login')
                 ->with('error', 'Akses ditolak. Anda harus login sebagai admin.');
         }
 

@@ -16,6 +16,7 @@ use App\Http\Controllers\Admin\IndicatorController;
 use App\Http\Controllers\Admin\ApiMonitorController;
 use App\Http\Controllers\Admin\DocumentManagementController;
 use App\Http\Controllers\BPSDocumentController;
+use App\Http\Middleware\CheckInternalIp;
 use App\Http\Middleware\SetDbActor;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -85,12 +86,13 @@ Route::get('/documents/{document}/audio/{format}/download', [DocumentController:
     ->where('format', 'mp3|flac');
 
 // Authentication routes (only for admins)
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login')->middleware('guest');
-Route::post('/login', [LoginController::class, 'login'])->middleware('guest');
-Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
 // Admin routes (protected by auth and admin middleware)
-Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', SetDbActor::class])->group(function () {
+Route::get('/admin/login', [LoginController::class, 'showLoginForm'])->middleware(['guest', CheckInternalIp::class])->name('admin.login');
+Route::post('/admin/login', [LoginController::class, 'login'])->middleware(['guest', CheckInternalIp::class])->name('admin.login.post');
+
+Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', SetDbActor::class, CheckInternalIp::class])->group(function () {
+    Route::post('/logout', [LoginController::class, 'logout'])->middleware(CheckInternalIp::class)->name('logout');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::get('/bps-documents', [BPSDocumentController::class, 'index'])
         ->name('bps-documents.index');

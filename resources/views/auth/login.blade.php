@@ -19,7 +19,7 @@
                 <p class="text-gray-600">Kelola dokumen dan sistem Audio Statistik</p>
             </div>
 
-            <form method="POST" action="{{ route('login') }}" class="mt-8 space-y-6">
+            <form method="POST" action="{{ route('admin.login') }}" class="mt-8 space-y-6">
                 @csrf
 
                 @if ($errors->any())
