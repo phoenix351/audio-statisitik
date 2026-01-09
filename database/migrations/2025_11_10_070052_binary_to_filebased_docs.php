@@ -21,7 +21,7 @@ return new class extends Migration
                         'flac_content' => '',
                         'mp3_path' => 'documents/' . $row->id . '/audio.mp3',
                         'cover_path' => '' . $row->year . '/' . $row->id . '-cover.jpg',
-                        'file_path' => 'files/' . $row->year . '/' . $row->id . '-document.pdf',
+                        'file_path' => 'files/' . $row->year . '/' . $row->id . '_document.pdf',
                     ]);
             }
         });

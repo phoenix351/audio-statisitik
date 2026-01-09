@@ -25,7 +25,7 @@ function setLoading(btn, htmlWhileLoading = null) {
   };
 }
 
-async function testApiKey(keyIndex, btn) {
+async function testApiKeyById(id, btn) {
   const restore = setLoading(
     btn,
     '<i class="fas fa-spinner fa-spin mr-1"></i>Testing...'
@@ -37,20 +37,17 @@ async function testApiKey(keyIndex, btn) {
         "Content-Type": "application/json",
         "X-CSRF-TOKEN": csrf(),
       },
-      body: JSON.stringify({ key_index: keyIndex }),
+      body: JSON.stringify({ id }),
     });
     const result = await res.json();
     if (result.status === "active") {
-      toast(`API Key #${keyIndex + 1}: Working properly`, "success");
+      toast(`API Key #${id}: Working properly`, "success");
     } else {
-      toast(
-        `API Key #${keyIndex + 1}: ${result.error || "Failed to connect"}`,
-        "error"
-      );
+      toast(`API Key #${id}: ${result.error || "Failed to connect"}`, "error");
     }
     setTimeout(() => window.location.reload(), 1000);
   } catch (e) {
-    toast(`Error testing API Key #${keyIndex + 1}: ${e.message}`, "error");
+    toast(`Error testing API Key #${id}: ${e.message}`, "error");
   } finally {
     restore();
   }
@@ -152,6 +149,171 @@ async function refreshQueueStats() {
     toast("Failed to refresh queue stats", "error");
   }
 }
+function openKeyModal(mode = "create", data = {}) {
+  const modal = document.getElementById("key-modal");
+  const title = document.getElementById("key-modal-title");
+  const form = document.getElementById("key-form");
+
+  document.getElementById("key_mode").value = mode;
+  document.getElementById("key_id").value = data.id || "";
+  document.getElementById("key_label").value = data.label || "";
+  document.getElementById("key_email").value = data.email || "";
+  document.getElementById("key_value").value = ""; // jangan prefill key untuk keamanan
+
+  title.textContent = mode === "edit" ? `Edit Key #${data.id}` : "Add Key";
+  modal.classList.remove("hidden");
+}
+
+function closeKeyModal() {
+  document.getElementById("key-modal").classList.add("hidden");
+}
+
+async function submitKeyForm(e) {
+  console.log("Submitting to", url, "with payload", payload);
+  return;
+  e.preventDefault();
+  const btn = document.getElementById("key-submit");
+  const restore = setLoading(
+    btn,
+    '<i class="fas fa-spinner fa-spin mr-1"></i>Saving...'
+  );
+
+  const mode = document.getElementById("key_mode").value;
+  const id = document.getElementById("key_id").value;
+
+  const payload = {
+    label: document.getElementById("key_label").value,
+    account_email: document.getElementById("key_email").value,
+    key: document.getElementById("key_value").value,
+  };
+
+  try {
+    const url =
+      mode === "edit"
+        ? `/admin/api-monitor/keys/${id}`
+        : `/admin/api-monitor/keys`;
+    const method = mode === "edit" ? "PUT" : "POST";
+
+    const res = await fetch(url, {
+      method,
+      headers: {
+        "Content-Type": "application/json",
+        "X-CSRF-TOKEN": csrf(),
+        Accept: "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+
+    const json = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      // 423: locked karena GOOD
+      if (res.status === 423) {
+        showKeyError(
+          json.message || "Key dikunci (GOOD). Disable dulu.",
+          "warning"
+        );
+        return;
+      }
+
+      // 422: validation
+      if (res.status === 422) {
+        showKeyError(json.message || "Validasi gagal. Cek input.", "error");
+        showFieldErrors(json.errors);
+        return;
+      }
+
+      // lainnya
+      showKeyError(json.message || "Terjadi error pada server.", "error");
+      return;
+    }
+
+    showKeyError(json.message || "Berhasil menyimpan key", "success");
+
+    closeKeyModal();
+    location.reload();
+  } catch (err) {
+    showKeyError(json.message || "Error saat menyimpan", "error");
+  } finally {
+    restore();
+  }
+}
+
+async function deleteKey(id, btn) {
+  if (!confirm("Yakin hapus key ini?")) return;
+
+  const restore = setLoading(
+    btn,
+    '<i class="fas fa-spinner fa-spin mr-1"></i>Deleting...'
+  );
+
+  try {
+    const res = await fetch(`/admin/api-monitor/keys/${id}`, {
+      method: "DELETE",
+      headers: {
+        "X-CSRF-TOKEN": csrf(),
+        Accept: "application/json",
+      },
+    });
+
+    const json = await res.json().catch(() => ({}));
+
+    if (!res.ok) {
+      toast(json.message || "Gagal menghapus key", "error");
+      restore();
+      return;
+    }
+
+    toast(json.message || "Key terhapus", "success");
+    location.reload();
+  } catch (err) {
+    toast(err?.message || "Error saat hapus", "error");
+  } finally {
+    restore();
+  }
+}
+function clearKeyErrors() {
+  const box = document.getElementById("key-form-error");
+  box.className = "hidden p-3 rounded-md border text-sm";
+  box.textContent = "";
+
+  ["key_label", "key_email", "key_value"].forEach((id) => {
+    const el = document.getElementById("err_" + id);
+    if (el) {
+      el.classList.add("hidden");
+      el.textContent = "";
+    }
+  });
+}
+
+function showKeyError(message, type = "error") {
+  const box = document.getElementById("key-form-error");
+  box.classList.remove("hidden");
+  box.classList.add(
+    type === "warning"
+      ? "bg-yellow-50 border-yellow-200 text-yellow-800"
+      : "bg-red-50 border-red-200 text-red-800"
+  );
+  box.textContent = message;
+}
+
+function showFieldErrors(errors) {
+  // errors: { field: ["msg1", ...], ... }
+  const map = {
+    label: "err_key_label",
+    account_email: "err_key_email",
+    key: "err_key_value",
+  };
+
+  Object.keys(errors || {}).forEach((field) => {
+    const id = map[field];
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.textContent = errors[field][0];
+    el.classList.remove("hidden");
+  });
+}
 
 export function initApiMonitor() {
   // Event delegation (works for dynamic DOM, Livewire, etc.)
@@ -163,8 +325,8 @@ export function initApiMonitor() {
     if (btn.classList.contains("js-test-api")) {
       e.preventDefault();
       e.stopPropagation();
-      const idx = Number(btn.dataset.keyIndex);
-      if (Number.isFinite(idx)) await testApiKey(idx, btn);
+      const id = Number(btn.dataset.id);
+      if (Number.isFinite(id)) await testApiKeyById(id, btn);
       return;
     }
 
@@ -198,5 +360,41 @@ export function initApiMonitor() {
         await refreshQueueStats();
         break;
     }
+  });
+
+  document.addEventListener("click", (e) => {
+    const t = e.target.closest("[data-action], .js-edit-key, .js-delete-key");
+    if (!t) return;
+
+    // Add Key
+    if (t.dataset.action === "openKeyModal") {
+      openKeyModal("create");
+      return;
+    }
+    if (t.dataset.action === "closeKeyModal") {
+      closeKeyModal();
+      return;
+    }
+
+    // Edit
+    if (t.classList.contains("js-edit-key")) {
+      openKeyModal("edit", {
+        id: t.dataset.id,
+        label: t.dataset.label,
+        email: t.dataset.email,
+      });
+      return;
+    }
+
+    // Delete
+    if (t.classList.contains("js-delete-key")) {
+      deleteKey(t.dataset.id, t);
+      return;
+    }
+  });
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("key-form");
+    if (form) form.addEventListener("submit", submitKeyForm);
   });
 }

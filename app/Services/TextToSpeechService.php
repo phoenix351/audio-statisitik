@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\GeminiApiKey;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Cache;
@@ -16,17 +17,29 @@ class TextToSpeechService
     protected $currentKeyIndex = 0;
     protected $maxRetries = 3;
     protected $chunkTimeout = 120; // Increased to 2 minutes per chunk
-    protected $maxChunkLength = 500; // Reduced chunk size for better reliability
+    protected $maxChunkLength = 3800; // Reduced chunk size for better reliability
     protected $voiceName;
     // protected $ffmpegPath = '/home/austatwe/bin/ffmpeg';
     // protected $ffprobePath = '/home/austatwe/bin/ffprobe';
 
     public function __construct()
     {
-        $rawKeys = config('services.gemini.api_key');
-        $this->apiKeys = array_filter(array_map('trim', explode(',', $rawKeys)));
+        // $rawKeys = config('services.gemini.api_key');
+        // ✅ ambil dari DB (yang aktif saja)
+        $this->apiKeys = Cache::remember('gemini_tts_api_keys', 3600, function () {
+            return GeminiApiKey::query()
+                // ->where('provider', 'gemini')
+                ->where('status', 'active')
+                ->orderBy('id') // atau
+                ->pluck('api_key')
+                ->filter(fn($k) => is_string($k) && trim($k) !== '')
+                ->map(fn($k) => trim($k))
+                ->values()
+                ->all();
+        });
+
         if (empty($this->apiKeys)) {
-            throw new \Exception("❌ Tidak ada GEMINI_API_KEY terdeteksi di .env");
+            throw new \Exception("❌ Tidak ada API Key Gemini TTS yang aktif di database.");
         }
 
         $this->ttsUrl = config('services.gemini.tts_url');        // ✅ gunakan dari config
@@ -39,6 +52,8 @@ class TextToSpeechService
         $this->voiceName   = config('services.gemini.voice', 'Kore'); // ✅ Kore (case-sensitive)
 
         $this->currentKeyIndex = Cache::get('tts_current_key_index', 0);
+        $this->currentKeyIndex = $this->currentKeyIndex % count($this->apiKeys); // ✅ cegah out of range
+
 
         Log::info("🎙️ [TTS] Service initialized", [
             'available_keys' => count($this->apiKeys),
@@ -51,29 +66,44 @@ class TextToSpeechService
             'voice' => $this->voiceName,
         ]);
     }
+    private function hasAnyHealthyKey(): bool
+    {
+        foreach (array_keys($this->apiKeys) as $i) {
+            if (!$this->isKeyRecentlyFailed($i)) return true;
+        }
+        return false;
+    }
+    private function errorCacheKeyForIndex(int $idx): string
+    {
+        $key = $this->apiKeys[$idx] ?? '';
+        return 'api_key_last_error_' . sha1($key);
+    }
+
+
+
+    private function markKeyFailed(int $keyIndex): void
+    {
+        Cache::put($this->errorCacheKeyForIndex($keyIndex), true, 600);
+    }
 
     private function getCurrentApiKey(): string
     {
         return $this->apiKeys[$this->currentKeyIndex];
     }
-
     private function switchApiKey(): void
     {
         $old = $this->currentKeyIndex;
         $this->currentKeyIndex = ($this->currentKeyIndex + 1) % count($this->apiKeys);
 
-        // Save current key index to cache
         Cache::put('tts_current_key_index', $this->currentKeyIndex, 3600);
 
         Log::warning("🔄 [TTS] Switching API Key: {$old} → {$this->currentKeyIndex}");
-
-        // Mark the old key as potentially problematic for 10 minutes
-        Cache::put("api_key_last_error_{$old}", now(), 600);
     }
+
 
     private function isKeyRecentlyFailed(int $keyIndex): bool
     {
-        return Cache::has("api_key_last_error_{$keyIndex}");
+        return Cache::has($this->errorCacheKeyForIndex($keyIndex));
     }
 
     public function convertToAudio(string $text): array
@@ -249,14 +279,12 @@ class TextToSpeechService
     private function calculateAdaptiveDelay(int $consecutiveFailures, int $totalFailures): int
     {
         // Base delay
-        $baseDelay = 200; // 200ms
+        $baseDelay = 5000; // 200ms
 
         // Increase delay based on consecutive failures
-        $consecutiveMultiplier = min($consecutiveFailures * 500, 2000); // Max 2 seconds
-
+        $consecutiveMultiplier = min($consecutiveFailures * 2000, 10000);
         // Increase delay if total failures are high
-        $totalMultiplier = min($totalFailures * 100, 1000); // Max 1 second
-
+        $totalMultiplier = min($totalFailures * 1000, 5000);
         return $baseDelay + $consecutiveMultiplier + $totalMultiplier;
     }
 
@@ -271,13 +299,23 @@ class TextToSpeechService
             $apiKey = $this->getCurrentApiKey();
 
             // Skip recently failed keys if we have alternatives
-            if ($this->isKeyRecentlyFailed($this->currentKeyIndex) && count($this->apiKeys) > 1) {
-                Log::debug("⏭️ [TTS] Skipping recently failed key {$this->currentKeyIndex}");
-                $this->switchApiKey();
-                continue;
+            if (count($this->apiKeys) > 1 && $this->isKeyRecentlyFailed($this->currentKeyIndex)) {
+                // ✅ kalau semua key kena flag, jangan infinite switch — pakai saja key sekarang
+                if (!$this->hasAnyHealthyKey()) {
+                    Log::warning("⚠️ [TTS] All keys are marked recently failed; continuing with current key", [
+                        'key_index' => $this->currentKeyIndex
+                    ]);
+                } else {
+                    Log::debug("⏭️ [TTS] Skipping recently failed key {$this->currentKeyIndex}");
+                    $this->switchApiKey();
+                    $attempts++;
+                    continue;
+                }
             }
 
-            $url = $this->ttsUrl . '?key=' . $apiKey;
+
+
+            $url = $this->ttsUrl;
 
             $payload = [
                 "contents" => [
@@ -304,18 +342,18 @@ class TextToSpeechService
                     'text_length' => strlen($text),
                     'url' => parse_url($url, PHP_URL_HOST)
                 ]);
-
                 $response = Http::withOptions([
                     'timeout' => $this->chunkTimeout,
                     'connect_timeout' => 30,
                     'read_timeout' => $this->chunkTimeout,
-                    'verify' => false // Disable SSL verification if needed
+                    'verify' => false
                 ])
                     ->withHeaders([
-                        'Content-Type' => 'application/json',
-                        'User-Agent' => 'Laravel-TTS-Service/1.0'
+                        'Content-Type'   => 'application/json',
+                        'User-Agent'     => 'Laravel-TTS-Service/1.0',
+                        'x-goog-api-key' => $apiKey,
                     ])
-                    ->retry(2, 1000) // Built-in retry with 1 second delay
+                    ->retry(2, 1000)
                     ->post($url, $payload);
 
                 if ($response->successful()) {
@@ -348,6 +386,9 @@ class TextToSpeechService
                         // Track successful usage
                         $this->trackApiUsage($this->currentKeyIndex);
 
+                        Cache::forget($this->errorCacheKeyForIndex($this->currentKeyIndex));
+
+
                         return $this->saveAudioFile($mimeType, $audioContent, $index);
                     }
 
@@ -357,15 +398,14 @@ class TextToSpeechService
                     $lastError = "HTTP {$response->status()}: " . $response->body();
 
                     if ($response->status() == 429) {
-                        Log::warning("⚠️ [TTS] Rate limit hit, switching API key", [
-                            'key_index' => $this->currentKeyIndex,
-                            'chunk' => $index
-                        ]);
+                        $this->markKeyFailed($this->currentKeyIndex); // ✅ tandai key ini gagal
+
                         $this->switchApiKey();
                         $attempts++;
-                        sleep(min($attempts, 5)); // Progressive backoff
+                        sleep(min($attempts, 5));
                         continue;
                     } else if ($response->status() >= 500) {
+                        $this->markKeyFailed($this->currentKeyIndex);
                         Log::warning("⚠️ [TTS] Server error, will retry", [
                             'status' => $response->status(),
                             'chunk' => $index
@@ -385,13 +425,15 @@ class TextToSpeechService
                 }
             } catch (\Illuminate\Http\Client\ConnectionException $e) {
                 $lastError = "Connection timeout: " . $e->getMessage();
+
+                $this->markKeyFailed($this->currentKeyIndex); // ✅ tambahkan ini
+
                 Log::warning("🌐 [TTS] Connection error", [
                     'error' => $e->getMessage(),
                     'chunk' => $index,
                     'attempt' => $attempts + 1
                 ]);
 
-                // For timeout errors, wait longer before retry
                 sleep(min($attempts + 2, 10));
             } catch (\Exception $e) {
                 $lastError = $e->getMessage();

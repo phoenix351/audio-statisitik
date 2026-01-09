@@ -437,23 +437,43 @@
                         </div>
                     @endif
 
-                    @if ($document->status === 'failed')
-                        <div class="mt-6 p-4 bg-red-50 border border-red-200 rounded-lg">
-                            <h4 class="text-sm font-medium text-red-800 text-sound">Pemrosesan Gagal</h4>
-                            <p class="text-xs text-red-600 mt-1 text-sound">Dokumen ini gagal diproses. Anda dapat mencoba
-                                memproses ulang.</p>
+                    @php
+                        $canReprocess = true; // atau kasih aturan lain, misal tidak saat "processing"
+                        $isFailed = $document->status === 'failed';
+                    @endphp
+
+                    @if ($canReprocess)
+                        <div
+                            class="mt-6 p-4 {{ $isFailed ? 'bg-red-50 border-red-200' : 'bg-yellow-50 border-yellow-200' }} border rounded-lg">
+                            <h4
+                                class="text-sm font-medium {{ $isFailed ? 'text-red-800' : 'text-yellow-800' }} text-sound">
+                                {{ $isFailed ? 'Pemrosesan Gagal' : 'Proses Ulang Dokumen' }}
+                            </h4>
+
+                            <p class="text-xs mt-1 {{ $isFailed ? 'text-red-600' : 'text-yellow-700' }} text-sound">
+                                @if ($isFailed)
+                                    Dokumen ini gagal diproses. Anda dapat mencoba memproses ulang.
+                                @else
+                                    Dokumen ini tidak berstatus <b>failed</b>. Proses ulang akan membuat sistem memproses
+                                    kembali (teks/audio/hasil ekstraksi) dan bisa menimpa hasil sebelumnya.
+                                @endif
+                            </p>
+
                             <form action="{{ route('admin.documents.reprocess', $document) }}" method="POST"
-                                enctype="multipart/form-data" class="mt-3">
+                                class="mt-3">
                                 @csrf
                                 <button type="submit"
-                                    class="inline-flex items-center px-3 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-md transition-colors hover-sound"
-                                    onclick="return confirm('Proses ulang dokumen ini?')">
+                                    class="inline-flex items-center px-3 py-2 {{ $isFailed ? 'bg-red-600 hover:bg-red-700' : 'bg-yellow-600 hover:bg-yellow-700' }} text-white text-xs font-medium rounded-md transition-colors hover-sound"
+                                    onclick="return confirm('{{ $isFailed
+                                        ? 'Proses ulang dokumen ini?'
+                                        : 'Dokumen ini tidak failed. Yakin ingin proses ulang? Hasil lama bisa tertimpa.' }}')">
                                     <i class="fas fa-redo mr-1" aria-hidden="true"></i>
                                     <span class="text-sound">Proses Ulang</span>
                                 </button>
                             </form>
                         </div>
                     @endif
+
 
                     @if ($document->hasAudio())
                         <div class="mt-6">

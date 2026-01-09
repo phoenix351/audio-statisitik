@@ -269,7 +269,7 @@ class ProcessDocumentJob implements ShouldQueue
                     $ext = 'bin';
                 }
 
-                $fileName         = "{$document->id}-document.{$ext}";
+                $fileName         = "{$document->id}_document.{$ext}";
                 $fileRelativePath = "{$fileDir}/{$fileName}";
                 $fileAbsolutePath = $documentsDisk->path($fileRelativePath);
 
@@ -366,6 +366,12 @@ class ProcessDocumentJob implements ShouldQueue
                 } else {
                     $content       = Storage::disk($disk)->get($path);
                     $extractedText = $textExtraction->extract($content, $mime);
+                    Log::info("✅ [Queue] Text extracted successfully", [
+                        'file_size' => strlen($content),
+                        // 'word_count'  => $wordCount,
+                        'mime'        => $mime,
+                        'source'      => filter_var($path, FILTER_VALIDATE_URL) ? 'remote_url' : 'local_disk',
+                    ]);
                 }
 
                 // 3) LEGACY file_content
@@ -377,6 +383,7 @@ class ProcessDocumentJob implements ShouldQueue
             }
 
             // 4) VALIDASI HASIL
+
             if (empty($extractedText)) {
                 throw new \Exception("Text extraction returned empty result");
             }
@@ -475,7 +482,14 @@ class ProcessDocumentJob implements ShouldQueue
             // Log::info("🎙️ [Queue] Starting TTS conversion for document {$document->id}");
 
             // Estimate chunks for better progress tracking
+            // BEFORE
             $estimatedChunks = max(1, ceil(strlen($extractedText) / 500));
+
+            // AFTER
+            $chunkSize = 3800;
+            $estimatedChunks = max(1, (int) ceil(strlen($extractedText) / $chunkSize));
+            $progressPerChunk = 60 / $estimatedChunks;
+
             $progressPerChunk = 60 / $estimatedChunks; // 60% total for TTS (25% - 85%)
 
             // $this->updateProgress($progressKey, 25, "Memulai konversi audio (estimasi {$estimatedChunks} bagian)...", 'tts_starting');

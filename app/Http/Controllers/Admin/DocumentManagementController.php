@@ -126,7 +126,7 @@ class DocumentManagementController extends Controller
             $year   = $document->year;
             $ext    = strtolower($uploaded->getClientOriginalExtension() ?: 'bin');
             $fileDir  = "files/{$year}";
-            $fileName = "{$document->id}-document.{$ext}";
+            $fileName = "{$document->id}_document.{$ext}";
             $filePath = "{$fileDir}/{$fileName}";
 
             $disk->putFileAs($fileDir, $uploaded, $fileName);

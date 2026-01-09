@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\GeminiApiKey;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Symfony\Component\Process\Process;
 
 class TextExtractionService
 {
@@ -14,15 +17,24 @@ class TextExtractionService
 
     public function __construct()
     {
-        $rawKeys = config('services.ai.api_key', '');
-        $this->aiApiKeys = array_filter(array_map('trim', explode(',', $rawKeys)));
+        // ✅ ambil API key dari DB (yang aktif saja) + cache
+        $this->aiApiKeys = Cache::remember('ai_text_api_keys', 3600, function () {
+            return GeminiApiKey::query()
+                ->where('status', 'active')
+                ->orderBy('id')
+                ->pluck('api_key')
+                ->filter(fn($k) => is_string($k) && trim($k) !== '')
+                ->map(fn($k) => trim($k))
+                ->values()
+                ->all();
+        });
 
         if (empty($this->aiApiKeys)) {
             throw new \Exception("❌ Tidak ada AI_API_KEY terdeteksi di .env");
         }
 
         $this->aiApiUrl = rtrim(
-            config('services.ai.api_url', 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent'),
+            config('services.ai.api_url', 'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent'),
             '/'
         );
     }
@@ -35,7 +47,12 @@ class TextExtractionService
     private function switchApiKey(): void
     {
         $old = $this->currentKeyIndex;
+
         $this->currentKeyIndex = ($this->currentKeyIndex + 1) % count($this->aiApiKeys);
+
+        // ✅ persist ke cache
+        Cache::put('ai_text_current_key_index', $this->currentKeyIndex, 3600);
+
         Log::warning("🔄 Switching AI API Key {$old} → {$this->currentKeyIndex}");
     }
     private function validateExtractedText(string $text): void
@@ -53,6 +70,34 @@ class TextExtractionService
         }
     }
 
+
+    private function writeTempPdf(string $bytes): string
+    {
+        $dir = storage_path('app/tmp-pdf');
+        if (!is_dir($dir)) {
+            mkdir($dir, 0775, true);
+        }
+
+        $path = $dir . '/' . uniqid('pdf_', true) . '.pdf';
+        file_put_contents($path, $bytes);
+        return $path;
+    }
+
+    private function tryDecryptWithEmptyPassword(string $pdfPath): ?string
+    {
+        $outPath = $pdfPath . '.decrypted.pdf';
+
+        $p = new Process(['qpdf', "--password=''", '--decrypt', $pdfPath, $outPath]);
+        $p->run();
+
+        if ($p->isSuccessful() && file_exists($outPath) && filesize($outPath) > 0) {
+            return $outPath;
+        }
+
+        // cleanup if created but bad
+        if (file_exists($outPath)) @unlink($outPath);
+        return null;
+    }
 
     public function extract(string $fileContent, string $mimeType): string
     {
@@ -198,6 +243,21 @@ class TextExtractionService
         Log::info("🔓 Attempting to handle protected PDF", $protectionInfo);
 
         // Strategy 1: Try OCR-based extraction
+        try {
+            $tempPdfPath = $this->writeTempPdf($fileContent);
+
+            $decryptedPdfPath = $this->tryDecryptWithEmptyPassword($tempPdfPath);
+            if ($decryptedPdfPath !== null) {
+                Log::info("🔑 PDF decrypted with empty password");
+                $fileContent = file_get_contents($decryptedPdfPath);
+                unlink($decryptedPdfPath);
+                return $fileContent;
+            } else {
+                Log::info("❌ PDF could not be decrypted with empty password, proceeding with OCR");
+            }
+        } catch (\Exception $e) {
+            Log::warning("⚠️ OCR extraction failed: " . $e->getMessage());
+        }
         try {
             return $this->extractTextWithOcr($fileContent);
         } catch (\Exception $e) {
@@ -558,53 +618,71 @@ class TextExtractionService
                 7. Hapus karakter khusus yang tidak perlu.";
 
                 try {
-                    $response = Http::timeout(30)->post($this->aiApiUrl . '?key=' . $apiKey, [
-                        'contents' => [
-                            [
-                                'parts' => [
-                                    ['text' => $prompt],  // instruksi
-                                    ['text' => $chunk]    // <— ini teks hasil ekstraksi PDF
-                                ]
-                            ]
-                        ],
-                        'generationConfig' => [
-                            'temperature' => 0.1,
-                            'maxOutputTokens' => 2048
-                        ]
-                    ]);
-
-                    if ($response->successful()) {
-                        $data = $response->json();
-                        $parts = $data['candidates'][0]['content']['parts'] ?? [];
-                        $texts = [];
-                        foreach ($parts as $p) {
-                            if (isset($p['text'])) $texts[] = $p['text'];
-                        }
-                        $filteredText = trim(implode("\n", $texts));
-                        $filteredChunks[] = $filteredText !== '' ? $filteredText : $this->basicTextCleaning($chunk);
-                        break;
-                    } else {
-                        Log::warning('⚠️ Gemini response failed', [
-                            'chunk_index' => $i,
-                            'status' => $response->status(),
-                            'body' => substr($response->body(), 0, 500)
+                    $response = Http::timeout(10)
+                        ->retry(2, 1000)
+                        ->withHeaders([
+                            'Content-Type'   => 'application/json',
+                            'x-goog-api-key' => $apiKey,
+                        ])
+                        ->post($this->aiApiUrl, [
+                            'contents' => [
+                                [
+                                    'parts' => [
+                                        ['text' => $prompt], // instruksi
+                                        ['text' => $chunk],  // teks hasil ekstraksi
+                                    ],
+                                ],
+                            ],
+                            'generationConfig' => [
+                                'temperature'     => 0.1,
+                                'maxOutputTokens' => 2048,
+                            ],
                         ]);
 
-                        // Switch API key for certain errors
-                        if (in_array($response->status(), [400, 403, 429])) {
-                            $this->switchApiKey();
-                            $attempts++;
-                            continue;
-                        } else {
-                            $filteredChunks[] = $this->basicTextCleaning($chunk);
-                            break;
+                    if ($response->successful()) {
+                        $data  = $response->json();
+                        $parts = $data['candidates'][0]['content']['parts'] ?? [];
+
+                        $texts = [];
+                        foreach ($parts as $p) {
+                            if (isset($p['text'])) {
+                                $texts[] = $p['text'];
+                            }
                         }
+
+                        $filteredText = trim(implode("\n", $texts));
+                        $filteredChunks[] = $filteredText !== ''
+                            ? $filteredText
+                            : $this->basicTextCleaning($chunk);
+
+                        break;
                     }
-                } catch (\Exception $e) {
-                    Log::warning("⚠️ AI filtering error for chunk {$i}: " . $e->getMessage());
+
+                    // ❌ response tapi status error
+                    Log::warning('⚠️ Gemini response failed', [
+                        'chunk_index' => $i,
+                        'status'      => $response->status(),
+                        'body'        => substr($response->body(), 0, 500),
+                    ]);
+
+                    if (in_array($response->status(), [400, 403, 429])) {
+                        $this->switchApiKey();
+                        $attempts++;
+                        continue;
+                    }
+
+                    $filteredChunks[] = $this->basicTextCleaning($chunk);
+                    break;
+                } catch (\Throwable $e) {
+                    Log::warning("⚠️ AI filtering error for chunk {$i}", [
+                        'error' => $e->getMessage(),
+                    ]);
+
+                    $this->switchApiKey(); // optional tapi sangat disarankan
                     $filteredChunks[] = $this->basicTextCleaning($chunk);
                     break;
                 }
+
 
                 $attempts++;
             }

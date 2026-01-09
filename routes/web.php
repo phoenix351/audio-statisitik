@@ -117,12 +117,19 @@ Route::prefix('admin')->name('admin.')->middleware(['auth', 'admin', SetDbActor:
     // Route::put('/settings', [SettingsController::class, 'update'])->name('settings.update');
 
     // API Monitor routes
+    // API Monitor routes (existing)
     Route::get('/api-monitor', [ApiMonitorController::class, 'index'])->name('api-monitor');
     Route::post('/api-monitor/test-key', [ApiMonitorController::class, 'testKey'])->name('api-monitor.test-key');
     Route::post('/api-monitor/test-all-keys', [ApiMonitorController::class, 'testAllKeys'])->name('api-monitor.test-all');
     Route::post('/api-monitor/reset-stuck', [ApiMonitorController::class, 'resetStuckDocuments'])->name('api-monitor.reset-stuck');
     Route::get('/api-monitor/queue-stats', [ApiMonitorController::class, 'getQueueStats'])->name('api-monitor.queue-stats');
     Route::post('/api-monitor/refresh-status', [ApiMonitorController::class, 'refreshApiStatus'])->name('api-monitor.refresh');
+
+    // ✅ CRUD Keys (AJAX JSON) - still ApiMonitorController
+    Route::post('/api-monitor/keys', [ApiMonitorController::class, 'storeKey'])->name('api-monitor.keys.store');
+    Route::put('/api-monitor/keys/{key}', [ApiMonitorController::class, 'updateKey'])->name('api-monitor.keys.update');
+    Route::delete('/api-monitor/keys/{key}', [ApiMonitorController::class, 'destroyKey'])->name('api-monitor.keys.destroy');
+    Route::patch('/api-monitor/keys/{key}/toggle', [ApiMonitorController::class, 'toggleKey'])->name('api-monitor.keys.toggle');
 
     // Failed Jobs Management
     Route::get('/failed-jobs', [QueueController::class, 'failedJobs'])->name('failed-jobs');

@@ -639,7 +639,7 @@ export class UnifiedAudioManager {
     if (viewDocBtn) {
       viewDocBtn.addEventListener("click", () => {
         if (this.currentDocument) {
-          const docUrl = `/storage/documents/files/${this.currentDocument.year}/${this.currentDocument.id}-document.pdf`;
+          const docUrl = `/storage/documents/files/${this.currentDocument.year}/${this.currentDocument.id}_document.pdf`;
           window.open(docUrl, "_blank");
           console.log("✅ Opening document:", this.currentDocument.title);
         }
